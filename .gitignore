@@ -8,7 +8,10 @@
 /spec/examples.txt
 /test/tmp/
 /test/version_tmp/
-/tmp/
+/log/*
+/tmp/*
+!/log/.keep
+!/tmp/.keep
 
 ## Specific to RubyMotion:
 .dat*
@@ -37,3 +40,9 @@ build/
 
 # unless supporting rvm < 1.11.0 or doing something fancy, ignore this:
 .rvmrc
+
+/public/packs
+/public/packs-test
+/node_modules
+yarn-debug.log*
+.yarn-integrity
