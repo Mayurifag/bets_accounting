@@ -1,2 +1,1 @@
-server: bin/rails server
-assets: bin/webpack-dev-server
+web: bundle exec puma -p $PORT
