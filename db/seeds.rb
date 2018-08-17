@@ -42,7 +42,7 @@ Participant.find_or_create_by!(name: 'Саккари')
             else
               'П1'
             end
-  random_comment = rand(1000..9999)
+  random_comment = 'random comment' + rand(1000..9999).to_s
 
   bet = Bet.create!(choice1: Participant.find( Participant.ids.shuffle.first ).name,
                     choice2: Participant.find( Participant.ids.shuffle.first ).name,

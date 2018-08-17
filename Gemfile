@@ -1,4 +1,4 @@
-ruby '2.5.1'
+ruby '2.4.4'
 
 source 'https://rubygems.org'
 
@@ -7,10 +7,13 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+gem 'dotenv-rails', require: 'dotenv/rails-now'
 gem 'rails', '>= 5.2.0'
 gem 'pg', '~> 0.18' # Use postgresql as the database for Active Record
 gem 'puma', '~> 3.0' # Use Puma as the app server
 gem 'jbuilder', '~> 2.5' # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
+gem 'oj', '~> 2.16.1'
+gem 'rollbar'
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
@@ -28,7 +31,6 @@ gem 'money-rails' # used in models
 
 group :development, :test do
   gem 'byebug', platform: :mri # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'dotenv-rails' # .env
 end
 
 group :development do
@@ -42,4 +44,13 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'brakeman'
+  gem 'capistrano', '~> 3.11', require: false
+  gem 'capistrano-rails', '~> 1.4', require: false
+  gem 'capistrano-rbenv', '~> 2.1', require: false
+  gem 'capistrano-yarn', require: false
+  gem 'capistrano-dotenv', require: false
+  gem 'capistrano3-puma', require: false
+  gem 'capistrano3-nginx', require: false
+  gem 'capistrano-rails-console', require: false
+  gem 'strong_migrations'
 end

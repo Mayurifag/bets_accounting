@@ -13,7 +13,46 @@ port        ENV.fetch("PORT") { 3000 }
 
 # Specifies the `environment` that Puma will run in.
 #
-environment ENV.fetch("RAILS_ENV") { "development" }
+rails_env = ENV.fetch("RAILS_ENV") { "production" }
+environment rails_env
+
+app_dir = File.expand_path("../..", __FILE__)
+directory app_dir
+shared_dir = "#{app_dir}/tmp"
+
+if %w[production staging].member?(rails_env)
+  # Logging
+  stdout_redirect "#{app_dir}/log/puma.stdout.log", "#{app_dir}/log/puma.stderr.log", true
+
+  # Set master PID and state locations
+  pidfile "#{shared_dir}/pids/puma.pid"
+  state_path "#{shared_dir}/pids/puma.state"
+
+  # Change to match your CPU core count
+  workers ENV.fetch("WEB_CONCURRENCY") { 1 }
+
+  preload_app!
+
+  # Set up socket location
+  bind "unix://#{shared_dir}/sockets/puma.sock"
+
+  before_fork do
+    # app does not use database, uncomment when needed
+    ActiveRecord::Base.connection_pool.disconnect!
+  end
+
+  on_worker_boot do
+    require 'active_record'
+    require 'erb'
+    ActiveRecord::Base.connection.disconnect! rescue ActiveRecord::ConnectionNotEstablished
+    ActiveRecord::Base.establish_connection(YAML.load(ERB.new(File.read("#{app_dir}/config/database.yml")).result)[rails_env])
+  end
+elsif rails_env == "development"
+  plugin :tmp_restart
+end
+
+
+
 
 # Specifies the number of `workers` to boot in clustered mode.
 # Workers are forked webserver processes. If using threads and workers together
@@ -44,4 +83,4 @@ environment ENV.fetch("RAILS_ENV") { "development" }
 # end
 
 # Allow puma to be restarted by `rails restart` command.
-plugin :tmp_restart
+# plugin :tmp_restart

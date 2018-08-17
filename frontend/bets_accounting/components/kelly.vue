@@ -1,6 +1,5 @@
 <template lang="pug">
 #kelly.card.card-content
-
   .media
     .media-left
       figure.image.is-48x48
