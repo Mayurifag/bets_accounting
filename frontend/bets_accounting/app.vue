@@ -2,9 +2,10 @@
 #bets_accounting
   vue-progress-bar
 
-  nav.navbar.is-primary.is-sticky: .container
+  nav.navbar.is-primary.is-sticky.containter
     .navbar-brand
-      router-link(to="/").navbar-item: img.avatar(src="https://bulma.io/images/bulma-logo.png" alt="Avatar")
+      .navbar-item
+        img(src="https://bulma.io/images/bulma-logo.png" alt="Logo")
       .navbar-burger.burger(@click="isNavbarActive = !isNavbarActive" :class="isNavbarActive ? 'is-active' : ''")
         span
         span
@@ -14,10 +15,10 @@
       :class="isNavbarActive ? 'is-active' : ''"
       @click="isNavbarActive = !isNavbarActive")
       .navbar-start
-        router-link(to="/" exact).navbar-item Kelly
-        router-link(to="/bets" exact).navbar-item BetsList
+        router-link(to="/" exact).navbar-item Келли
+        router-link(to="/bets" exact).navbar-item Список ставок
       .navbar-end
-        .navbar-item Settings
+        .navbar-item User [todo]
   transition(name="slide-fade" mode="out-in")
     router-view(:key="$route.fullPath")
 </template>

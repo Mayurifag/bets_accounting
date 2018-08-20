@@ -18,7 +18,7 @@ Vue.use(Buefy);
 Vue.use(VueProgressBar);
 Vue.use(VeeValidate);
 
-// Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
 document.addEventListener("DOMContentLoaded", () => {
   const el = document.body.appendChild(

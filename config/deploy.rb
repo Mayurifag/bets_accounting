@@ -11,6 +11,7 @@ set :pty, false
 
 set :rbenv_type, :user # or :system, depends on your rbenv setup
 set :rbenv_ruby, File.read('.ruby-version').strip
+set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rbenv_ruby)} #{fetch(:rbenv_path)}/bin/rbenv exec"
 
 # capistrano-dotenv
 set :env_file, ".env_#{fetch(:stage)}"
@@ -143,7 +144,14 @@ namespace :deploy do
     end
   end
 
-  # before 'deploy:migrate', 'deploy:db:create'
+  desc 'Restart application'
+  task :restart do
+    on roles(:app) do
+      execute "#{fetch(:rbenv_prefix)} pumactl -P /home/#{fetch(:user)}/applications/#{fetch(:application)}/current/tmp/pids/puma.pid phased-restart"
+    end
+  end
+
+  after 'deploy:publishing', 'deploy:restart'
   before :starting,     :check_revision
   after  :finishing,    :compile_assets
   after  :finishing,    :cleanup

@@ -43,12 +43,12 @@ group :development do
   gem 'bullet'
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'brakeman'
+  gem 'rubocop', require: false
+  gem 'brakeman', require: false
   gem 'capistrano', '~> 3.11', require: false
   gem 'capistrano-rails', '~> 1.4', require: false
   gem 'capistrano-rbenv', '~> 2.1', require: false
   gem 'capistrano-yarn', require: false
-  gem 'capistrano-dotenv', require: false
   gem 'capistrano3-puma', require: false
   gem 'capistrano3-nginx', require: false
   gem 'capistrano-rails-console', require: false

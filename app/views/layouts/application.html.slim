@@ -8,8 +8,6 @@ html
 
   body
     = yield
-    / = stylesheet_pack_tag 'application', media: 'all'
-    = stylesheet_pack_tag 'application'
     = javascript_pack_tag 'application', defer: true
-    / TODO: defer load
-    link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" /
+    = stylesheet_pack_tag 'application', media: 'all'
+    link rel="stylesheet" href="//cdn.materialdesignicons.com/2.6.95/css/materialdesignicons.min.css"

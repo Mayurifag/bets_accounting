@@ -1,5 +1,6 @@
+# https://prograils.com/posts/capistrano-deploy-to-ubuntu-with-systemd-nginx-puma-and-rbenv
 [Unit]
-Description=Puma Rails Server
+Description=Bets Accounting Puma Server
 After=network.target
 
 [Service]
@@ -11,11 +12,13 @@ Group=deployer
 WorkingDirectory=/home/deployer/applications/bets_accounting/current
 
 ExecStart=/home/deployer/.rbenv/bin/rbenv exec bundle exec puma -C /home/deployer/applications/bets_accounting/current/config/puma.rb
-ExecStop=/home/deployer/.rbenv/bin/rbenv exec pumactl -S /home/deployer/applications/bets_accounting/shared/tmp/pids/puma.state stop
+ExecStop=/home/deployer/.rbenv/bin/rbenv exec bundle exec pumactl -F /home/deployer/applications/bets_accounting/current/config/puma.rb stop
+ExecReload=/home/deployer/.rbenv/bin/rbenv exec bundle exec pumactl -F /home/deployer/applications/bets_accounting/current/config/puma.rb phased-restart
 
-#TimeoutSec=15
 
+TimeoutSec=15
 Restart=always
+KillMode=process
 
 [Install]
 WantedBy=multi-user.target
