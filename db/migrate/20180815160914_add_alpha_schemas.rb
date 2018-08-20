@@ -74,10 +74,10 @@ class AddAlphaSchemas < ActiveRecord::Migration[5.2]
       t.string :choice2
 
       # t.belongs_to :user, index: { unique: true }
-      t.belongs_to :bookmaker
-      t.belongs_to :discipline
-      t.belongs_to :event
-      t.belongs_to :result_variant
+      t.belongs_to :bookmaker, index: true
+      t.belongs_to :discipline, index: true
+      t.belongs_to :event, index: true
+      t.belongs_to :result_variant, index: true
       t.belongs_to :bet_type, index: true
 
       t.timestamps

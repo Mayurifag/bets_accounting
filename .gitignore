@@ -47,4 +47,6 @@ build/
 yarn-debug.log*
 .yarn-integrity
 
-\.env\.production
+.env_production
+/config/certs/*
+!/config/certs/.keep

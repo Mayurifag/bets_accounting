@@ -11,7 +11,10 @@ gem 'dotenv-rails', require: 'dotenv/rails-now'
 gem 'rails', '>= 5.2.0'
 gem 'pg', '~> 0.18' # Use postgresql as the database for Active Record
 gem 'puma', '~> 3.0' # Use Puma as the app server
-gem 'jbuilder', '~> 2.5' # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
+gem 'bootsnap', require: false # fast boot
+gem 'webpacker', '~> 3' # Webpacker
+gem 'slim-rails' # slim used in application views
+# gem 'jbuilder', '~> 2.5' # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'oj', '~> 2.16.1'
 gem 'rollbar'
 
@@ -19,18 +22,31 @@ gem 'rollbar'
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
-
-gem 'webpacker', '~> 3.5' # Webpacker
-gem 'slim-rails' # slim used in application views
 # gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby] # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'bootsnap', require: false # fast boot
-gem 'money-rails' # used in models
 
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
+gem 'money-rails' # used in models
+gem 'draper'
 
 group :development, :test do
   gem 'byebug', platform: :mri # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'rspec-rails', '~> 3.5'
+  gem 'faker'
+end
+
+group :test do
+  gem 'factory_bot_rails', '~> 4.0'
+  gem 'shoulda-matchers', '~> 3.1'
+  gem 'database_cleaner'
+end
+
+group :development do
+  gem 'capistrano', '~> 3.11', require: false
+  gem 'capistrano-rails', '~> 1.4', require: false
+  gem 'capistrano-rbenv', '~> 2.1', require: false
+  gem 'capistrano-yarn', require: false
+  gem 'capistrano3-puma', require: false
+  gem 'capistrano3-nginx', require: false
+  gem 'capistrano-rails-console', require: false
 end
 
 group :development do
@@ -45,12 +61,5 @@ group :development do
   gem 'binding_of_caller'
   gem 'rubocop', require: false
   gem 'brakeman', require: false
-  gem 'capistrano', '~> 3.11', require: false
-  gem 'capistrano-rails', '~> 1.4', require: false
-  gem 'capistrano-rbenv', '~> 2.1', require: false
-  gem 'capistrano-yarn', require: false
-  gem 'capistrano3-puma', require: false
-  gem 'capistrano3-nginx', require: false
-  gem 'capistrano-rails-console', require: false
   gem 'strong_migrations'
 end

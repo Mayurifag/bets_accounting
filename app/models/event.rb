@@ -10,7 +10,5 @@
 #
 
 class Event < ApplicationRecord
-  belongs_to :bet
-
   validates_presence_of :name
 end

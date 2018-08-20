@@ -34,7 +34,9 @@ class BetsController < ApplicationController
   private
 
   def bet_params
-    params.permit(:result, :coefficient, :comment)
+    params.permit(:result, :coefficient, :comment, :discipline_id, :bookmaker_id,
+                  :result_variant_id, :bet_type_id, :event_id, :wager, :outcome,
+                  :choice1, :choice2)
   end
 
   def set_bet

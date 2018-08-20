@@ -28,33 +28,41 @@
 #
 
 class Bet < ApplicationRecord
-  has_one :discipline
-  has_one :bookmaker
-  has_one :event
-  has_one :result_variant
-  has_one :bet_type
+  include ActionView::Helpers::NumberHelper
 
-  after_save :check_for_profit
+  belongs_to :discipline
+  belongs_to :result_variant
+  belongs_to :bet_type, optional: true
+  belongs_to :bookmaker, optional: true
+  belongs_to :event, optional: true
+
+  after_save :update_profit_column
 
   # has_many :participants, through: :participant_bets
   # has_many :participant_bets
 
   # belongs_to :user
 
-  # validates_presence_of :bookmaker, :sides, :discipline
+  validates_presence_of :coefficient, :wager, :outcome
 
   # accepts_nested_attributes_for :participants
 
   def as_json(options={})
-    # TODO: refactor
-    h = super(except: [:updated_at, :bookmaker_id, :discipline_id, :event_id, :result_variant_id, :bet_type_id])
-    h[:bookmaker]      = Bookmaker.find(bookmaker_id).name
-    h[:discipline]     = Discipline.find(discipline_id).name
-    h[:result_variant] = ResultVariant.find(result_variant_id).name
-    h[:bet_type]       = BetType.find(bet_type_id).name
-    # h[:formatted_profit] = number_with_precision(profit.to_f, precision: 2, separator: ',', delimiter: '.')
+    h = super(except: [:profit, :updated_at, :bookmaker_id, :discipline_id, :event_id, :result_variant_id, :bet_type_id])
+    h[:discipline]     = discipline.name
+    h[:result_variant] = result_variant.name
+    h[:profit]         = formatted_profit
+
     if event_id.present?
       h[:event]        = Event.find(self.event_id).name
+    end
+
+    if bet_type
+      h[:bet_type]     = BetType.find(bet_type_id).name
+    end
+
+    if bookmaker
+      h[:bookmaker]  = bookmaker.name
     end
     h
   end
@@ -63,11 +71,15 @@ class Bet < ApplicationRecord
     ResultVariant.find(result_variant_id).name
   end
 
-  def check_for_profit
+  def formatted_profit
+    number_with_precision(profit.to_f, precision: 2)
+  end
+
+  def update_profit_column
     # TODO: only if changed
     if result_variant_id.present? || wager.present? || coefficient.present?
       if result == 'Победа'
-        self.update_column(:profit, (wager * coefficient).round(2))
+        self.update_column(:profit, wager * coefficient)
       elsif result == 'Возврат'
         self.update_column(:profit, 0)
       else

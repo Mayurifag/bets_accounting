@@ -8,7 +8,9 @@ Vue.use(VueRouter);
 
 const routes = [
   { path: "/", component: Kelly },
-  { path: "/bets", component: BetsList, props: true }
+  { path: "/bets", component: BetsList, props: true },
+  // TODO: vue-error-page?
+  { path: "*", component: Kelly }
 ];
 
 export default new VueRouter({

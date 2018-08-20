@@ -9,7 +9,7 @@
 #
 
 class Discipline < ApplicationRecord
-  has_and_belongs_to_many :participants
+  # has_and_belongs_to_many :participants
   # belongs_to :bet
 
   validates_presence_of :name

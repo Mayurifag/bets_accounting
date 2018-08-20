@@ -59,7 +59,6 @@ section.container
     },
     data () {
       return {
-        total: 17,
         isPaginated: true,
         current: 1
       }

@@ -33,7 +33,6 @@
     "prettier": "^1.13.5",
     "stylelint": "^9.2.1",
     "stylelint-config-standard": "^18.2.0",
-    "webpack-bundle-analyzer": "^2.13.1",
     "webpack-cli": "^3.0.3",
     "webpack-dev-server": "2.11.2"
   },
