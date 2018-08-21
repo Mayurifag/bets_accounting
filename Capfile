@@ -16,6 +16,9 @@ install_plugin Capistrano::SCM::Git
 #
 # For documentation on these, see for example:
 
+# require 'capistrano/nginx'
+# install_plugin Capistrano::Nginx
+
 require 'capistrano/puma'
 require 'capistrano/rbenv'
 require 'capistrano/yarn'

@@ -1,5 +1,5 @@
 class BetsController < ApplicationController
-  before_action :set_bet, only: [:show, :update, :destroy]
+  before_action :set_bet, only: %i[show update destroy]
 
   # GET /bets
   def index
@@ -11,6 +11,7 @@ class BetsController < ApplicationController
   # POST /bets
   def create
     @bet = Bet.create!(bet_params)
+    # tODO: auth, message handler
     json_response(@bet, :created)
   end
 

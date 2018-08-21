@@ -25,14 +25,14 @@ ResultVariant.find_or_create_by!(name: 'Проигрыш')
 5.times { Event.find_or_create_by(name: Faker::Esport.event) }
 
 25.times do
-  Bet.create!(choice1: Participant.find( Participant.ids.shuffle.first ).name,
-              choice2: Participant.find( Participant.ids.shuffle.first ).name,
-              wager: rand(1000..100000),
+  Bet.create!(choice1: Participant.find(Participant.ids.sample).name,
+              choice2: Participant.find(Participant.ids.sample).name,
+              wager: rand(1000..100_000),
               coefficient: rand(1.2...3.0).ceil(2),
               outcome: 'П' + rand(1..2).to_s,
               comment: 'random comment ' + rand(1000..9999).to_s,
-              discipline_id: Discipline.find( Discipline.ids.shuffle.first ).id,
-              bookmaker_id: Bookmaker.find( Bookmaker.ids.shuffle.first ).id,
-              result_variant_id: ResultVariant.find( ResultVariant.ids.shuffle.first ).id,
-              bet_type_id: BetType.find( BetType.ids.shuffle.first ).id)
+              discipline_id: Discipline.find(Discipline.ids.sample).id,
+              bookmaker_id: Bookmaker.find(Bookmaker.ids.sample).id,
+              result_variant_id: ResultVariant.find(ResultVariant.ids.sample).id,
+              bet_type_id: BetType.find(BetType.ids.sample).id)
 end

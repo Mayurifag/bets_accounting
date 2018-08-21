@@ -3,9 +3,10 @@
   .media
     .media-left
       figure.image.is-48x48
-        img(src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image")
+        img(src="../static/placeholder-96x96" alt="Kelly")
     .media-content
       p.title.is-4 Расчет критерия Келли
+      //- TODO: need a better link I guess..
       a(href='https://www.wikiwand.com/en/Kelly_criterion') wiki
 
   .content
@@ -37,10 +38,10 @@
         )
 
     b-field(
-        label="Прогноз игрока"
-        :type="errors.has('player_prediction') ? 'is-danger' : ''"
-        :message="errors.has('player_prediction') ? 'Должно быть от 1 до 100 в процентах' : ''"
-        )
+      label="Прогноз игрока"
+      :type="errors.has('player_prediction') ? 'is-danger' : ''"
+      :message="errors.has('player_prediction') ? 'Должно быть от 1 до 100 в процентах' : ''"
+      )
 
       <!-- workaround for https://github.com/buefy/buefy/issues/87 -->
       b-field.small-field
@@ -54,9 +55,11 @@
         p.control
           span.button.is-static %
 
-    .result(v-show="!errors.any()")
-      p Процент от ставки: {{ kelly_percent_formatted }}
-      p Рекомендуемый размер ставки: {{ kelly_result }}
+    .result(v-show="!errors.any() && kelly_percent != null")
+      p Процент от ставки:
+        strong  {{ kelly_percent_formatted }}
+      p Рекомендуемый размер ставки:
+        strong  {{ kelly_result }}
 </template>
 
 <script>
@@ -71,21 +74,24 @@ export default {
 
   computed: {
     kelly_percent() {
-      //TODO: if ... else ...
       const percent =
         ((this.player_prediction / 100) * this.bookmaker_coefficent - 1) /
         (this.bookmaker_coefficent - 1);
-      return percent.toFixed(6);
+      if (isFinite(percent)) {
+        return percent.toFixed(6);
+      } else {
+        return null;
+      }
     },
     kelly_percent_formatted() {
-      return (this.kelly_percent * 100).toFixed(2) + '%';
+      return (this.kelly_percent * 100).toFixed(2) + "%";
     },
     kelly_result() {
       const result = this.kelly_percent * this.bank;
       return result.toFixed(2);
     }
   }
-}
+};
 </script>
 
 <style scoped lang="scss">
@@ -93,10 +99,7 @@ export default {
   width: 80px;
 }
 
-/*TODO: why do i need a workaround here */
-#kelly {
-  .title {
-    margin-bottom: 0;
-  }
+.title {
+  margin-bottom: 0;
 }
 </style>

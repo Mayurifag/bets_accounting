@@ -1,0 +1,7 @@
+test:
+  adapter: postgresql
+  pool: 5
+  timeout: 5000
+  host: postgres
+  database: bets_accounting_test
+  user: runner

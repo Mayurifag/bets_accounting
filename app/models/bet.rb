@@ -47,23 +47,17 @@ class Bet < ApplicationRecord
 
   # accepts_nested_attributes_for :participants
 
-  def as_json(options={})
-    h = super(except: [:profit, :updated_at, :bookmaker_id, :discipline_id, :event_id, :result_variant_id, :bet_type_id])
+  def as_json(_options = {})
+    h = super(except: %i[profit updated_at bookmaker_id discipline_id event_id result_variant_id bet_type_id])
     h[:discipline]     = discipline.name
     h[:result_variant] = result_variant.name
     h[:profit]         = formatted_profit
 
-    if event_id.present?
-      h[:event]        = Event.find(self.event_id).name
-    end
+    h[:event]        = Event.find(event_id).name if event_id.present?
 
-    if bet_type
-      h[:bet_type]     = BetType.find(bet_type_id).name
-    end
+    h[:bet_type]     = BetType.find(bet_type_id).name if bet_type
 
-    if bookmaker
-      h[:bookmaker]  = bookmaker.name
-    end
+    h[:bookmaker] = bookmaker.name if bookmaker
     h
   end
 
@@ -79,11 +73,11 @@ class Bet < ApplicationRecord
     # TODO: only if changed
     if result_variant_id.present? || wager.present? || coefficient.present?
       if result == 'Победа'
-        self.update_column(:profit, wager * coefficient)
+        update_column(:profit, wager * coefficient)
       elsif result == 'Возврат'
-        self.update_column(:profit, 0)
+        update_column(:profit, 0)
       else
-        self.update_column(:profit, 0 - wager)
+        update_column(:profit, 0 - wager)
       end
     end
   end

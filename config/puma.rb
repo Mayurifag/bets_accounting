@@ -4,19 +4,19 @@
 # the maximum value specified for Puma. Default is set to 5 threads for minimum
 # and maximum, this matches the default thread size of Active Record.
 #
-threads_count = ENV.fetch("RAILS_MAX_THREADS") { 5 }.to_i
+threads_count = ENV.fetch('RAILS_MAX_THREADS') { 5 }.to_i
 threads threads_count, threads_count
 
 # Specifies the `port` that Puma will listen on to receive requests, default is 3000.
 #
-port        ENV.fetch("PORT") { 3000 }
+port        ENV.fetch('PORT') { 3000 }
 
 # Specifies the `environment` that Puma will run in.
 #
-rails_env = ENV.fetch("RAILS_ENV") { "production" }
+rails_env = ENV.fetch('RAILS_ENV') { 'production' }
 environment rails_env
 
-app_dir = File.expand_path("../..", __FILE__)
+app_dir = File.expand_path('..', __dir__)
 directory app_dir
 shared_dir = "#{app_dir}/tmp"
 
@@ -29,7 +29,7 @@ if %w[production staging].member?(rails_env)
   state_path "#{shared_dir}/pids/puma.state"
 
   # Change to match your CPU core count
-  workers ENV.fetch("WEB_CONCURRENCY") { 1 }
+  workers ENV.fetch('WEB_CONCURRENCY') { 1 }
 
   preload_app!
 
@@ -44,10 +44,14 @@ if %w[production staging].member?(rails_env)
   on_worker_boot do
     require 'active_record'
     require 'erb'
-    ActiveRecord::Base.connection.disconnect! rescue ActiveRecord::ConnectionNotEstablished
+    begin
+      ActiveRecord::Base.connection.disconnect!
+    rescue StandardError
+      ActiveRecord::ConnectionNotEstablished
+    end
     ActiveRecord::Base.establish_connection(YAML.load(ERB.new(File.read("#{app_dir}/config/database.yml")).result)[rails_env])
   end
-elsif rails_env == "development"
+elsif rails_env == 'development'
   # Allow puma to be restarted by `rails restart` command.
   plugin :tmp_restart
 
@@ -59,7 +63,7 @@ elsif rails_env == "development"
       root_ca = OpenSSL::X509::Certificate.new
       root_ca.version = 2 # cf. RFC 5280 - to make it a "v3" certificate
       root_ca.serial = 0x0
-      root_ca.subject = OpenSSL::X509::Name.parse "/C=BE/O=A1/OU=A/CN=localhost"
+      root_ca.subject = OpenSSL::X509::Name.parse '/C=BE/O=A1/OU=A/CN=localhost'
       root_ca.issuer = root_ca.subject # root CA's are "self-signed"
       root_ca.public_key = root_key.public_key
       root_ca.not_before = Time.now
@@ -69,25 +73,21 @@ elsif rails_env == "development"
     end
 
     root_key = OpenSSL::PKey::RSA.new(2048)
-    file = File.new( localhost_key, "wb")
+    file = File.new(localhost_key, 'wb')
     file.write(root_key)
     file.close
 
     root_cert = generate_root_cert(root_key)
-    file = File.new( localhost_cert, "wb")
+    file = File.new(localhost_cert, 'wb')
     file.write(root_cert)
     file.close
   end
 
-  ssl_bind '0.0.0.0', '8443', {
-    key: localhost_key,
-    cert: localhost_cert
-  }
+  ssl_bind '0.0.0.0', '8443',
+           key: localhost_key,
+           cert: localhost_cert
 
 end
-
-
-
 
 # Specifies the number of `workers` to boot in clustered mode.
 # Workers are forked webserver processes. If using threads and workers together

@@ -50,3 +50,5 @@ yarn-debug.log*
 .env_production
 /config/certs/*
 !/config/certs/.keep
+
+\.rbenv-vars

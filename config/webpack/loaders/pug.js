@@ -1,4 +1,4 @@
 module.exports = {
-  test: /\.(pug|jade)$/,
-  loader: "pug-loader"
+  test: /\.(pug)$/,
+  loader: "pug-plain-loader"
 };
