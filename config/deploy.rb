@@ -24,8 +24,8 @@ set :puma_pid,        "#{shared_path}/tmp/pids/puma.pid"
 set :puma_init_active_record, true
 # set :puma_preload_app, true
 
-set :linked_files, fetch(:linked_files, []).concat(%w{.rbenv-vars})
-set :linked_dirs, fetch(:linked_dirs, []).concat(%w[node_modules log tmp/pids tmp/cache tmp/sockets vendor/bundle])
+set :linked_files, %w{.rbenv-vars}
+set :linked_dirs, %w{node_modules log tmp/pids tmp/cache tmp/sockets vendor/bundle}
 
 # namespace :deploy do
 #   desc 'Run rake yarn:install'

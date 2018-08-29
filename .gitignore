@@ -52,3 +52,5 @@ yarn-debug.log*
 !/config/certs/.keep
 
 \.rbenv-vars
+
+\.byebug_history

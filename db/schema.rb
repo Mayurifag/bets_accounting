@@ -25,8 +25,8 @@ ActiveRecord::Schema.define(version: 2018_08_15_160914) do
     t.decimal "profit"
     t.string "outcome", null: false
     t.integer "wager", null: false
-    t.string "choice1"
-    t.string "choice2"
+    t.bigint "choice1_id"
+    t.bigint "choice2_id"
     t.bigint "bookmaker_id"
     t.bigint "discipline_id"
     t.bigint "event_id"
@@ -36,6 +36,8 @@ ActiveRecord::Schema.define(version: 2018_08_15_160914) do
     t.datetime "updated_at", null: false
     t.index ["bet_type_id"], name: "index_bets_on_bet_type_id"
     t.index ["bookmaker_id"], name: "index_bets_on_bookmaker_id"
+    t.index ["choice1_id"], name: "index_bets_on_choice1_id"
+    t.index ["choice2_id"], name: "index_bets_on_choice2_id"
     t.index ["discipline_id"], name: "index_bets_on_discipline_id"
     t.index ["event_id"], name: "index_bets_on_event_id"
     t.index ["result_variant_id"], name: "index_bets_on_result_variant_id"
@@ -84,4 +86,6 @@ ActiveRecord::Schema.define(version: 2018_08_15_160914) do
     t.string "name"
   end
 
+  add_foreign_key "bets", "participants", column: "choice1_id"
+  add_foreign_key "bets", "participants", column: "choice2_id"
 end

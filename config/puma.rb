@@ -83,10 +83,7 @@ elsif rails_env == 'development'
     file.close
   end
 
-  ssl_bind '0.0.0.0', '8443',
-           key: localhost_key,
-           cert: localhost_cert
-
+  ssl_bind '0.0.0.0', '8443', key: localhost_key, cert: localhost_cert
 end
 
 # Specifies the number of `workers` to boot in clustered mode.

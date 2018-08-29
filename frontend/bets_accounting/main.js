@@ -25,11 +25,13 @@ document.addEventListener("DOMContentLoaded", () => {
     document.createElement("bets_accounting")
   );
 
-  /* eslint-disable no-new */
-  new Vue({
-    el,
-    router,
-    store,
-    render: h => h(App)
-  });
+  if (el !== null) {
+    /* eslint-disable no-new */
+    new Vue({
+      el,
+      router,
+      store,
+      render: h => h(App)
+    });
+  }
 });

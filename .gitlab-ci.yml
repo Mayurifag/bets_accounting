@@ -35,17 +35,11 @@ code_quality:
   only:
     - develop
 
-# vulnerabilities:
-#   script:
-#     - bundle audit check --update
-
 updates:
   stage: test
   script:
     - bundle outdated --strict
   allow_failure: true
-  only:
-    - develop
 
 deploy_production:
   stage: deploy
@@ -58,4 +52,4 @@ deploy_production:
     - bundle exec cap production deploy
   only:
     - master
-  when: manual  
+  when: manual

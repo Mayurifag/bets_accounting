@@ -4,7 +4,7 @@
   "dependencies": {
     "@rails/webpacker": "3.5",
     "axios": "^0.18.0",
-    "buefy": "^0.6.6",
+    "buefy": "0.6.6",
     "normalize.css": "^8.0.0",
     "postcss-nested": "^3.0.0",
     "postcss-preset-env": "^5.1.0",
@@ -40,23 +40,6 @@
   },
   "scripts": {
     "lint-staged": "$(yarn bin)/lint-staged"
-  },
-  "lint-staged": {
-    "config/webpack/**/*.js": [
-      "prettier --write",
-      "eslint",
-      "git add"
-    ],
-    "frontend/**/*.js": [
-      "prettier --write",
-      "eslint",
-      "git add"
-    ],
-    "frontend/**/*.css": [
-      "prettier --write",
-      "stylelint --fix",
-      "git add"
-    ]
   },
   "pre-commit": [
     "lint-staged"

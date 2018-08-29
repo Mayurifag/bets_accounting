@@ -69,9 +69,9 @@ class AddAlphaSchemas < ActiveRecord::Migration[5.2]
       # Ставка
       # t.monetize :wager, null: false
       t.integer :wager, null: false
-
-      t.string :choice1
-      t.string :choice2
+      
+      t.references :choice1, index: true, foreign_key: { to_table: :participants }
+      t.references :choice2, index: true, foreign_key: { to_table: :participants }
 
       # t.belongs_to :user, index: { unique: true }
       t.belongs_to :bookmaker, index: true

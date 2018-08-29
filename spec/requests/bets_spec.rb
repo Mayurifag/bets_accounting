@@ -4,6 +4,7 @@ RSpec.describe 'Bets API', type: :request do
   # initialize test data
   let!(:bets) { create_list(:bet, 10) }
   let(:bet_id) { bets.first.id }
+  let(:coefficient) { 1.43 }
 
   # Test suite for GET /bets
   describe 'GET /api/bets' do
@@ -54,21 +55,26 @@ RSpec.describe 'Bets API', type: :request do
     # TODO: test profit calculation
     let!(:discipline) { create(:discipline) }
     let!(:result_variant) { create(:result_variant) }
+    let!(:choice1) { create(:participant) }
+    let!(:choice2) { create(:participant) }
+    let(:choice1_id) { choice1.id }
+    let(:choice2_id) { choice2.id }
     let(:discipline_id) { discipline.id }
     let(:result_variant_id) { result_variant.id }
-    let(:coefficient) { 1.43 }
     let(:valid_attributes) do
-      { discipline_id: discipline_id,
-        result_variant_id: result_variant_id,
-        coefficient: coefficient,
-        wager: 10_000,
-        outcome: 'П1' }
+      { bet: { choice1_id: choice1_id,
+               choice2_id: choice2_id,
+               discipline_id: discipline_id,
+               result_variant_id: result_variant_id,
+               coefficient: coefficient,
+               wager: 10_000,
+               outcome: 'П1' } }
     end
 
     context 'when the request is valid' do
       before { post '/api/bets', params: valid_attributes }
 
-      it 'creates a todo' do
+      it 'creates a bet' do
         expect(json['coefficient']).to eq(coefficient)
       end
 
@@ -77,8 +83,8 @@ RSpec.describe 'Bets API', type: :request do
       end
     end
 
-    context 'when the request is invalid' do
-      before { post '/api/bets', params: { title: 'Foobar' } }
+    context 'when the request is fully invalid' do
+      before { post '/api/bets', params: { bet: { title: 'Foobar' } } }
 
       it 'returns status code 422' do
         expect(response).to have_http_status(422)
@@ -86,30 +92,36 @@ RSpec.describe 'Bets API', type: :request do
 
       it 'returns a validation failure message' do
         expect(response.body)
-          .to match(/Validation failed/)
+          .to match(/must exist/)
       end
     end
   end
 
-  # Test suite for PUT /todos/:id
+  # Test suite for PUT /bets/:id
   describe 'PUT /api/bets/:id' do
     # TODO: check profit countability
-    let(:valid_attributes) { { coefficient: 1.46 } }
+    let(:valid_attributes) do
+      { bet: { id: bet_id, coefficient: coefficient } }
+    end
 
     context 'when the record exists' do
       before { put "/api/bets/#{bet_id}", params: valid_attributes }
 
+      it 'have a response' do
+        expect(response.body).not_to be_empty
+      end
+
       it 'updates the record' do
-        expect(response.body).to be_empty
+        expect(json['coefficient']).to be(coefficient)
       end
 
       it 'returns status code 204' do
-        expect(response).to have_http_status(204)
+        expect(response).to have_http_status(200)
       end
     end
   end
 
-  # Test suite for DELETE /todos/:id
+  # Test suite for DELETE /bets/:id
   describe 'DELETE /bets/:id' do
     before { delete "/api/bets/#{bet_id}" }
 
