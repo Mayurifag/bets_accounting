@@ -42,11 +42,11 @@ class AddAlphaSchemas < ActiveRecord::Migration[5.2]
       t.timestamps
     end
 
-    create_table :bookmaker_balances do |t|
-      t.monetize :balance
-      t.belongs_to :user, index: true
-      t.belongs_to :bookmaker, index: true
-    end
+    # create_table :bookmaker_balances do |t|
+    #   t.monetize :balance
+    #   t.belongs_to :user, index: true
+    #   t.belongs_to :bookmaker, index: true
+    # end
 
     create_table :result_variants do |t|
       t.string :name
@@ -69,7 +69,7 @@ class AddAlphaSchemas < ActiveRecord::Migration[5.2]
       # Ставка
       # t.monetize :wager, null: false
       t.integer :wager, null: false
-      
+
       t.references :choice1, index: true, foreign_key: { to_table: :participants }
       t.references :choice2, index: true, foreign_key: { to_table: :participants }
 

@@ -43,15 +43,6 @@ ActiveRecord::Schema.define(version: 2018_08_15_160914) do
     t.index ["result_variant_id"], name: "index_bets_on_result_variant_id"
   end
 
-  create_table "bookmaker_balances", force: :cascade do |t|
-    t.integer "balance_cents", default: 0, null: false
-    t.string "balance_currency", default: "RUB", null: false
-    t.bigint "user_id"
-    t.bigint "bookmaker_id"
-    t.index ["bookmaker_id"], name: "index_bookmaker_balances_on_bookmaker_id"
-    t.index ["user_id"], name: "index_bookmaker_balances_on_user_id"
-  end
-
   create_table "bookmakers", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", null: false
