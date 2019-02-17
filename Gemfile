@@ -20,7 +20,7 @@ gem 'puma', '~> 3.0'
 # Common
 gem 'awesome_rails_console'
 gem 'bootsnap', require: false # fast boot
-gem 'oj', '~> 2.16.1'
+gem 'oj'
 gem 'rollbar'
 gem 'slim', '~> 4.0'
 gem 'webpacker', '~> 3.5' # Webpacker
