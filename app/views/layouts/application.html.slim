@@ -1,7 +1,7 @@
 doctype html
 html
   head
-    title Bets Accounting 📕
+    title Bets Accounting
     meta name="viewport" content="width=device-width, initial-scale=1"
     / TODO: make these things better
     link rel="apple-touch-icon" href="/apple-touch-icon.png"
@@ -15,4 +15,8 @@ html
     = javascript_pack_tag 'application', defer: true
     = stylesheet_pack_tag 'application', media: 'all'
     / TODO: critical css and async loading of css
-    link rel="stylesheet" href="//cdn.materialdesignicons.com/2.6.95/css/materialdesignicons.min.css" type="text/css" media="all"
+    link(
+      rel="stylesheet"
+      href="//cdn.materialdesignicons.com/2.6.95/css/materialdesignicons.min.css"
+      type="text/css"
+      media="all")
