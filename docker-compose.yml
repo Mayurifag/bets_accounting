@@ -19,9 +19,11 @@ services:
 
   webpacker:
     build: .
-    env_file:
-      - '.env'
-    command: ./bin/webpack-dev-server
+    environment:
+      WEBPACKER_DEV_SERVER_HOST: 0.0.0.0
+      WEBPACKER_DEV_SERVER_PUBLIC: 0.0.0.0:3035
+    # command: bash -c "rm -rf /usr/src/app/public/packs; /usr/src/app/bin/webpack-dev-server"
+    command: /usr/src/app/bin/webpack-dev-server
     volumes:
       - .:/usr/src/app
     ports:
@@ -30,7 +32,10 @@ services:
   app:
     env_file:
       - '.env'
-    command: bundle exec puma -C config/puma.rb
+    command: bash -c "rm -f /usr/src/app/tmp/pids/server.pid && bundle exec puma -C config/puma.rb"
+    environment:
+      WEBPACKER_DEV_SERVER_HOST: webpacker
+      WEBPACKER_DEV_SERVER_PUBLIC: webpacker:3035
     build: .
     volumes:
       - .:/usr/src/app
