@@ -1,7 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 
-import Kelly from "../components/kelly.vue";
+import Kelly from "../components/Kelly.vue";
 import BetsList from "../pages/BetsList.vue";
 
 Vue.use(VueRouter);
