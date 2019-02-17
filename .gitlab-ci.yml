@@ -1,8 +1,8 @@
-image: "ruby:2.4"
+image: "ruby:2.5"
 
 stages:
   - test
-  - deploy
+  # - deploy
 
 cache:
   paths:
@@ -41,15 +41,15 @@ updates:
     - bundle outdated --strict
   allow_failure: true
 
-deploy_production:
-  stage: deploy
-  environment: production
-  script:
-    - which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )
-    - eval $(ssh-agent -s)
-    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
-    # - gem install capistrano --no-ri --no-rdoc
-    - bundle exec cap production deploy
-  only:
-    - master
-  when: manual
+# deploy_production:
+#   stage: deploy
+#   environment: production
+#   script:
+#     - which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )
+#     - eval $(ssh-agent -s)
+#     - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+#     # - gem install capistrano --no-ri --no-rdoc
+#     - bundle exec cap production deploy
+#   only:
+#     - master
+#   when: manual
