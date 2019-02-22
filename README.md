@@ -5,7 +5,7 @@ This repository is yet another pet project, where I'm practicing with **Vue.js**
 
 Application is requested by my friend as a better alternative for his spreadsheet about bets' win/lose statistics.
 
-Project is not production-ready, but is a proof-of-concept. Work is in progress. For example there is a mess with dotenv files now.
+Project is not production-ready, but is a proof-of-concept. Work is in progress. For example there is a mess with dotenv files and the frontend needs some more checks for blank fields.
 
 ## How to launch
 **TL;DR:** `docker-compose build ; docker-compose up -d ; docker-compose exec app rails db:setup`

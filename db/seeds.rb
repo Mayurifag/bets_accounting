@@ -9,9 +9,9 @@
 BetType.find_or_create_by!(name: 'Прематч')
 BetType.find_or_create_by!(name: 'Лайв')
 
-ResultVariant.find_or_create_by!(name: 'Победа')
-ResultVariant.find_or_create_by!(name: 'Возврат')
-ResultVariant.find_or_create_by!(name: 'Проигрыш')
+ResultVariant.find_or_create_by!(id: 1, name: 'Победа')
+ResultVariant.find_or_create_by!(id: 2, name: 'Проигрыш')
+ResultVariant.find_or_create_by!(id: 3, name: 'Возврат')
 
 Discipline.find_or_create_by!(name: 'Dota 2')
 Discipline.find_or_create_by!(name: 'Теннис')

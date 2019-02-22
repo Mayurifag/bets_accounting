@@ -38,44 +38,32 @@ class Bet < ApplicationRecord
   include ActionView::Helpers::NumberHelper
   include PgSearch
 
+  FIELDS_TO_SHOW = %w[choice1 choice2 discipline result_variant
+                      event bet_type bookmaker]
+
   scope :newest_first, -> { order(created_at: :desc) }
 
-  belongs_to :discipline, optional: true
+  belongs_to :discipline,     optional: true
   belongs_to :result_variant, optional: true
-  belongs_to :bet_type, optional: true
-  belongs_to :bookmaker, optional: true
-  belongs_to :event, optional: true
-  # TODO: optional
+  belongs_to :bet_type,       optional: true
+  belongs_to :bookmaker,      optional: true
+  belongs_to :event,          optional: true
   belongs_to :choice1, class_name: 'Participant', foreign_key: :choice1_id
   belongs_to :choice2, class_name: 'Participant', foreign_key: :choice2_id
 
-  # has_many :participants, through: :participant_bets
-  # has_many :participant_bets
-  # accepts_nested_attributes_for :participants
-  # belongs_to :user
-  # TODO: enum on result_variants // bet_types??
-  # TODO: default profit 0?
 
-  # validates_presence_of :coefficient, :wager, :outcome
-  validates :coefficient, numericality: { greater_than_or_equal_to: 1.0 }, allow_blank: true
+  validates :coefficient, allow_blank: true,
+                          numericality: { greater_than_or_equal_to: 1.0 }
+
   validates :wager, numericality: { greater_than: 0 }, allow_blank: true
 
   after_save :update_profit_column
-  # TODO: after_save :delete_bet_if_all_fields_blank
 
-  # have to do this in views but as_json is much faster
   def as_json(_options = {})
     h = super(except: %i[choice1_id choice2_id profit updated_at bookmaker_id
                          discipline_id event_id result_variant_id bet_type_id])
-    h[:profit]         = formatted_profit
-    # FIXME: safe navigator??
-    h[:choice1]        = choice1.name if choice1
-    h[:choice2]        = choice2.name if choice2
-    h[:discipline]     = discipline.name if discipline
-    h[:result_variant] = result_variant.name if result_variant
-    h[:event]          = event.name if event
-    h[:bet_type]       = bet_type.name if bet_type
-    h[:bookmaker]      = bookmaker.name if bookmaker
+    FIELDS_TO_SHOW.each { |field| h[field.to_sym] = self.send(field)&.name }
+    h[:profit] = formatted_profit
     h
   end
 
@@ -83,20 +71,45 @@ class Bet < ApplicationRecord
     number_with_precision(profit.to_f, precision: 2)
   end
 
-  def result
-    result_variant&.name
-  end
-
   def update_profit_column
     return if wager.blank? || coefficient.blank?
-    case result
-    when 'Победа'
-      update_column(:profit, (wager * coefficient) - wager)
-    when 'Проигрыш'
-      update_column(:profit, 0 - wager)
+    case result_variant&.id
+    when 1
+      set_profit_as_win
+    when 2
+      set_profit_as_lost
     else
-      update_column(:profit, 0)
+      set_profit_as_zero
     end
   end
 
+  private
+
+  def set_profit_as_win
+    update_column(:profit, (wager * coefficient) - wager)
+  end
+
+  def set_profit_as_lost
+    update_column(:profit, 0 - wager)
+  end
+
+  def set_profit_as_zero
+    update_column(:profit, 0)
+  end
 end
+
+# TODO List:
+# 1. Optional choices (has to be one or two or three or more)
+# 2. Refactor 'as_json' to be in views or builder or elsewhere
+# 3. Move formatted_profit to the presenters
+# 4. Move callback to service
+
+# Additional things:
+# has_many :participants, through: :participant_bets
+# has_many :participant_bets
+# accepts_nested_attributes_for :participants
+# belongs_to :user
+# TODO: enum on result_variants // bet_types??
+# TODO: default profit 0?
+
+# validates_presence_of :coefficient, :wager, :outcome
