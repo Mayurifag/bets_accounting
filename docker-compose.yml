@@ -1,0 +1,47 @@
+version: "3"
+
+volumes:
+  db-data:
+    external: false
+
+services:
+  db:
+    env_file:
+      - '.env'
+    image: postgres:11
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - db-data:/usr/local/pgsql/data
+
+  webpacker:
+    build: .
+    environment:
+      WEBPACKER_DEV_SERVER_HOST: 0.0.0.0
+      WEBPACKER_DEV_SERVER_PUBLIC: 0.0.0.0:3035
+    # command: bash -c "rm -rf /usr/src/app/public/packs; /usr/src/app/bin/webpack-dev-server"
+    command: /usr/src/app/bin/webpack-dev-server
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - '3035:3035'
+
+  app:
+    env_file:
+      - '.env'
+    command: bash -c "rm -f /usr/src/app/tmp/pids/server.pid && bundle exec puma -C config/puma.rb"
+    environment:
+      WEBPACKER_DEV_SERVER_HOST: webpacker
+      WEBPACKER_DEV_SERVER_PUBLIC: webpacker:3035
+    build: .
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - "3000:3000"
+      - "8443:8443"
+    depends_on:
+      - db
+      - webpacker
