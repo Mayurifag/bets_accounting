@@ -1,11 +1,10 @@
 version: '3'
-services:
 
+services:
   db:
     image: postgres
     ports:
       - "5432"
-
 
 
   backend:
@@ -20,7 +19,6 @@ services:
     depends_on:
       - db
     user: rails
-
 
 
   frontend:
