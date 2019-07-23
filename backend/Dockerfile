@@ -12,4 +12,4 @@ RUN bundle install -j3 --path vendor/bundle
 
 COPY . $APP/
 
-CMD ["rails", "server", "-p", "8080", "-b", "0.0.0.0"]
+CMD ["bin/rails", "server", "-p", "8080", "-b", "0.0.0.0"]
