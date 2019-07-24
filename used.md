@@ -1,7 +1,11 @@
 ```
-docker-compose docker-compose build --no-cache --pull --parallel --force-rm
+docker-compose build --no-cache --pull --parallel --force-rm # or docker-compose build
+
+# created user without rights, have to 777 app folder
+docker-compose run -u root frontend chmod 777 -R ./
+docker-compose run -u root backend chmod 777 -R ./
 docker-compose run -u root backend bundle
 docker-compose run frontend yarn
-# need to execute by root at backend: chmod 777 -rR ./
 docker-compose run backend bin/rails db:create
+docker-compose up # -d
 ```
