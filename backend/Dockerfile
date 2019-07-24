@@ -1,15 +1,19 @@
-FROM ruby:2.6
+FROM ruby:2.6-alpine
 
-ARG UID
-RUN adduser rails --uid $UID --disabled-password --gecos ""
+WORKDIR /usr/src/app
 
-ENV APP /usr/src/app
-RUN mkdir $APP
-WORKDIR $APP
+COPY Gemfile* ./
 
-COPY Gemfile* $APP/
-RUN bundle install -j3 --path vendor/bundle
+# build-base, xz-dev -- nokogiri
+# postgresql-dev - pg
+# tzdata - tzinfo-data
+RUN apk add --update --no-cache \
+  build-base \
+  postgresql-dev \
+  tzdata \
+  xz-dev \
+  && bundle install -j3 --path vendor/bundle
 
-COPY . $APP/
+COPY . .
 
-CMD ["bin/rails", "server", "-p", "8080", "-b", "0.0.0.0"]
+CMD ["bundle", "exec", "rails", "server", "-p", "8080", "-b", "0.0.0.0"]

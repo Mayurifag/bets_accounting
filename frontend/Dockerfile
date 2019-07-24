@@ -1,15 +1,11 @@
-FROM node:current
+FROM node:current-alpine
 
-ARG UID
-RUN adduser frontend --uid $UID --disabled-password --gecos ""
+WORKDIR /usr/src/app
 
-ENV APP /usr/src/app
-RUN mkdir $APP
-WORKDIR $APP
+COPY package.json yarn.lock ./
 
-COPY package.json yarn.lock $APP/
 RUN yarn
 
-COPY . $APP/
+COPY . .
 
 CMD ["yarn", "run", "serve"]

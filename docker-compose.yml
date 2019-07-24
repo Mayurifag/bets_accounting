@@ -10,24 +10,17 @@ services:
   backend:
     build:
       context: backend
-      args:
-        UID: ${UID:-1001}
     volumes:
       - ./backend:/usr/src/app
     ports:
       - "8888:8080"
     depends_on:
       - db
-    user: rails
-
 
   frontend:
     build:
       context: frontend
-      args:
-        UID: ${UID:-1001}
     volumes:
       - ./frontend:/usr/src/app
     ports:
       - "3333:8080"
-    user: frontend
