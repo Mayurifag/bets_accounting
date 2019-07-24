@@ -9,3 +9,6 @@ docker-compose run frontend yarn
 docker-compose run backend bin/rails db:create
 docker-compose up # -d
 ```
+
+front: localhost:3333
+back: localhost:8888
