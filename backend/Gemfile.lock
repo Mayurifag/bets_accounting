@@ -64,6 +64,7 @@ GEM
       awesome_print
       pry-rails
       railties
+    bcrypt (3.1.13)
     better_errors (2.5.1)
       coderay (>= 1.0.0)
       erubi (>= 1.0.0)
@@ -98,6 +99,7 @@ GEM
       unicode-display_width (~> 1.1)
     i18n (1.6.0)
       concurrent-ruby (~> 1.0)
+    jwt (2.2.1)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -213,6 +215,7 @@ PLATFORMS
 DEPENDENCIES
   annotate
   awesome_rails_console
+  bcrypt (~> 3.1.7)
   better_errors
   binding_of_caller
   bootsnap (>= 1.4.2)
@@ -222,6 +225,7 @@ DEPENDENCIES
   factory_bot_rails
   hirb
   hirb-unicode-steakknife
+  jwt
   listen (>= 3.0.5, < 3.2)
   oj
   ordinare

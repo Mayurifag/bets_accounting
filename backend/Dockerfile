@@ -3,6 +3,7 @@ FROM ruby:2.6-alpine
 WORKDIR /usr/src/app
 
 COPY Gemfile* ./
+COPY .ruby-version ./
 
 # build-base, xz-dev -- nokogiri
 # postgresql-dev - pg
