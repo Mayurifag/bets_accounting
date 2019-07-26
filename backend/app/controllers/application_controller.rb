@@ -10,6 +10,10 @@ class ApplicationController < ActionController::API
     render json: { error: 'not_found' }, status: :unprocessable_entity
   end
 
+  def unauthorized
+    render json: { error: 'unauthorized' }, status: :unauthorized
+  end
+
   # TODO: rewrite
   def authorize_request
     header = request.headers['Authorization']
