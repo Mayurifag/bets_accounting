@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::API
-  before_action :authorize_request
+  # before_action :authorize_request
 
   # include ActionController::MimeResponds
   # respond_to :json

@@ -4,9 +4,24 @@ class BetsController < ApplicationController
 
   # GET /bets
   def index
-    # TODO: pseudo-pagination
-    @bets = Bet.includes(:discipline, :result_variant, :bet_type, :bookmaker, :choice1, :choice2).newest_first
-    json_response(@bets)
+    # TODO: move to autocomplete controller
+    if params[:autocomplete_bookmakers]
+      @bookmakers = Bookmaker.autocomplete_name(params[:autocomplete_bookmakers])
+      json_response(@bookmakers)
+    elsif params[:autocomplete_disciplines]
+      @disciplines = Discipline.autocomplete_name(params[:autocomplete_disciplines])
+      json_response(@disciplines)
+    elsif params[:autocomplete_events]
+      @events = Event.autocomplete_name(params[:autocomplete_events])
+      json_response(@events)
+    elsif params[:autocomplete_participants]
+      @participants = Participant.autocomplete_name(params[:autocomplete_participants])
+      json_response(@participants)
+    else
+      # TODO: pseudo-pagination
+      @bets = Bet.includes(:discipline, :result_variant, :bet_type, :bookmaker, :choice1, :choice2).newest_first
+      json_response(@bets)
+    end
   end
 
   # POST /bets
@@ -20,7 +35,7 @@ class BetsController < ApplicationController
     end
   end
 
-  # TODO: not used
+  # TODO: perhaps i dont need that so i have to delete that everywhere, including routes
   # GET /bets/:id
   def show
     json_response(@bet)
@@ -37,11 +52,8 @@ class BetsController < ApplicationController
 
   # DELETE /bets/:id
   def destroy
-    if @bet.destroy
-      head :no_content
-    else
-      json_response(@bet.errors, :unprocessable_entity)
-    end
+    @bet.destroy
+    head :no_content
   end
 
   private
@@ -59,7 +71,6 @@ class BetsController < ApplicationController
     @bet = Bet.find(params[:id])
   end
 
-  # TODO: move this shit to service
   def transform_bet_params
     if params[:bet].has_key?('choice1')
       if params[:bet][:choice1].blank?
