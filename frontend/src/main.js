@@ -1,17 +1,38 @@
-import Vue from 'vue';
-import App from './App.vue';
-import router from './router';
-import store from './store';
-import './registerServiceWorker';
-import Buefy from 'buefy'
-import './assets/scss/app.scss'
+/* eslint-disable */
+import Vue from "vue";
 
-Vue.use(Buefy)
+import VueProgressBar from "vue-progressbar";
+import VeeValidate from "vee-validate";
+
+import Buefy from "buefy";
+import "buefy/lib/buefy.css";
+
+import { sync } from "vuex-router-sync";
+import router from "./router";
+import store from "./store";
+
+import App from "./App.vue";
+
+sync(store, router);
+
+Vue.use(Buefy);
+Vue.use(VueProgressBar);
+Vue.use(VeeValidate);
 
 Vue.config.productionTip = false;
 
-new Vue({
-  router,
-  store,
-  render: h => h(App),
-}).$mount('#app');
+document.addEventListener("DOMContentLoaded", () => {
+  const el = document.body.appendChild(
+    document.createElement("bets_accounting")
+  );
+
+  if (el !== null) {
+    /* eslint-disable no-new */
+    new Vue({
+      el,
+      router,
+      store,
+      render: h => h(App),
+    });
+  }
+});
