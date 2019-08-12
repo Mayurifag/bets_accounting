@@ -1,29 +1,62 @@
-<template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
+<template lang="pug">
+#bets_accounting
+  vue-progress-bar
+
+  nav.navbar.is-primary.is-sticky.containter
+    .navbar-brand
+      router-link(to="/" exact).navbar-item
+        img(src="./static/logo.png" alt="Logo")
+      .navbar-burger.burger(@click="isNavbarActive = !isNavbarActive" :class="isNavbarActive ? 'is-active' : ''")
+        span
+        span
+        span
+
+    .navbar-menu(:class="isNavbarActive ? 'is-active' : ''" @click="isNavbarActive = !isNavbarActive")
+      .navbar-start
+        router-link(to="/" exact).navbar-item Келли
+        router-link(to="/bets" exact).navbar-item Демо
+      .navbar-end
+        .navbar-item User [todo]
+        .navbar-item balance [todo]
+        .navbar-item About page [todo]
+  router-view(:key="$route.fullPath")
+  //- TODO: footer with links license etc
 </template>
 
-<style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+<script>
+import { mapState } from "vuex";
+
+export default {
+  data() {
+    return {
+      isNavbarActive: false
+    };
+  },
+
+  created() {
+    // $Progress for vue-progressbar
+    this.$Progress.start();
+
+    this.$store.dispatch("fetchBets").then(() => {
+      this.$Progress.finish();
+    });
+
+    this.$router.beforeEach((to, from, next) => {
+      if (to.meta.progress !== undefined) {
+        let meta = to.meta.progress;
+        this.$Progress.parseMeta(meta);
+      }
+      this.$Progress.start();
+      next();
+    });
+
+    this.$router.afterEach((to, from) => {
+      this.$Progress.finish();
+    });
+  },
+
+  computed: {
+    ...mapState(["bets"])
   }
-}
-</style>
+};
+</script>

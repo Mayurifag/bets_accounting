@@ -8,8 +8,8 @@ import Buefy from "buefy";
 import "buefy/lib/buefy.css";
 
 import { sync } from "vuex-router-sync";
-import router from "./router";
-import store from "./store";
+import router from "./router/index.js";
+import store from "./store/index.js";
 
 import App from "./App.vue";
 
