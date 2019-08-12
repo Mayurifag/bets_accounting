@@ -15,8 +15,8 @@ class Participant < ApplicationRecord
 
   # has_many :participant_bets
   # has_many :bets, through: :participant_bets
-  
-  include PgSearch
+
+  include PgSearch::Model
   pg_search_scope :autocomplete_name, against: :name,
                   using: {
                     tsearch: { prefix: true }

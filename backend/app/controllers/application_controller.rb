@@ -1,15 +1,14 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::API
+  include Response
+  include ExceptionHandler
   # before_action :authorize_request
 
   # include ActionController::MimeResponds
   # respond_to :json
 
-  def not_found
-    render json: { error: 'not_found' }, status: :unprocessable_entity
-  end
-
+  # TODO: json response and ExceptionHandler
   def unauthorized
     render json: { error: 'unauthorized' }, status: :unauthorized
   end

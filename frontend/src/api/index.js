@@ -1,9 +1,13 @@
 import axios from 'axios';
 
 // Rails arguing for csrf :S
-axios.defaults.headers.common['X-CSRF-Token'] = document
-  .querySelector('meta[name="csrf-token"]')
-  .getAttribute('content');
+// axios.defaults.headers.common['X-CSRF-Token'] = document
+//   .querySelector('meta[name="csrf-token"]')
+//   .getAttribute('content');
+
+// TODO: Env port for backend
+var port = 8888;
+axios.defaults.baseURL = location.protocol + '//' + location.hostname + ':' + port;
 
 export default {
   // CRUD Bets:

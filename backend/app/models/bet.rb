@@ -36,7 +36,7 @@
 
 class Bet < ApplicationRecord
   include ActionView::Helpers::NumberHelper
-  include PgSearch
+  include PgSearch::Model
 
   FIELDS_TO_SHOW = %w[choice1 choice2 discipline result_variant
                       event bet_type bookmaker]
