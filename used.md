@@ -12,3 +12,5 @@ docker-compose up # -d
 
 front: localhost:3333
 back: localhost:8888
+
+bundle audit check --update

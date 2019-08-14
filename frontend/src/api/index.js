@@ -6,8 +6,7 @@ import axios from 'axios';
 //   .getAttribute('content');
 
 // TODO: Env port for backend
-var port = 8888;
-axios.defaults.baseURL = location.protocol + '//' + location.hostname + ':' + port;
+axios.defaults.baseURL = 'http://localhost:8888';
 
 export default {
   // CRUD Bets:
