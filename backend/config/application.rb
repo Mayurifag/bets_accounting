@@ -37,6 +37,7 @@ module Backend
     config.api_only = true
 
     # TODO: ENV for frontend port
+    # TODO: lvh.me
     config.middleware.insert_before 0, Rack::Cors do
       allow do
         origins 'localhost:3333'

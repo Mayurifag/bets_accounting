@@ -14,6 +14,7 @@ class ApplicationController < ActionController::API
   end
 
   # TODO: rewrite
+  # maybe take from https://scotch.io/tutorials/build-a-restful-json-api-with-rails-5-part-two#toc-authorize-api-request
   def authorize_request
     header = request.headers['Authorization']
     header = header.split(' ').last if header
