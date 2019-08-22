@@ -19,5 +19,11 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe 'valid?' do
+    context 'when everything is blank' do
+      subject { described_class.new }
+
+      it { is_expected.not_to be_valid }
+    end
+  end
 end

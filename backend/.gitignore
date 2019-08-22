@@ -19,3 +19,4 @@
 /config/master.key
 
 /vendor/bundle
+coverage
