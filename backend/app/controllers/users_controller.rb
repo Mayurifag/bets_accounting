@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class UsersController < ApplicationController
   before_action :find_user, except: %i[create index]
-  skip_before_action :authorize_request, only: %i[create]
+  # skip_before_action :authorize_request, only: %i[create]
 
   # GET /users
   def index

@@ -1,8 +1,9 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'Bets API', type: :request do
-  # initialize test data
-  let!(:bets) { create_list(:bet, 10) }
+  let!(:bets) { create_list(:bet, 2) }
   let(:bet_id) { bets.first.id }
   let(:coefficient) { 1.43 }
 
@@ -14,7 +15,7 @@ RSpec.describe 'Bets API', type: :request do
     it 'returns bets' do
       # Note `json` is a custom helper to parse JSON responses
       expect(json).not_to be_empty
-      expect(json.size).to eq(10)
+      expect(json.size).to eq(2)
     end
 
     it 'returns status code 200' do
