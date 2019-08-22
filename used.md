@@ -8,6 +8,8 @@ docker-compose run -u root backend bundle
 docker-compose run frontend yarn
 docker-compose run backend bin/rails db:create
 docker-compose up # -d
+
+docker-compose run backend bundle exec rspec
 ```
 
 front: localhost:3333

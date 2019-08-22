@@ -38,8 +38,7 @@ class Bet < ApplicationRecord
   include ActionView::Helpers::NumberHelper
   include PgSearch::Model
 
-  FIELDS_TO_SHOW = %w[choice1 choice2 discipline result_variant
-                      event bet_type bookmaker]
+  FIELDS_TO_SHOW = %w[choice1 choice2 discipline result_variant event bet_type bookmaker].freeze
 
   scope :newest_first, -> { order(created_at: :desc) }
 
@@ -59,20 +58,23 @@ class Bet < ApplicationRecord
 
   after_save :update_profit_column
 
+  # TODO: move to serializer
   def as_json(_options = {})
     h = super(except: %i[choice1_id choice2_id profit updated_at bookmaker_id
                          discipline_id event_id result_variant_id bet_type_id])
-    FIELDS_TO_SHOW.each { |field| h[field.to_sym] = self.send(field)&.name }
+    FIELDS_TO_SHOW.each { |field| h[field.to_sym] = send(field)&.name }
     h[:profit] = formatted_profit
     h
   end
 
+  # TODO: move to presenter
   def formatted_profit
     number_with_precision(profit.to_f, precision: 2)
   end
 
   def update_profit_column
     return if wager.blank? || coefficient.blank?
+
     case result_variant&.id
     when 1
       set_profit_as_win
