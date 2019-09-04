@@ -6,10 +6,12 @@ COPY Gemfile* ./
 COPY .ruby-version ./
 
 # build-base, xz-dev -- nokogiri
+# git - to update bundler audit
 # postgresql-dev - pg
-# tzdata - tzinfo-data
+# tzdata - tzinfo-data to prevent TZInfo::DataSourceNotFound: tzinfo-data is not present on rails db create/migrate/etc.
 RUN apk add --update --no-cache \
   build-base \
+  git \
   postgresql-dev \
   tzdata \
   xz-dev \

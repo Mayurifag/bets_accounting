@@ -10,12 +10,17 @@ compose:
 interaction:
   bash:
     service: backend
-    command: /bin/bash
+    command: /bin/sh
     compose_run_options: [no-deps]
 
   bundle:
     service: backend
     command: bundle
+    compose_run_options: [no-deps]
+
+  audit:
+    service: backend
+    command: bundle exec bundle audit --update
     compose_run_options: [no-deps]
 
   rake:
@@ -30,11 +35,6 @@ interaction:
         service: backend
         compose_run_options: [service-ports]
 
-  yarn:
-    service: frontend
-    command: yarn
-    compose_run_options: [no-deps]
-
   rspec:
     service: backend
     environment:
@@ -44,6 +44,11 @@ interaction:
   rubocop:
     service: backend
     command: bundle exec rubocop
+    compose_run_options: [no-deps]
+
+  yarn:
+    service: frontend
+    command: yarn
     compose_run_options: [no-deps]
 
   psql:
