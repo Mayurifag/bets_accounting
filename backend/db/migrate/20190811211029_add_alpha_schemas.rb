@@ -51,11 +51,11 @@ class AddAlphaSchemas < ActiveRecord::Migration[6.0]
     # end
 
     create_table :result_variants do |t|
-      t.string :name
+      t.string :name, null: false
     end
 
     create_table :bet_types do |t|
-      t.string :name
+      t.string :name, null: false
     end
 
     create_table :bets do |t|

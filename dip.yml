@@ -50,9 +50,12 @@ interaction:
     service: postgres
     command: psql -h postgres -U postgres
 
-# TODO: provision
 provision:
-  - dip compose down --volumes
-  - dip compose up -d postgres redis
-  - dip yarn install
-  - dip bash -c ./bin/setup
+  - dip compose build --no-cache --pull --force-rm
+  - dip rails db:create
+  - dip rails db:migrate
+  - dip rails db:seed
+  - dip up -d
+
+# frontend: localhost:3333
+# backend: localhost:8888

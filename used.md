@@ -1,5 +1,5 @@
 ```
-docker-compose build --no-cache --pull --parallel --force-rm # or docker-compose build
+docker-compose build --no-cache --pull --force-rm # or docker-compose build
 
 # created user without rights, have to 777 app folder
 docker-compose run -u root frontend chmod 777 -R ./

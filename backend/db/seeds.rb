@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+puts 'seeds.rb: Seeding common information'
 BetType.find_or_create_by!(name: 'Прематч')
 BetType.find_or_create_by!(name: 'Лайв')
 
@@ -21,4 +24,6 @@ Bookmaker.find_or_create_by!(name: 'Leon')
 
 5.times { Event.find_or_create_by(name: Faker::Esport.event) }
 
+puts 'seeds.rb: Delete existing bets and populate 25 new ones'
+Bet.delete_all
 Generator.generate_bets(25)
