@@ -18,7 +18,6 @@
 #  index_users_on_username  (username) UNIQUE
 #
 
-
 FactoryBot.define do
   factory :user, class: 'User' do
     sequence(:username) { |n| "login#{n}" }

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Generator
   # TODO: move to lib ; rename to fake generator?
 

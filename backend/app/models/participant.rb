@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: participants
@@ -18,10 +20,10 @@ class Participant < ApplicationRecord
 
   include PgSearch::Model
   pg_search_scope :autocomplete_name, against: :name,
-                  using: {
-                    tsearch: { prefix: true }
-                  },
-                  order_within_rank: 'created_at ASC'
+                                      using: {
+                                        tsearch: { prefix: true }
+                                      },
+                                      order_within_rank: 'created_at ASC'
 
   validates_presence_of :name
 end

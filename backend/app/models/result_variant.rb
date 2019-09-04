@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: result_variants
@@ -8,6 +10,6 @@
 
 class ResultVariant < ApplicationRecord
   validates_presence_of :name
-  
+
   # TODO: refactor ids from code: no need to have magic numbers etc
 end

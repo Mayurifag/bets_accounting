@@ -1,5 +1,7 @@
 # Insert new cops alphabetically
 
+require: rubocop-performance
+
 AllCops:
   DisplayCopNames: true
   DisplayStyleGuide: true

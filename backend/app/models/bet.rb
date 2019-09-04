@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: bets
@@ -50,7 +52,6 @@ class Bet < ApplicationRecord
   belongs_to :choice1, class_name: 'Participant', foreign_key: :choice1_id
   belongs_to :choice2, class_name: 'Participant', foreign_key: :choice2_id
 
-
   validates :coefficient, allow_blank: true,
                           numericality: { greater_than_or_equal_to: 1.0 }
 
@@ -100,7 +101,7 @@ class Bet < ApplicationRecord
   end
 end
 
-# TODO List:
+# TODO: List:
 # 1. Optional choices (has to be one or two or three or more)
 # 2. Refactor 'as_json' to be in views or builder or elsewhere
 # 3. Move formatted_profit to the presenters
