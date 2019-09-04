@@ -19,7 +19,7 @@ gem 'oj'
 gem 'rack-cors'
 
 group :development, :test do
-  gem 'awesome_rails_console'
+  gem 'awesome_rails_console', github: 'Mayurifag/awesome_rails_console', branch: 'fix-parent-name-deprecation'
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'hirb'
   gem 'hirb-unicode-steakknife', require: 'hirb-unicode'

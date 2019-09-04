@@ -1,3 +1,13 @@
+GIT
+  remote: https://github.com/Mayurifag/awesome_rails_console.git
+  revision: 20dbf5c438524d45ccf47c8910e94b953fb568fc
+  branch: fix-parent-name-deprecation
+  specs:
+    awesome_rails_console (0.4.3)
+      awesome_print
+      pry-rails
+      railties
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -61,10 +71,6 @@ GEM
       rake (>= 10.4, < 13.0)
     ast (2.4.0)
     awesome_print (1.8.0)
-    awesome_rails_console (0.4.3)
-      awesome_print
-      pry-rails
-      railties
     bcrypt (3.1.13)
     better_errors (2.5.1)
       coderay (>= 1.0.0)
@@ -249,7 +255,7 @@ PLATFORMS
 
 DEPENDENCIES
   annotate
-  awesome_rails_console
+  awesome_rails_console!
   bcrypt
   better_errors
   binding_of_caller
