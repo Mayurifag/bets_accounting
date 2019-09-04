@@ -1,24 +1,29 @@
 # frozen_string_literal: true
 
 class Generator
-  # TODO: move to lib ; rename to fake generator?
+  class << self
+    def generate_bets(number = 1)
+      number = 1 if number < 1 || !number.is_a?(Integer)
+      number.times { generate_bet } # TODO: import to prevent N+1
+    end
 
-  def self.generate_bets(number = 1)
-    # throw an error // rewrite to give back only a bet if number = 1, not number of created bets
-    number = 1 if number < 1 || !number.is_a?(Integer)
-    number.times { generate_bet }
-  end
+    def generate_bet
+      Bet.create!(choice1_id: random_from_class(:participant),
+                  choice2_id: random_from_class(:participant),
+                  wager: rand(1000..100_000),
+                  coefficient: rand(1.2...3.0).ceil(2),
+                  outcome: '?' + rand(1..2).to_s,
+                  comment: Faker::Lorem.sentence,
+                  discipline_id: random_from_class(:discipline),
+                  bookmaker_id: random_from_class(:bookmaker),
+                  result_variant_id: random_from_class(:result_variant),
+                  bet_type_id: random_from_class(:bet_type))
+    end
 
-  def self.generate_bet
-    Bet.create!(choice1_id: Participant.ids.sample,
-                choice2_id: Participant.ids.sample,
-                wager: rand(1000..100_000),
-                coefficient: rand(1.2...3.0).ceil(2),
-                outcome: 'П' + rand(1..2).to_s,
-                comment: 'random comment ' + rand(1000..9999).to_s,
-                discipline_id: Discipline.ids.sample,
-                bookmaker_id: Bookmaker.ids.sample,
-                result_variant_id: ResultVariant.ids.sample,
-                bet_type_id: BetType.ids.sample)
+    private
+
+    def random_from_class(class_name)
+      class_name.to_s.classify.constantize.ids.sample
+    end
   end
 end
