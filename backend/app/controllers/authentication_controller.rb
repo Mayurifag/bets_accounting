@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# TODO: https://coderwall.com/p/nmu9fq/rails-rspec-apis-testing-notes
 class AuthenticationController < ApplicationController
   skip_before_action :authorize_request, only: %i[login]
 
