@@ -22,6 +22,7 @@ class Generator
 
     private
 
+    # TODO: prevent additional reads from database
     def random_from_class(class_name)
       class_name.to_s.classify.constantize.ids.sample
     end

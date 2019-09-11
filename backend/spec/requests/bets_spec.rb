@@ -3,12 +3,11 @@
 require 'rails_helper'
 
 RSpec.describe 'Bets API', type: :request do
-  let!(:bets) { create_list(:bet, 2) }
-  let(:bet_id) { bets.first.id }
-  let(:coefficient) { 1.43 }
+  let(:coefficient) { 2.28 }
 
   # Test suite for GET /bets
   describe 'GET /api/bets' do
+    let!(:bets) { create_list(:bet, 2) }
     # make HTTP get request before each example
     before { get '/api/bets' }
 
@@ -25,11 +24,12 @@ RSpec.describe 'Bets API', type: :request do
 
   # Test suite for GET /bets/:id
   describe 'GET /bets/:id' do
+    let!(:bets) { create_list(:bet, 2) }
+    let(:bet_id) { bets.first.id }
     before { get "/api/bets/#{bet_id}" }
 
     context 'when the record exists' do
       it 'returns the bet' do
-        expect(json).not_to be_empty
         expect(json['id']).to eq(bet_id)
       end
 
@@ -92,38 +92,46 @@ RSpec.describe 'Bets API', type: :request do
       end
 
       it 'returns a validation failure message' do
-        expect(response.body)
-          .to match(/must exist/)
+        expect(response.body).to match(/must exist/)
       end
     end
   end
 
   # Test suite for PUT /bets/:id
   describe 'PUT /api/bets/:id' do
-    # TODO: check profit countability
-    let(:valid_attributes) do
-      { bet: { id: bet_id, coefficient: coefficient } }
+    let!(:bet) { create :bet }
+    let(:bet_id) { bet.id }
+    let(:params) do
+      { bet: { coefficient: coefficient, wager: 1000, result_variant_id: 2 } }
     end
 
     context 'when the record exists' do
-      before { put "/api/bets/#{bet_id}", params: valid_attributes }
+      before { put "/api/bets/#{bet_id}", params: params }
 
-      it 'have a response' do
+      it 'updates record and profit column with lose' do
+        expect(json['profit']).to eq '-1000.00'
+      end
+    end
+
+    context 'when the coefficient is invalid' do
+      let(:params) do
+        { bet: { id: bet_id, coefficient: 'asd' } }
+      end
+
+      before { put "/api/bets/#{bet_id}", params: params }
+
+      it 'returns status code 422' do
         expect(response.body).not_to be_empty
-      end
-
-      it 'updates the record' do
-        expect(json['coefficient']).to be(coefficient)
-      end
-
-      it 'returns status code 204' do
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(422)
       end
     end
   end
 
   # Test suite for DELETE /bets/:id
   describe 'DELETE /bets/:id' do
+    let!(:bet) { create(:bet) }
+    let(:bet_id) { bet.id }
+
     before { delete "/api/bets/#{bet_id}" }
 
     it 'returns status code 204' do

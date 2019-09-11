@@ -57,7 +57,7 @@ class Bet < ApplicationRecord
 
   validates :wager, numericality: { greater_than: 0 }, allow_blank: true
 
-  after_save :update_profit_column
+  before_save :update_profit_column
 
   # TODO: move to serializer
   def as_json(_options = {})
@@ -73,31 +73,33 @@ class Bet < ApplicationRecord
     number_with_precision(profit.to_f, precision: 2)
   end
 
+  # TODO: refactor
   def update_profit_column
-    return if wager.blank? || coefficient.blank?
+    return if profit_related_colums_didnt_changed?
 
-    case result_variant&.id
-    when 1
-      set_profit_as_win
-    when 2
-      set_profit_as_lost
-    else
-      set_profit_as_zero
-    end
+    return set_profit_as_zero unless result_variant_id.in?([1, 2])
+
+    result_variant_id == 1 ? set_profit_as_win : set_profit_as_lost
   end
 
   private
 
   def set_profit_as_win
-    update_column(:profit, (wager * coefficient) - wager)
+    self.profit = wager * coefficient - wager
   end
 
   def set_profit_as_lost
-    update_column(:profit, 0 - wager)
+    self.profit = 0 - wager
   end
 
   def set_profit_as_zero
-    update_column(:profit, 0)
+    self.profit = 0
+  end
+
+  def profit_related_colums_didnt_changed?
+    (%w[wager coefficient result_variant_id] & saved_changes.keys).present? ||
+      wager.blank? ||
+      coefficient.blank?
   end
 end
 

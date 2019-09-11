@@ -1,4 +1,5 @@
 # TODO: users for backend/frontend
+# TODO: volumes for yarn and bundle
 version: '3'
 
 services:

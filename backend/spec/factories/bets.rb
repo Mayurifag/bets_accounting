@@ -40,7 +40,7 @@ FactoryBot.define do
   factory :bet do
     discipline { FactoryBot.create(:discipline) }
     bookmaker { FactoryBot.create(:bookmaker) }
-    result_variant { FactoryBot.create(:result_variant) }
+    result_variant_id { 1 }
     bet_type { FactoryBot.create(:bet_type) }
     event { FactoryBot.create(:event) }
     choice1 { FactoryBot.create(:participant) }
