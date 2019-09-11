@@ -75,9 +75,7 @@ class BetsController < ApplicationController
 
   def transform_bet_params
     if params[:bet].has_key?('choice1')
-      if params[:bet][:choice1].blank?
-        params[:bet][:choice1_id] = nil
-      else
+      if params[:bet][:choice1].present?
         choice1 = Participant.find_or_create_by(name: params[:bet][:choice1])
         params[:bet][:choice1_id] = choice1.id
       end
@@ -85,9 +83,7 @@ class BetsController < ApplicationController
     end
 
     if params[:bet].has_key?('choice2')
-      if params[:bet][:choice2].blank?
-        params[:bet][:choice2_id] = nil
-      else
+      if params[:bet][:choice2].present?
         choice2 = Participant.find_or_create_by(name: params[:bet][:choice2])
         params[:bet][:choice2_id] = choice2.id
       end
@@ -95,23 +91,11 @@ class BetsController < ApplicationController
     end
 
     if params[:bet].has_key?('discipline')
-      if params[:bet][:discipline].blank?
-        params[:bet][:discipline_id] = nil
-      else
+      if params[:bet][:discipline].present?
         discipline = Discipline.find_or_create_by(name: params[:bet][:discipline])
         params[:bet][:discipline_id] = discipline.id
       end
       params[:bet].delete('discipline')
-    end
-
-    if params[:bet].has_key?('result_variant')
-      if params[:bet][:result_variant].blank?
-        params[:bet][:result_variant_id] = nil
-      else
-        result_variant = ResultVariant.find_by(name: params[:bet][:result_variant])
-        params[:bet][:result_variant_id] = result_variant.id
-      end
-      params[:bet].delete('result_variant')
     end
 
     if params[:bet].has_key?('bet_type')
@@ -121,7 +105,7 @@ class BetsController < ApplicationController
     end
 
     if params[:bet].has_key?('bookmaker')
-      bookmaker = Bookmaker.find_by(name: params[:bet][:bookmaker])
+      bookmaker = Bookmaker.find_or_create_by(name: params[:bet][:bookmaker])
       params[:bet].delete('bookmaker')
       params[:bet][:bookmaker_id] = bookmaker.id
     else

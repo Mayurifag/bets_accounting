@@ -84,6 +84,18 @@ RSpec.describe 'Bets API', type: :request do
                wager: 10_000,
                outcome: 'П1' } }
     end
+    let(:params_to_be_transformed) do
+      { bet:
+        { choice1: 'test',
+          choice2: 'test',
+          discipline: 'test disc',
+          result_variant_id: 'result var',
+          bet_type: 'asd',
+          coefficient: coefficient,
+          wager: 10_000,
+          outcome: 'П1',
+          bookmaker: '1huybet' } }
+    end
 
     context 'when the request is valid' do
       before { post '/api/bets', params: valid_attributes }
@@ -106,6 +118,19 @@ RSpec.describe 'Bets API', type: :request do
 
       it 'returns a validation failure message' do
         expect(response.body).to match(/must exist/)
+      end
+    end
+
+    # TODO: make this better: expect to create etc.
+    context 'when params have to be transformed' do
+      before { post '/api/bets', params: params_to_be_transformed }
+
+      it 'returns status code 201' do
+        expect(response).to have_http_status(201)
+      end
+
+      it 'updates discipline and creates it' do
+        expect(json['discipline']).to eq 'test disc'
       end
     end
   end
