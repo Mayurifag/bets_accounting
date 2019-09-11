@@ -7,18 +7,31 @@ RSpec.describe 'Bets API', type: :request do
 
   # Test suite for GET /bets
   describe 'GET /api/bets' do
-    let!(:bets) { create_list(:bet, 2) }
-    # make HTTP get request before each example
-    before { get '/api/bets' }
+    context 'without any params' do
+      let!(:bets) { create_list(:bet, 2) }
+      before { get '/api/bets' }
 
-    it 'returns bets' do
-      # Note `json` is a custom helper to parse JSON responses
-      expect(json).not_to be_empty
-      expect(json.size).to eq(2)
+      it 'returns bets' do
+        # Note `json` is a custom helper to parse JSON responses
+        expect(json).not_to be_empty
+        expect(json.size).to eq(2)
+      end
+
+      it 'returns status code 200' do
+        expect(response).to have_http_status(200)
+      end
     end
 
-    it 'returns status code 200' do
-      expect(response).to have_http_status(200)
+    # TODO: make this better
+    context 'dumb specs for autocomplete' do
+      %w[bookmakers disciplines events participants].each do |param|
+        it 'returns status code 200 and empty if not exist' do
+          get "/api/bets?autocomplete_#{param}=qasdasdasdasdasdasdasd"
+
+          expect(response).to have_http_status(200)
+          expect(json).to be_empty
+        end
+      end
     end
   end
 
