@@ -2,26 +2,26 @@
   form(@submit.prevent="submitForm")
     .modal-card
       section.modal-card-body
-        //- TODO: flex wraping?     
+        //- TODO: flex wraping?
         .inline-flex
-        
+
           //- TODO: warning if choice1 == choice2
           b-field(label="Команда 1" class="mr-8")
-            b-autocomplete(v-model='bet.choice1', :data='participants1', field='name', @input='getParticipants1', @select='option => selected = option', autofocus)
+            b-autocomplete(v-model='bet.choice1', :data='participants1', field='name', @input='getParticipants1(bet.choice1)', @select='option => selected = option', autofocus)
               template(slot-scope='props')
                 .media
                   .media-content
                     | {{ props.option.name }}
           b-field(label="Команда 2" class="mr-8")
-            b-autocomplete(v-model='bet.choice2', :data='participants2', field='name', @input='getParticipants2', @select='option => selected = option')
+            b-autocomplete(v-model='bet.choice2', :data='participants2', field='name', @input='getParticipants2(bet.choice2)', @select='option => selected = option')
               template(slot-scope='props')
                 .media
                   .media-content
                     | {{ props.option.name }}
           b-field(label="Прогноз")
             b-input(type="text" v-model="bet.outcome")
-              
-              
+
+
         .inline-flex
           b-field(label="Дисциплина" class="mr-8")
             b-autocomplete(v-model='bet.discipline', :data='disciplines', field='name', @input='getDisciplines', @select='option => selected = option')
@@ -29,17 +29,17 @@
                 .media
                   .media-content
                     | {{ props.option.name }}
-                    
+
           b-field(label="Ставка" class="mr-8")
             b-field(:type="errors.has('bet.wager') ? 'is-danger' : ''")
               p.control
-                span.button.is-static ₽  
+                span.button.is-static ₽
               b-input(type="text" data-vv-name="bet.wager" v-validate="'numeric|required|between:0,2147483647'" v-model="bet.wager" class='small-input')
-                          
+
           b-field(label="Коэффициент" class="mr-8" :type="errors.has('bet.coefficient') ? 'is-danger' : ''")
             b-input(type="text" v-model="bet.coefficient" data-vv-name="bet.coefficient" class='medium-input' v-validate="'required|between:1,2147483647'")
-              
-          
+
+
         b-field
           b-radio-button(v-model='bet.result_variant' native-value='Победа' type='is-success')
             b-icon(icon='check')
@@ -49,8 +49,8 @@
             span Проигрыш
           b-radio-button(v-model='bet.result_variant' native-value='Возврат')
             | Возврат
-            
-            
+
+
         b-collapse(:open="false").card
           .card-header(slot='trigger' slot-scope='props')
             p.card-header-title
@@ -74,11 +74,11 @@
                 b-radio(v-model='bet.bet_type' native-value='Прематч')
                   | Прематч
                 b-radio(v-model='bet.bet_type' native-value='Лайв')
-                  | Лайв  
+                  | Лайв
               b-field(label="Комментарий")
                 b-input(type="text" v-model="bet.comment")
-                  
-        
+
+
       footer.modal-card-foot
         button.button(type="button" @click="$parent.close()") Закрыть
         button.button.is-primary(:disabled="errors.any()") {{ bet.id ? 'Сохранить' : 'Создать' }}
@@ -110,10 +110,10 @@ export default {
     saveBet() {
       this.$emit("submit", this.bet);
     },
-    getParticipants1() {
+    getParticipants1(model) {
       this.participants1 = [];
       api
-        .autocompleteParticipants(this.bet.choice1)
+        .autocomplete("Participant", model)
         .then(({ data }) => {
           data.forEach(item => this.participants1.push(item));
         })
@@ -121,10 +121,10 @@ export default {
           throw error;
         });
     },
-    getParticipants2() {
+    getParticipants2(model) {
       this.participants2 = [];
       api
-        .autocompleteParticipants(this.bet.choice2)
+        .autocomplete("Participant", model)
         .then(({ data }) => {
           data.forEach(item => this.participants2.push(item));
         })
@@ -135,7 +135,7 @@ export default {
     getDisciplines() {
       this.disciplines = [];
       api
-        .autocompleteDisciplines(this.bet.discipline)
+        .autocomplete("Discipline", this.bet.discipline)
         .then(({ data }) => {
           data.forEach(item => this.disciplines.push(item));
         })
@@ -154,6 +154,7 @@ export default {
 .medium-input {
   width: 100px;
 }
+// TODO: move to have everythere
 .inline-flex {
   display: inline-flex;
 }

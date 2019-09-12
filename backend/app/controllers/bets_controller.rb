@@ -21,7 +21,7 @@ class BetsController < ApplicationController
       json_response(@participants)
     else
       # TODO: pseudo-pagination
-      @bets = Bet.avoid_n_plus_one_query.newest_first
+      @bets = avoid_n_plus_one_query(Bet.newest_first)
       json_response(@bets)
     end
   end
@@ -59,14 +59,14 @@ class BetsController < ApplicationController
 
   private
 
-  def avoid_n_plus_one_query
-    includes(:discipline, :result_variant, :bet_type, :bookmaker, :choice1, :choice2)
+  def avoid_n_plus_one_query(bets)
+    bets.preload(:discipline, :result_variant, :bet_type, :bookmaker, :choice1, :choice2)
   end
 
   def bet_params
     # TODO: something wrong with created_at here, need a new column ['betted_at'?]
     params.require(:bet).permit(:id, :coefficient, :comment, :wager, :profit,
-                                :discipline, :event_id, :outcome, :bet_type,
+                                :discipline, :event_id, :event, :outcome, :bet_type,
                                 :choice1_id, :choice2_id, :created_at,
                                 :result_variant, :bookmaker, :discipline_id,
                                 :result_variant_id, :bet_type_id, :bookmaker_id)

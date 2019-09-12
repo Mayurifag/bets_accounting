@@ -5,7 +5,7 @@
 # Table name: bet_types
 #
 #  id   :bigint(8)        not null, primary key
-#  name :string
+#  name :string           not null
 #
 
 class BetType < ApplicationRecord

@@ -9,7 +9,7 @@ import axios from 'axios';
 axios.defaults.baseURL = 'http://localhost:8888';
 
 export default {
-  // CRUD Bets:
+  // CRUD Bets
   fetchBets() {
     return axios.get('/api/bets');
   },
@@ -25,11 +25,12 @@ export default {
   createBet(bet) {
     return axios.post('/api/bets', { bet });
   },
-  // Autocomplete:
-  autocompleteParticipants(participant) {
-    return axios.get(`/api/bets?autocomplete_participants=${participant}`);
-  },
-  autocompleteDisciplines(discipline) {
-    return axios.get(`/api/bets?autocomplete_disciplines=${discipline}`);
+
+  // Autocomplete
+  autocomplete(className, autocomplete) {
+    return axios.post('/api/autocomplete', {
+      class_name: className,
+      query: autocomplete,
+    });
   },
 };

@@ -27,7 +27,7 @@ class Generator
         choice2_id: random_from_class(:participant),
         wager: rand(1000..100_000),
         coefficient: rand(1.2...3.0).ceil(2),
-        outcome: '?' + rand(1..2).to_s,
+        outcome: 'П' + rand(1..2).to_s,
         comment: Faker::Lorem.sentence,
         discipline_id: random_from_class(:discipline),
         bookmaker_id: random_from_class(:bookmaker),

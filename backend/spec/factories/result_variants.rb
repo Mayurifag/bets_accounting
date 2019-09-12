@@ -5,7 +5,7 @@
 # Table name: result_variants
 #
 #  id   :bigint(8)        not null, primary key
-#  name :string
+#  name :string           not null
 #
 
 FactoryBot.define do

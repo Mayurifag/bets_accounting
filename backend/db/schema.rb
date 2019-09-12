@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 2019_08_11_211029) do
   enable_extension "plpgsql"
 
   create_table "bet_types", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
   end
 
   create_table "bets", force: :cascade do |t|
@@ -74,7 +74,7 @@ ActiveRecord::Schema.define(version: 2019_08_11_211029) do
   end
 
   create_table "result_variants", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
   end
 
   create_table "users", force: :cascade do |t|
