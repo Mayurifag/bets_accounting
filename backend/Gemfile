@@ -19,7 +19,8 @@ gem 'oj'
 gem 'rack-cors'
 
 group :development, :test do
-  gem 'awesome_rails_console', github: 'Mayurifag/awesome_rails_console', branch: 'fix-parent-name-deprecation'
+  gem 'awesome_rails_console', github: 'Mayurifag/awesome_rails_console',
+                               branch: 'fix-parent-name-deprecation'
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'hirb'
   gem 'hirb-unicode-steakknife', require: 'hirb-unicode'
@@ -44,7 +45,7 @@ group :development do
 end
 
 group :test do
-  gem 'database_cleaner'
+  gem 'database_rewinder'
   gem 'factory_bot_rails'
   gem 'shoulda-matchers'
   gem 'simplecov', require: false
