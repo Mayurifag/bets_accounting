@@ -85,6 +85,14 @@ class BetsController < ApplicationController
       params[:bet].delete('choice1')
     end
 
+    if params[:bet].has_key?('result_variant')
+      if params[:bet][:result_variant].present?
+        result_variant = ResultVariant.find_by(name: params[:bet][:result_variant])
+        params[:bet][:result_variant_id] = result_variant&.id
+      end
+      params[:bet].delete('result_variant')
+    end
+
     if params[:bet].has_key?('choice2')
       if params[:bet][:choice2].present?
         choice2 = Participant.find_or_create_by(name: params[:bet][:choice2])

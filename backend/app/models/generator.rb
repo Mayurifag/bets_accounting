@@ -11,13 +11,18 @@ class Generator
     end
 
     def generate_bet(build: false)
-      build ? Bet.new(random_bet_params) : Bet.create!(random_bet_params)
+      return Bet.create!(random_bet_params) unless build
+
+      bet = Bet.new(random_bet_params)
+      bet.update_profit_column
+      bet
     end
 
     private
 
     # TODO: prevent additional selects from database via metaprogramming / caching
     # there is also https://github.com/haopingfan/quick_random_records
+    # still not sure if its needed: 1ms on select is maximum on development
     def random_from_class(class_name)
       class_name.to_s.classify.constantize.ids.sample
     end
