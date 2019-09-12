@@ -21,7 +21,7 @@ class BetsController < ApplicationController
       json_response(@participants)
     else
       # TODO: pseudo-pagination
-      @bets = Bet.includes(:discipline, :result_variant, :bet_type, :bookmaker, :choice1, :choice2).newest_first
+      @bets = Bet.avoid_n_plus_one_query.newest_first
       json_response(@bets)
     end
   end
@@ -37,7 +37,6 @@ class BetsController < ApplicationController
     end
   end
 
-  # TODO: perhaps i dont need that so i have to delete that everywhere, including routes
   # GET /bets/:id
   def show
     json_response(@bet)
@@ -59,6 +58,10 @@ class BetsController < ApplicationController
   end
 
   private
+
+  def avoid_n_plus_one_query
+    includes(:discipline, :result_variant, :bet_type, :bookmaker, :choice1, :choice2)
+  end
 
   def bet_params
     # TODO: something wrong with created_at here, need a new column ['betted_at'?]
