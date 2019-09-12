@@ -7,13 +7,13 @@
 
           //- TODO: warning if choice1 == choice2
           b-field(label="Команда 1" class="mr-8")
-            b-autocomplete(v-model='bet.choice1', :data='participants1', field='name', @input='getParticipants1(bet.choice1)', @select='option => selected = option', autofocus)
+            b-autocomplete(v-model='bet.choice1', :data='participants', field='name', @input='getParticipants(bet.choice1)', @select='option => selected = option', autofocus)
               template(slot-scope='props')
                 .media
                   .media-content
                     | {{ props.option.name }}
           b-field(label="Команда 2" class="mr-8")
-            b-autocomplete(v-model='bet.choice2', :data='participants2', field='name', @input='getParticipants2(bet.choice2)', @select='option => selected = option')
+            b-autocomplete(v-model='bet.choice2', :data='participants', field='name', @input='getParticipants(bet.choice2)', @select='option => selected = option')
               template(slot-scope='props')
                 .media
                   .media-content
@@ -93,8 +93,7 @@ export default {
   data() {
     return {
       bet: Vue.util.extend({}, this.initialBet),
-      participants1: [],
-      participants2: [],
+      participants: [],
       disciplines: [],
       selected: null
     };
@@ -110,23 +109,12 @@ export default {
     saveBet() {
       this.$emit("submit", this.bet);
     },
-    getParticipants1(model) {
-      this.participants1 = [];
+    getParticipants(model) {
+      this.participants = [];
       api
         .autocomplete("Participant", model)
         .then(({ data }) => {
-          data.forEach(item => this.participants1.push(item));
-        })
-        .catch(error => {
-          throw error;
-        });
-    },
-    getParticipants2(model) {
-      this.participants2 = [];
-      api
-        .autocomplete("Participant", model)
-        .then(({ data }) => {
-          data.forEach(item => this.participants2.push(item));
+          data.forEach(item => this.participants.push(item));
         })
         .catch(error => {
           throw error;
