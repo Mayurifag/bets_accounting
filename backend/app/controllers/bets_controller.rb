@@ -6,24 +6,9 @@ class BetsController < ApplicationController
 
   # GET /bets
   def index
-    # TODO: move to autocomplete controller
-    if params[:autocomplete_bookmakers]
-      @bookmakers = Bookmaker.autocomplete_name(params[:autocomplete_bookmakers])
-      json_response(@bookmakers)
-    elsif params[:autocomplete_disciplines]
-      @disciplines = Discipline.autocomplete_name(params[:autocomplete_disciplines])
-      json_response(@disciplines)
-    elsif params[:autocomplete_events]
-      @events = Event.autocomplete_name(params[:autocomplete_events])
-      json_response(@events)
-    elsif params[:autocomplete_participants]
-      @participants = Participant.autocomplete_name(params[:autocomplete_participants])
-      json_response(@participants)
-    else
-      # TODO: pseudo-pagination
-      @bets = avoid_n_plus_one_query(Bet.newest_first)
-      json_response(@bets)
-    end
+    # TODO: pseudo-pagination
+    @bets = avoid_n_plus_one_query(Bet.newest_first)
+    json_response(@bets)
   end
 
   # POST /bets

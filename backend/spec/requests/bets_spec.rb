@@ -21,18 +21,6 @@ RSpec.describe 'Bets API', type: :request do
         expect(response).to have_http_status(200)
       end
     end
-
-    # TODO: make this better
-    context 'dumb specs for autocomplete' do
-      %w[bookmakers disciplines events participants].each do |param|
-        it 'returns status code 200 and empty if not exist' do
-          get "/api/bets?autocomplete_#{param}=qasdasdasdasdasdasdasd"
-
-          expect(response).to have_http_status(200)
-          expect(json).to be_empty
-        end
-      end
-    end
   end
 
   # Test suite for GET /bets/:id

@@ -13,6 +13,10 @@ class ApplicationController < ActionController::API
     render json: { error: 'unauthorized' }, status: :unauthorized
   end
 
+  def record_invalid(message)
+    render json: { error: message }, status: :unprocessable_entity
+  end
+
   # TODO: rewrite
   # maybe take from https://scotch.io/tutorials/build-a-restful-json-api-with-rails-5-part-two#toc-authorize-api-request
   def authorize_request
