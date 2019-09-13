@@ -15,6 +15,7 @@ gem 'activerecord-import'
 gem 'bcrypt'
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'faker'
+gem 'jb'
 gem 'jwt'
 gem 'oj'
 gem 'rack-cors'

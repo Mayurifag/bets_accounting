@@ -8,7 +8,7 @@ class BetsController < ApplicationController
   def index
     # TODO: pseudo-pagination
     @bets = avoid_n_plus_one_query(Bet.newest_first)
-    json_response(@bets)
+    render status: :ok
   end
 
   # POST /bets
@@ -16,7 +16,7 @@ class BetsController < ApplicationController
     @bet = Bet.new(bet_params)
 
     if @bet.save
-      json_response(@bet, :created)
+      render status: :created
     else
       json_response(@bet.errors, :unprocessable_entity)
     end
@@ -24,13 +24,13 @@ class BetsController < ApplicationController
 
   # GET /bets/:id
   def show
-    json_response(@bet)
+    render status: :ok
   end
 
   # PUT /bets/:id
   def update
     if @bet.update(bet_params)
-      json_response(@bet)
+      render status: :ok
     else
       json_response(@bet.errors, :unprocessable_entity)
     end
