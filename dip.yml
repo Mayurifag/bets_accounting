@@ -8,7 +8,7 @@ compose:
     - docker-compose.yml
 
 interaction:
-  bash:
+  sh:
     service: backend
     command: /bin/sh
     compose_run_options: [no-deps]
@@ -52,15 +52,12 @@ interaction:
     compose_run_options: [no-deps]
 
   psql:
-    service: postgres
-    command: psql -h postgres -U postgres
+    service: db
+    command: psql -h db -U postgres -d backend_development
 
 provision:
-  - dip compose build --no-cache --pull --force-rm
-  - dip rails db:create
-  - dip rails db:migrate
-  - dip rails db:seed
+  - dip compose build
+  - dip bundle install
+  - dip rails db:reset
   - dip up -d
-
-# frontend: localhost:3333
-# backend: localhost:8888
+  - echo "======================\nProvision done.\nFrontend is located at localhost:3333\nBackend is located at localhost:8888\n======================"

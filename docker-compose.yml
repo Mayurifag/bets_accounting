@@ -1,29 +1,55 @@
 # TODO: users for backend/frontend
 # TODO: volumes for yarn and bundle
-version: '3'
+version: '3.5'
 
 services:
   db:
-    image: postgres
+    image: postgres:${POSTGRES_VERSION:-11}-alpine
     ports:
       - "5432"
+    tmpfs:
+      - /tmp
 
   backend:
     build:
       context: backend
     volumes:
-      - ./backend:/usr/src/app
+      - ./backend:/usr/src/app:cached
+      - rails_cache:/usr/src/app/backend/tmp/cache
+      - bundle:/bundle
+    environment:
+      - RAILS_ENV=${RAILS_ENV:-development}
+      - BOOTSNAP_CACHE_DIR=/bundle/bootsnap
+      - MALLOC_ARENA_MAX=2
+      - WEB_CONCURRENCY=${WEB_CONCURRENCY:-1}
+      - EDITOR=vi
+    command: bundle exec rails server -b 0.0.0.0 -p 8080
     ports:
       - "8888:8080"
     depends_on:
       - db
     stdin_open: true
     tty: true
+    tmpfs:
+      - /tmp
 
   frontend:
     build:
       context: frontend
     volumes:
-      - ./frontend:/usr/src/app
+      - ./frontend:/usr/src/app:cached
+      - node_modules:/usr/src/app/frontend/node_modules
+      - packs:/usr/src/app/frontend/public/packs
+    environment:
+      - NODE_ENV=${NODE_ENV:-development}
+    command: yarn run serve
     ports:
       - "3333:8080"
+    tmpfs:
+      - /tmp
+
+volumes:
+  bundle:
+  node_modules:
+  rails_cache:
+  packs:
