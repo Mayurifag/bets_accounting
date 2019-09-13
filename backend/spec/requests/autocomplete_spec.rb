@@ -2,6 +2,7 @@
 
 require 'rails_helper'
 
+# TODO: use json helper
 RSpec.describe 'Autocomplete', type: :request do
   context 'should work for bookmaker' do
     let!(:bookmaker) { create(:bookmaker, name: '1huibet') }

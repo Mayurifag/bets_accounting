@@ -66,24 +66,17 @@ class Bet < ApplicationRecord
   def update_profit_column
     return if profit_related_colums_didnt_changed?
 
-    return set_profit_as_zero unless result_variant_id.in?([1, 2])
-
-    result_variant_id == 1 ? set_profit_as_win : set_profit_as_lost
+    self.profit = case result_variant_id
+                  when 1
+                    wager * coefficient - wager
+                  when 2
+                    0 - wager
+                  else
+                    0
+                  end
   end
 
   private
-
-  def set_profit_as_win
-    self.profit = wager * coefficient - wager
-  end
-
-  def set_profit_as_lost
-    self.profit = 0 - wager
-  end
-
-  def set_profit_as_zero
-    self.profit = 0
-  end
 
   def profit_related_colums_didnt_changed?
     (%w[wager coefficient result_variant_id] & saved_changes.keys).present? ||
