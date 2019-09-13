@@ -54,7 +54,6 @@ RSpec.describe 'Bets API', type: :request do
 
   # Test suite for POST /bets
   describe 'POST /api/bets' do
-    # TODO: test profit calculation
     let!(:discipline) { create(:discipline) }
     let!(:result_variant) { create(:result_variant) }
     let!(:choice1) { create(:participant) }
@@ -147,7 +146,7 @@ RSpec.describe 'Bets API', type: :request do
       before { put "/api/bets/#{bet_id}", params: params }
 
       it 'returns status code 422' do
-        expect(response.body).not_to be_empty
+        expect(json).not_to be_empty
         expect(response).to have_http_status(422)
       end
     end

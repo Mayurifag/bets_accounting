@@ -37,14 +37,11 @@
 #
 
 class Bet < ApplicationRecord
-  # Modules
   include ActionView::Helpers::NumberHelper
   include PgSearch::Model
 
-  # Scopes
   scope :newest_first, -> { order(created_at: :desc) }
 
-  # Relations
   belongs_to :discipline,     optional: true
   belongs_to :result_variant, optional: true
   belongs_to :bet_type,       optional: true
@@ -53,41 +50,19 @@ class Bet < ApplicationRecord
   belongs_to :choice1, class_name: 'Participant', foreign_key: :choice1_id
   belongs_to :choice2, class_name: 'Participant', foreign_key: :choice2_id
 
-  # Validations
   validates :wager, numericality: { greater_than: 0 }, allow_blank: true
   validates :coefficient, allow_blank: true,
                           numericality: { greater_than_or_equal_to: 1.0 }
 
-  # Callbacks
   before_save :update_profit_column
 
-  # Methods
-  # TODO: refactor
   def update_profit_column
-    return if profit_related_colums_didnt_changed?
-
-    self.profit = case result_variant_id
-                  when 1
-                    wager * coefficient - wager
-                  when 2
-                    0 - wager
-                  else
-                    0
-                  end
-  end
-
-  private
-
-  def profit_related_colums_didnt_changed?
-    (%w[wager coefficient result_variant_id] & saved_changes.keys).present? ||
-      wager.blank? ||
-      coefficient.blank?
+    BetProfitColumnHandler.new(self).set_profit
   end
 end
 
 # TODO: List:
 # - Optional choices (has to be one or two or three or more)
-# - Move callback to service
 
 # Additional things:
 # has_many :participants, through: :participant_bets

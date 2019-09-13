@@ -2,7 +2,6 @@
 
 require 'rails_helper'
 
-# TODO: use json helper
 RSpec.describe 'Autocomplete', type: :request do
   context 'should work for bookmaker' do
     let!(:bookmaker) { create(:bookmaker, name: '1huibet') }
@@ -11,7 +10,7 @@ RSpec.describe 'Autocomplete', type: :request do
 
     it 'should return autocomplete hash' do
       expect(response).to have_http_status(200)
-      expect(response.body).to match(/1huibet/)
+      expect(json.first['name']).to eq('1huibet')
     end
   end
 
@@ -20,7 +19,7 @@ RSpec.describe 'Autocomplete', type: :request do
 
     it 'should return error' do
       expect(response).to have_http_status(422)
-      expect(response.body['error']).to match(/Unpermitted class name ResultVariant/)
+      expect(json['errors']).to eq('Unpermitted class name ResultVariant')
     end
   end
 end

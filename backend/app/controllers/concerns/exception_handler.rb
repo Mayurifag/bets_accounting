@@ -13,8 +13,13 @@ module ExceptionHandler
     rescue_from ExceptionHandler::AuthenticationError, with: :unauthorized
     rescue_from ExceptionHandler::MissingToken, with: :record_invalid
     rescue_from ExceptionHandler::InvalidToken, with: :record_invalid
-    rescue_from ActiveRecord::RecordNotFound { |e| not_found(e.message) }
-    rescue_from ActiveRecord::RecordInvalid { |e| record_invalid(e.message) }
+    rescue_from ActiveRecord::RecordNotFound do |e|
+      not_found(e.message)
+    end
+
+    rescue_from ActiveRecord::RecordInvalid do |e|
+      record_invalid(e.message)
+    end
   end
 
   def unauthorized(message = 'Unauthorized')
@@ -26,6 +31,6 @@ module ExceptionHandler
   end
 
   def not_found(message = 'Not found')
-    json_response({ errors: e.message }, :not_found)
+    json_response({ errors: message }, :not_found)
   end
 end
