@@ -76,7 +76,7 @@ RSpec.describe 'Bets API', type: :request do
         { choice1: 'test',
           choice2: 'test',
           discipline: 'test disc',
-          result_variant_id: 'result var',
+          result_variant: 'Победа',
           bet_type: 'asd',
           coefficient: coefficient,
           wager: 10_000,

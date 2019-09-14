@@ -15,7 +15,7 @@ services:
       context: backend
     volumes:
       - ./backend:/usr/src/app:cached
-      - rails_cache:/usr/src/app/backend/tmp/cache
+      - rails_cache:/usr/src/app/tmp/cache
       - bundle:/bundle
     environment:
       - RAILS_ENV=${RAILS_ENV:-development}
@@ -38,8 +38,8 @@ services:
       context: frontend
     volumes:
       - ./frontend:/usr/src/app:cached
-      - node_modules:/usr/src/app/frontend/node_modules
-      - packs:/usr/src/app/frontend/public/packs
+      - node_modules:/usr/src/app/node_modules
+      - packs:/usr/src/app/public/packs
     environment:
       - NODE_ENV=${NODE_ENV:-development}
     command: yarn run serve

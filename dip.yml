@@ -60,4 +60,8 @@ provision:
   - dip bundle install
   - dip rails db:reset
   - dip up -d
-  - echo "======================\nProvision done.\nFrontend is located at localhost:3333\nBackend is located at localhost:8888\n======================"
+  - echo "====================================="
+  - echo "Provision done."
+  - echo "Frontend is located at localhost:3333"
+  - echo "Backend is located at localhost:8888"
+  - echo "====================================="
