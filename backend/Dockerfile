@@ -9,11 +9,6 @@ ENV BUNDLE_APP_CONFIG=$BUNDLE_PATH \
     BUNDLE_BIN=$BUNDLE_PATH/bin
 ENV PATH /usr/src/app/backend/bin:$BUNDLE_BIN:$PATH
 
-WORKDIR /usr/src/app
-
-COPY Gemfile* ./
-COPY .ruby-version ./
-
 # build-base, xz-dev -- nokogiri
 # git - to update bundler audit
 # postgresql-dev - pg
@@ -23,9 +18,10 @@ RUN apk add --update --no-cache \
   git \
   postgresql-dev \
   tzdata \
-  xz-dev
+  xz-dev && \
+  gem update --system && \
+  gem install bundler:${BUNDLER_VERSION:-2.0.2}
 
-RUN gem update --system && \
-    gem install bundler:${BUNDLER_VERSION:-2.0.2}
+WORKDIR /usr/src/app
 
 COPY . .
