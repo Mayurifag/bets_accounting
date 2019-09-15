@@ -18,8 +18,4 @@ class Bookmaker < ApplicationRecord
                                       },
                                       order_within_rank: 'created_at ASC'
   validates_presence_of :name
-
-  def self.other_id
-    find_by(name: 'Другая').id
-  end
 end
