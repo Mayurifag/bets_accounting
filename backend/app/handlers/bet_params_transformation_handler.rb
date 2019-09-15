@@ -2,12 +2,12 @@
 
 class BetParamsTransformationHandler < ApplicationHandler
   FIELDS = [
-    [:choice1, :find_or_create_by],
-    [:choice2, :find_or_create_by],
-    [:bookmaker, :find_or_create_by],
-    [:discipline, :find_or_create_by],
-    [:bet_type, :find_by],
-    [:result_variant, :find_by]
+    %i[choice1 find_or_create_by],
+    %i[choice2 find_or_create_by],
+    %i[bookmaker find_or_create_by],
+    %i[discipline find_or_create_by],
+    %i[bet_type find_by],
+    %i[result_variant find_by]
   ].freeze
 
   def call
@@ -33,12 +33,12 @@ class BetParamsTransformationHandler < ApplicationHandler
   end
 
   def find_model_object_by_name(field, method)
-    klass(field).public_send(method, { name: object[field] })
+    klass(field).public_send(method, name: object[field])
   end
 
   def klass(name)
     # TODO: think about how to define this
-    return Participant if name =~ /choice/
+    return Participant if /choice/.match?(name)
 
     name.to_s.classify.constantize
   end

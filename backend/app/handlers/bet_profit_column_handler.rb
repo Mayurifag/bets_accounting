@@ -6,18 +6,17 @@ class BetProfitColumnHandler < ApplicationHandler
   def set_profit
     return if profit_related_columns_did_not_changed?
 
-    object.profit = get_new_profit_value
+    object.profit = new_profit_value
   end
 
   private
 
   def profit_related_columns_did_not_changed?
-    (PROFIT_RELATED_COLUMNS & saved_changes.keys).present? ||
-      wager.blank? ||
-      coefficient.blank?
+    wager.blank? || coefficient.blank? ||
+      (PROFIT_RELATED_COLUMNS & saved_changes.keys).present?
   end
 
-  def get_new_profit_value
+  def new_profit_value
     case result_variant_id
     when ResultVariant.win_id
       wager * coefficient - wager
