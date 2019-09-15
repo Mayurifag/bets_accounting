@@ -9,7 +9,7 @@ json = {
 }
 
 %i[choice1 choice2 discipline result_variant event bet_type bookmaker].each do |attr|
-  json[attr] = bet.send(attr)&.name
+  json[attr] = bet.public_send(attr)&.name
 end
 
 json

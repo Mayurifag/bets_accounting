@@ -55,9 +55,10 @@ RSpec.describe 'Bets API', type: :request do
   # Test suite for POST /bets
   describe 'POST /api/bets' do
     let!(:discipline) { create(:discipline) }
-    let!(:result_variant) { create(:result_variant) }
+    let!(:result_variant) { ResultVariant.create(id: 1, name: 'Победа') }
     let!(:choice1) { create(:participant) }
     let!(:choice2) { create(:participant) }
+    let!(:bet_type) { create(:bet_type, name: 'Лайв') }
     let(:test_choice) { 'fuck specs' }
     let(:choice1_id) { choice1.id }
     let(:choice2_id) { choice2.id }
@@ -78,7 +79,7 @@ RSpec.describe 'Bets API', type: :request do
           choice2: test_choice,
           discipline: 'test disc',
           result_variant: 'Победа',
-          bet_type: 'asd',
+          bet_type: 'Лайв',
           coefficient: coefficient,
           wager: 10_000,
           outcome: 'П1',
@@ -123,6 +124,10 @@ RSpec.describe 'Bets API', type: :request do
       it 'creates participant for choices' do
         expect(json['choice1']).to eq json['choice2']
         expect(Bet.first.choice1_id).to eq Bet.first.choice2_id
+      end
+
+      it 'finds result_variant_id' do
+        expect(Bet.first.result_variant_id).to eq ResultVariant.win_id
       end
     end
   end
