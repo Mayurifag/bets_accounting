@@ -58,6 +58,7 @@ RSpec.describe 'Bets API', type: :request do
     let!(:result_variant) { create(:result_variant) }
     let!(:choice1) { create(:participant) }
     let!(:choice2) { create(:participant) }
+    let(:test_choice) { 'fuck specs' }
     let(:choice1_id) { choice1.id }
     let(:choice2_id) { choice2.id }
     let(:discipline_id) { discipline.id }
@@ -73,8 +74,8 @@ RSpec.describe 'Bets API', type: :request do
     end
     let(:params_to_be_transformed) do
       { bet:
-        { choice1: 'test',
-          choice2: 'test',
+        { choice1: test_choice,
+          choice2: test_choice,
           discipline: 'test disc',
           result_variant: 'Победа',
           bet_type: 'asd',
@@ -108,7 +109,6 @@ RSpec.describe 'Bets API', type: :request do
       end
     end
 
-    # TODO: make this better: expect to create etc.
     context 'when params have to be transformed' do
       before { post '/api/bets', params: params_to_be_transformed }
 
@@ -118,6 +118,11 @@ RSpec.describe 'Bets API', type: :request do
 
       it 'updates discipline and creates it' do
         expect(json['discipline']).to eq 'test disc'
+      end
+
+      it 'creates participant for choices' do
+        expect(json['choice1']).to eq json['choice2']
+        expect(Bet.first.choice1_id).to eq Bet.first.choice2_id
       end
     end
   end
