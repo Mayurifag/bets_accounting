@@ -9,5 +9,6 @@
 #
 
 class BetType < ApplicationRecord
+  # TODO: set bet type in specs, delete factory, etc etc
   validates_presence_of :name
 end

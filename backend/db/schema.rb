@@ -78,14 +78,11 @@ ActiveRecord::Schema.define(version: 2019_08_11_211029) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "name"
-    t.string "username", default: "", null: false
-    t.string "email", default: "", null: false
+    t.string "email", null: false
     t.string "password_digest"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["username"], name: "index_users_on_username", unique: true
   end
 
   add_foreign_key "bets", "participants", column: "choice1_id"

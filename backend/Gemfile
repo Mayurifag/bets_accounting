@@ -17,7 +17,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'faker'
 gem 'fast_blank'
 gem 'jb'
-gem 'jwt'
+gem 'knock'
 gem 'rack-cors'
 
 group :development, :test do
