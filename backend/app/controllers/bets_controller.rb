@@ -49,12 +49,10 @@ class BetsController < ApplicationController
   end
 
   def bet_params
-    # TODO: get rid of things without ids
     # TODO: something wrong with created_at here, need a new column ['betted_at'?]
     params.require(:bet).permit(:id, :coefficient, :comment, :wager, :profit,
-                                :discipline, :event_id, :event, :outcome, :bet_type,
-                                :choice1_id, :choice2_id, :created_at,
-                                :result_variant, :bookmaker, :discipline_id,
+                                :event_id, :event, :outcome,
+                                :choice1_id, :choice2_id, :discipline_id,
                                 :result_variant_id, :bet_type_id, :bookmaker_id)
   end
 
