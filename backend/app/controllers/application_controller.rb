@@ -3,19 +3,6 @@
 class ApplicationController < ActionController::API
   include Response
   include ExceptionHandler
+  include Knock::Authenticable
   # before_action :authorize_request
-
-  # TODO: rewrite
-  # maybe take from https://scotch.io/tutorials/build-a-restful-json-api-with-rails-5-part-two#toc-authorize-api-request
-  def authorize_request
-    header = request.headers['Authorization']&.split(' ')&.last
-    begin
-      @decoded = JsonWebToken.decode(header)
-      @current_user = User.find(@decoded[:user_id])
-    rescue ActiveRecord::RecordNotFound => e
-      unauthorized(e.message)
-    rescue JWT::DecodeError => e
-      unauthorized(e.message)
-    end
-  end
 end

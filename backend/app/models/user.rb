@@ -5,17 +5,14 @@
 # Table name: users
 #
 #  id              :bigint(8)        not null, primary key
-#  email           :string           default(""), not null
-#  name            :string
+#  email           :string           not null
 #  password_digest :string
-#  username        :string           default(""), not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #
 # Indexes
 #
-#  index_users_on_email     (email) UNIQUE
-#  index_users_on_username  (username) UNIQUE
+#  index_users_on_email  (email) UNIQUE
 #
 
 class User < ApplicationRecord
@@ -23,10 +20,13 @@ class User < ApplicationRecord
 
   validates :email, presence: true, uniqueness: true
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
-  validates :username, presence: true, uniqueness: true
   validates :password,
-            length: { minimum: 6 },
-            if: -> { new_record? || !password.nil? }
+            length: { minimum: 6, maximum: 40 },
+            if: -> { new_record? || password.present? }
 
-  has_many :balances, class_name: 'BookmakerBalance', dependent: :destroy
+  # https://engineering.musefind.com/building-a-simple-token-based-authorization-api-with-rails-a5c181b83e02
+  # This method gives us a simple call to check if a user has permission to modify.
+  def can_modify_user?(user_id)
+    id.to_s == user_id.to_s
+  end
 end
