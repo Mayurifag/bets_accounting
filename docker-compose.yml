@@ -1,5 +1,4 @@
-# TODO: users for backend/frontend
-# TODO: volumes for yarn and bundle
+# TODO: users for backend/frontend // fix rights
 version: '3.5'
 
 services:

@@ -1,53 +1,61 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
-  before_action :find_user, except: %i[create index]
-  # skip_before_action :authorize_request, only: %i[create]
+  # Use Knock to make sure the current_user is authenticated before completing request.
+  before_action :authenticate_user,  only: [:index, :whoami, :update]
+  # before_action :authorize_as_admin, only: [:destroy]
+  before_action :authorize,          only: [:update]
 
-  # GET /users
   def index
-    @users = User.all
-    render json: @users, status: :ok
+    json_response(User.all)
   end
 
-  # GET /users/{username}
-  def show
-    render json: @user, status: :ok
-  end
-
-  # POST /users
+  # Method to create a new user using the safe params we setup.
   def create
     @user = User.new(user_params)
     if @user.save
-      render json: @user, status: :created
+      json_response(@user, :created)
     else
-      render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
+      record_invalid
     end
   end
 
-  # PUT /users/{username}
+  # Method to update a specific user. User will need to be authorized.
   def update
-    return if @user.update(user_params)
-
-    render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
+    @user = User.find(params[:id])
+    if user.update(user_params)
+      json_response(@user)
+    else
+      record_invalid
+    end
   end
 
-  # DELETE /users/{username}
+  # Method to delete a user, this method is only for admin accounts.
   def destroy
-    @user.destroy
+    @user = User.find(params[:id])
+    if @user.destroy
+      head :no_content
+    else
+      record_invalid
+    end
+  end
+
+  # Call this method to check if the user is logged-in.
+  # If the user is logged-in we will return the user's information.
+  def whoami
+    json_response(current_user)
   end
 
   private
 
-  def find_user
-    @user = User.find_by!(username: params[:_username])
-  rescue ActiveRecord::RecordNotFound
-    render json: { errors: 'User not found' }, status: :not_found
+  # Setting up strict parameters for when we add account creation.
+  def user_params
+    params.permit(:email, :password, :password_confirmation)
   end
 
-  def user_params
-    params.permit(
-      :name, :username, :email, :password, :password_confirmation
-    )
+  # Adding a method to check if current_user can update itself.
+  # This uses our UserModel method.
+  def authorize
+    unauthorized unless current_user && current_user.can_modify_user?(params[:id])
   end
 end

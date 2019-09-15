@@ -2,22 +2,17 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Users API', type: :request, skip: true do
-  # Create user
-  describe 'POST /api/users' do
-    let(:valid_attributes) do
-      {
-        email: 'test@test.com',
-        username: 'test',
-        password: 'password',
-        password_confirmation: 'password'
-      }
-    end
+RSpec.describe 'Users API', type: :request do
+  describe 'POST /api/users/create' do
+    subject! { post '/api/users/create', params: params }
 
     context 'when the request is valid' do
-      before { post '/api/users', params: valid_attributes }
+      let(:params) do
+        { email: 'test@test.com', password: 'password', password_confirmation: 'password' }
+      end
 
       it 'creates user' do
+        # TODO: maybe i dont have to share this information
         expect(json['password_digest']).not_to be_empty
       end
 
@@ -27,15 +22,14 @@ RSpec.describe 'Users API', type: :request, skip: true do
     end
 
     context 'when the request is invalid' do
-      before { post '/api/users', params: {} }
+      let(:params) { {} }
 
       it 'returns status code 422' do
         expect(response).to have_http_status(422)
       end
 
       it 'returns a validation failure message' do
-        expect(response.body)
-          .to match(/can't be blank/)
+        expect(json['errors']).not_to be_empty
       end
     end
   end

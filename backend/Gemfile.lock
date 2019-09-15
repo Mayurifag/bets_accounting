@@ -8,6 +8,15 @@ GIT
       pry-rails
       railties
 
+GIT
+  remote: https://github.com/Mayurifag/knock.git
+  revision: 41a08882c0b828f2b8a9f5a97e992999b4157962
+  specs:
+    knock (2.2.1)
+      bcrypt (~> 3.1)
+      jwt (~> 2.2.1)
+      rails (>= 6)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -124,11 +133,7 @@ GEM
     jb (0.7.0)
       multi_json
     json (2.2.0)
-    jwt (1.5.6)
-    knock (2.1.1)
-      bcrypt (~> 3.1)
-      jwt (~> 1.5)
-      rails (>= 4.2)
+    jwt (2.2.1)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -293,7 +298,7 @@ DEPENDENCIES
   hirb-unicode-steakknife
   isolator
   jb
-  knock
+  knock!
   listen (>= 3.0.5, < 3.2)
   ordinare
   parallel_tests

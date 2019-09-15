@@ -1,18 +1,18 @@
 # frozen_string_literal: true
 
 module ExceptionHandler
-  # provides the more graceful `included` method
   extend ActiveSupport::Concern
 
-  class AuthenticationError < StandardError; end
-  class MissingToken < StandardError; end
-  class InvalidToken < StandardError; end
+  # class AuthenticationError < StandardError; end
+  # class MissingToken < StandardError; end
+  # class InvalidToken < StandardError; end
 
   included do
     rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
-    rescue_from ExceptionHandler::AuthenticationError, with: :unauthorized
-    rescue_from ExceptionHandler::MissingToken, with: :record_invalid
-    rescue_from ExceptionHandler::InvalidToken, with: :record_invalid
+    # rescue_from ExceptionHandler::AuthenticationError, with: :unauthorized
+    # rescue_from ExceptionHandler::MissingToken, with: :record_invalid
+    # rescue_from ExceptionHandler::InvalidToken, with: :record_invalid
+
     rescue_from ActiveRecord::RecordNotFound do |e|
       not_found(e.message)
     end
