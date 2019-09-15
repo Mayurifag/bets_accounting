@@ -10,12 +10,12 @@ GIT
 
 GIT
   remote: https://github.com/Mayurifag/knock.git
-  revision: 41a08882c0b828f2b8a9f5a97e992999b4157962
+  revision: 8887f0bf6c3bf79dd5ee63de29752c39f5c4647d
   specs:
     knock (2.2.1)
       bcrypt (~> 3.1)
       jwt (~> 2.2.1)
-      rails (>= 6)
+      rails (>= 4.2)
 
 GEM
   remote: https://rubygems.org/
@@ -318,7 +318,7 @@ DEPENDENCIES
   strong_migrations
 
 RUBY VERSION
-   ruby 2.6.4p104
+   ruby 2.6.3p62
 
 BUNDLED WITH
    2.0.2

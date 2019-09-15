@@ -3,6 +3,26 @@
 require 'rails_helper'
 
 RSpec.describe 'Users API', type: :request do
+  describe 'GET /api/users index' do
+    context 'with an unauthenticated user' do
+      it 'returns unauthorized' do
+        get '/api/users'
+        expect(response).to be_unauthorized
+      end
+    end
+
+    context 'with an authenticated user' do
+      let(:user) { create(:user) }
+
+      it 'renders json listing resource with id' do
+        get '/api/users', headers: authentication_header(user)
+
+        expect(response).to have_http_status(200)
+        expect(json.first['email']).not_to be_empty
+      end
+    end
+  end
+
   describe 'POST /api/users/create' do
     subject! { post '/api/users/create', params: params }
 

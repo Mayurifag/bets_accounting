@@ -1,4 +1,4 @@
-FROM ruby:${RUBY_VERSION:-2.6.4}-alpine
+FROM ruby:${RUBY_VERSION:-2.6.3}-alpine
 
 ENV LANG=C.UTF-8 \
     GEM_HOME=/bundle \
@@ -20,7 +20,7 @@ RUN apk add --update --no-cache \
   tzdata \
   xz-dev && \
   gem update --system && \
-  gem install bundler:${BUNDLER_VERSION:-2.0.2}
+  gem install bundler
 
 WORKDIR /usr/src/app
 
