@@ -54,39 +54,18 @@ RSpec.describe 'Bets API', type: :request do
 
   # Test suite for POST /bets
   describe 'POST /api/bets' do
-    let!(:discipline) { create(:discipline) }
     let!(:result_variant) { ResultVariant.create(id: 1, name: 'Победа') }
-    let!(:choice1) { create(:participant) }
-    let!(:choice2) { create(:participant) }
     let!(:bet_type) { create(:bet_type, name: 'Лайв') }
-    let(:test_choice) { 'fuck specs' }
-    let(:choice1_id) { choice1.id }
-    let(:choice2_id) { choice2.id }
-    let(:discipline_id) { discipline.id }
-    let(:result_variant_id) { result_variant.id }
-    let(:valid_attributes) do
-      { bet: { choice1_id: choice1_id,
-               choice2_id: choice2_id,
-               discipline_id: discipline_id,
-               result_variant_id: result_variant_id,
-               coefficient: coefficient,
-               wager: 10_000,
-               outcome: 'П1' } }
-    end
-    let(:params_to_be_transformed) do
-      { bet:
-        { choice1: test_choice,
-          choice2: test_choice,
-          discipline: 'test disc',
-          result_variant: 'Победа',
-          bet_type: 'Лайв',
-          coefficient: coefficient,
-          wager: 10_000,
-          outcome: 'П1',
-          bookmaker: '1huybet' } }
-    end
 
     context 'when the request is valid' do
+      let!(:discipline) { create(:discipline) }
+      let!(:choice) { create(:participant) }
+      let(:valid_attributes) do
+        { bet: { choice1_id: choice.id, choice2_id: choice.id, discipline_id: discipline.id,
+                 result_variant_id: result_variant.id, coefficient: coefficient, wager: 10_000,
+                 outcome: 'П1' } }
+      end
+
       before { post '/api/bets', params: valid_attributes }
 
       it 'creates a bet' do
@@ -111,6 +90,12 @@ RSpec.describe 'Bets API', type: :request do
     end
 
     context 'when params have to be transformed' do
+      let(:params_to_be_transformed) do
+        { bet: { choice1: 'fuck specs', choice2: 'fuck specs', discipline: 'test disc',
+                 result_variant: 'Победа', bet_type: 'Лайв', coefficient: coefficient,
+                 wager: 10_000, outcome: 'П1', bookmaker: '1huybet' } }
+      end
+
       before { post '/api/bets', params: params_to_be_transformed }
 
       it 'returns status code 201' do
