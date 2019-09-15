@@ -20,7 +20,6 @@ class Bookmaker < ApplicationRecord
   validates_presence_of :name
 
   def self.other_id
-    # create for test suite
-    find_or_create_by(name: 'Другая').id
+    find_by(name: 'Другая').id
   end
 end

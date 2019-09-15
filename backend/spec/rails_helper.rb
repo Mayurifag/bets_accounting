@@ -6,6 +6,14 @@ require File.expand_path('../config/environment', __dir__)
 abort('The Rails environment is running in production mode!') if Rails.env.production?
 require 'rspec/rails'
 require 'simplecov'
+if ENV['TEST_ENV_NUMBER'] # parallel specs
+  require 'simplecov-console'
+  SimpleCov.formatter = SimpleCov::Formatter::Console
+  SimpleCov.at_exit do
+    result = SimpleCov.result
+    result.format! if ParallelTests.number_of_running_processes <= 1
+  end
+end
 SimpleCov.start 'rails'
 
 require 'database_rewinder'
@@ -41,4 +49,5 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = false
   config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!
+  config.silence_filter_announcements = true if ENV['TEST_ENV_NUMBER']
 end

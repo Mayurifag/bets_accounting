@@ -41,6 +41,12 @@ interaction:
       RAILS_ENV: test
     command: bundle exec rspec
 
+  spec:
+    service: backend
+    environment:
+      RAILS_ENV: test
+    command: rake parallel:spec
+
   rubocop:
     service: backend
     command: bundle exec rubocop
@@ -59,6 +65,7 @@ provision:
   - dip compose build
   - dip bundle install
   - dip rails db:reset
+  - RAILS_ENV=test dip rake parallel:setup
   - dip up -d
   - echo "====================================="
   - echo "Provision done."

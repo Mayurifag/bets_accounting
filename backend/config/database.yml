@@ -11,7 +11,7 @@ development:
 
 test:
   <<: *default
-  database: backend_test
+  database: backend_test<%= ENV['TEST_ENV_NUMBER'] %>
 
 production:
   <<: *default
