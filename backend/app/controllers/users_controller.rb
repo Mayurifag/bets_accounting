@@ -2,8 +2,8 @@
 
 class UsersController < ApplicationController
   # Use Knock to make sure the current_user is authenticated before completing request.
-  before_action :authenticate_user,  only: [:index, :whoami, :update]
-  before_action :authorize,          only: [:update, :destroy]
+  before_action :authenticate_user,  only: %i[index whoami update]
+  before_action :authorize,          only: %i[update destroy]
 
   def index
     json_response(User.all)
@@ -19,21 +19,14 @@ class UsersController < ApplicationController
   end
 
   def update
+    # TODO: validations on update -- what to update
     @user = User.find(params[:id])
-    if user.update(user_params)
-      json_response(@user)
-    else
-      record_invalid
-    end
+    json_response(@user) if @user.update!(user_params)
   end
 
   def destroy
     @user = User.find(params[:id])
-    if @user.destroy
-      head :no_content
-    else
-      record_invalid
-    end
+    head :no_content if @user.destroy!
   end
 
   def whoami
@@ -42,13 +35,10 @@ class UsersController < ApplicationController
 
   private
 
-  # Setting up strict parameters for when we add account creation.
   def user_params
     params.permit(:email, :password, :password_confirmation)
   end
 
-  # Adding a method to check if current_user can update itself.
-  # This uses our UserModel method.
   def authorize
     unauthorized unless current_user&.can_modify_user?(params[:id])
   end

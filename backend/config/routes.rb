@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     post :autocomplete, to: 'autocomplete#search'
     post 'auth' => 'user_token#create'
     get    'users'          => 'users#index'
-    get    'users/current'  => 'users#current'
+    get    'users/whoami'   => 'users#whoami'
     post   'users/create'   => 'users#create'
     patch  'user/:id'       => 'users#update'
     delete 'user/:id'       => 'users#destroy'
