@@ -1,0 +1,75 @@
+version: '2'
+
+environment:
+  RAILS_ENV: development
+
+compose:
+  files:
+    - docker-compose.yml
+
+interaction:
+  sh:
+    service: backend
+    command: /bin/sh
+    compose_run_options: [no-deps]
+
+  bundle:
+    service: backend
+    command: bundle
+    compose_run_options: [no-deps]
+
+  audit:
+    service: backend
+    command: bundle exec bundle audit --update
+    compose_run_options: [no-deps]
+
+  rake:
+    service: backend
+    command: bundle exec rake
+
+  rails:
+    service: backend
+    command: bundle exec rails
+    subcommands:
+      s:
+        service: backend
+        compose_run_options: [service-ports]
+
+  rspec:
+    service: backend
+    environment:
+      RAILS_ENV: test
+    command: bundle exec rspec
+
+  spec:
+    service: backend
+    environment:
+      RAILS_ENV: test
+    command: rake parallel:spec
+
+  rubocop:
+    service: backend
+    command: bundle exec rubocop
+    compose_run_options: [no-deps]
+
+  yarn:
+    service: frontend
+    command: yarn
+    compose_run_options: [no-deps]
+
+  psql:
+    service: db
+    command: psql -h db -U postgres -d backend_development
+
+provision:
+  - dip compose build
+  - dip bundle install
+  - dip rails db:reset
+  - dip up -d
+  - RAILS_ENV=test dip rake parallel:setup
+  - echo "=================================================="
+  - echo "Provision done."
+  - echo "Frontend is located at localhost:3333"
+  - echo "Backend is located at localhost:8888"
+  - echo "Parallel tests may be executed by command dip spec"
+  - echo "=================================================="

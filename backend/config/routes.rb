@@ -3,8 +3,9 @@
 Rails.application.routes.draw do
   scope :api, defaults: { format: :json } do
     resources :bets
+    resources :users
+
+    post :autocomplete, to: 'autocomplete#search'
+    post :auth,         to: 'user_token#create'
   end
-  resources :users, param: :_username
-  post '/auth/login', to: 'authentication#login'
-  get '/*a', to: 'application#not_found'
 end
