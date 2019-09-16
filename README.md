@@ -18,3 +18,18 @@ To start development server you need latest stable versions of `git`, `docker`,
 ## Entrypoints
 * Frontend: [localhost:3333](http://localhost:3333)
 * Backend: [localhost:8888](http://localhost:8888)
+
+# Tests
+
+## Rspec
+
+Just use `dip rspec` to launch `rspec` and get the spec coverage from
+simplecov.
+
+## Parallel tests
+
+If you want to use all the cores of your CPU for specs, you may use these
+commands:
+
+* `RAILS_ENV=test dip rake parallel:setup`
+* `dip spec`

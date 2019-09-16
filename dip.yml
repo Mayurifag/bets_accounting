@@ -63,10 +63,9 @@ interaction:
 
 provision:
   - dip compose build
-  - dip bundle install
+  - dip bundle install --binstubs="$BUNDLE_BIN"
   - dip rails db:reset
   - dip up -d
-  - RAILS_ENV=test dip rake parallel:setup
   - echo "=================================================="
   - echo "Provision done."
   - echo "Frontend is located at localhost:3333"
