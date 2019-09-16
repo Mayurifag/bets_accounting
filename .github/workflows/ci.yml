@@ -1,0 +1,23 @@
+name: Ruby
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Set up Ruby 2.6
+      uses: actions/setup-ruby@v1
+      with:
+        ruby-version: 2.6.x
+    - name: Rubocop
+      run: |
+        gem install rubocop
+        rubocop -c backend/.rubocop.yml
+        # sudo apt-get install libpq-dev
+        # gem install bundler
+        # bundle install --gemfile backend/Gemfile --jobs 4 --retry 3
+        # bundle exec --gemfile backend/Gemfile rubocop
