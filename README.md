@@ -1,4 +1,4 @@
-# WIP: bets_accounting
+# README is going to be be rewritten!
 
 ## Description
 This repository is yet another pet project, where I'm practicing with **Vue.js** & **Rails**.
@@ -8,7 +8,7 @@ Application is requested by my friend as a better alternative for his spreadshee
 Project is not production-ready, but is a proof-of-concept. Work is in progress. For example there is a mess with dotenv files and the frontend needs some more checks for blank fields.
 
 ## How to launch
-**TL;DR:** `docker-compose build ; docker-compose up -d ; docker-compose exec app rails db:setup`
+**TL;DR:** `dip provision`
 
 Be sure that you installed latest stable `docker` and `docker-compose`.
 Project is developed with `docker 18.09.2` and `docker-compose 1.23.2`.

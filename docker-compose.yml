@@ -8,6 +8,8 @@ services:
       - "5432"
     tmpfs:
       - /tmp
+    volumes:
+      - db-data:/var/lib/postgresql/data
 
   backend:
     build:
@@ -48,6 +50,7 @@ services:
       - /tmp
 
 volumes:
+  db-data:
   bundle:
   node_modules:
   rails_cache:

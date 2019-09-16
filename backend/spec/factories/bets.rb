@@ -38,17 +38,17 @@
 
 FactoryBot.define do
   factory :bet do
-    discipline { FactoryBot.create(:discipline) }
-    bookmaker { FactoryBot.create(:bookmaker) }
+    discipline
+    bookmaker
     result_variant_id { ResultVariant.win_id }
-    bet_type { FactoryBot.create(:bet_type) }
-    event { FactoryBot.create(:event) }
+    bet_type
+    event
     choice1 { FactoryBot.create(:participant) }
     choice2 { FactoryBot.create(:participant) }
 
-    coefficient { rand(1.2...3.0).ceil(2) }
-    comment { Faker::Lorem.sentence }
-    wager   { rand(1000..100_000) }
-    outcome { 'П' + rand(1..2).to_s }
+    coefficient { 1.4 }
+    comment { 'test' }
+    wager   { 111 }
+    outcome { 'П1' }
   end
 end

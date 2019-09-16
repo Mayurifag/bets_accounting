@@ -25,28 +25,23 @@ RSpec.describe 'Bets API', type: :request do
 
   # Test suite for GET /bets/:id
   describe 'GET /bets/:id' do
-    let!(:bets) { create_list(:bet, 2) }
-    let(:bet_id) { bets.first.id }
+    let(:bet) { create :bet }
     before { get "/api/bets/#{bet_id}" }
 
     context 'when the record exists' do
-      it 'returns the bet' do
-        expect(json['id']).to eq(bet_id)
-      end
+      let(:bet_id) { bet.id }
 
-      it 'returns status code 200' do
+      it 'returns the bet' do
         expect(response).to have_http_status(200)
+        expect(json['id']).to eq(bet_id)
       end
     end
 
     context 'when the record does not exist' do
-      let(:bet_id) { 100 }
-
-      it 'returns status code 404' do
-        expect(response).to have_http_status(404)
-      end
+      let(:bet_id) { -1 }
 
       it 'returns a not found message' do
+        expect(response).to have_http_status(404)
         expect(response.body).to match(/Couldn't find Bet/)
       end
     end

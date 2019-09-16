@@ -3,11 +3,11 @@ FROM ruby:${RUBY_VERSION:-2.6.3}-alpine
 ENV LANG=C.UTF-8 \
     GEM_HOME=/bundle \
     BUNDLE_JOBS=4 \
-    BUNDLE_RETRY=3
-ENV BUNDLE_PATH $GEM_HOME
-ENV BUNDLE_APP_CONFIG=$BUNDLE_PATH \
-    BUNDLE_BIN=$BUNDLE_PATH/bin
-ENV PATH /usr/src/app/backend/bin:$BUNDLE_BIN:$PATH
+    BUNDLE_RETRY=3 \
+    BUNDLE_PATH=/bundle \
+    BUNDLE_APP_CONFIG=/bundle \
+    BUNDLE_BIN=/bundle/bin \
+    PATH=/usr/src/app/backend/bin:/bundle/bin:$PATH
 
 # build-base, xz-dev -- nokogiri
 # git - to update bundler audit
