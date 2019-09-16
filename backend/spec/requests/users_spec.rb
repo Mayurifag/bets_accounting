@@ -25,7 +25,7 @@ RSpec.describe 'Users API', type: :request do
   end
 
   describe 'POST /api/users/create' do
-    subject! { post '/api/users/create', params: params }
+    subject! { post '/api/users', params: params }
 
     context 'when the request is valid' do
       let(:params) do
@@ -57,7 +57,7 @@ RSpec.describe 'Users API', type: :request do
 
   describe 'POST /api/user/:id update' do
     let(:user) { create(:user) }
-    subject! { patch "/api/user/#{user.id}", params: params, headers: headers }
+    subject! { patch "/api/users/#{user.id}", params: params, headers: headers }
 
     context 'with an unauthenticated user' do
       let(:params) { {} }
@@ -105,8 +105,8 @@ RSpec.describe 'Users API', type: :request do
     end
   end
 
-  describe 'GET /api/users/whoami' do
-    subject! { get '/api/users/whoami', headers: headers }
+  describe 'GET /api/users/show' do
+    subject! { get '/api/users/show', headers: headers }
 
     context 'without authorization' do
       it 'returns unauthorized' do
@@ -127,7 +127,7 @@ RSpec.describe 'Users API', type: :request do
 
   describe 'DELETE /api/user/:id #destroy' do
     let(:user) { create(:user) }
-    subject! { delete "/api/user/#{user.id}", headers: headers }
+    subject! { delete "/api/users/#{user.id}", headers: headers }
 
     context 'with an unauthenticated user' do
       it 'returns unauthorized' do
