@@ -1,27 +1,19 @@
-# README is going to be be rewritten!
+<p align="center">
+  <img src="frontend/public/img/icons/apple-touch-icon.png" alt="Logo" width="80" height="80">
+  <h3 align="center"><b>Bets Accounting</b></h3>
+  <h6 align="center"><i>Work in progress</i></h6>
+</p>
 
-## Description
-This repository is yet another pet project, where I'm practicing with **Vue.js** & **Rails**.
+# Getting Started
 
-Application is requested by my friend as a better alternative for his spreadsheet about bets' win/lose statistics.
+## Prerequisites
+To start development server you need latest stable versions of `git`, `docker`,
+`docker-compose` and [dip](https://github.com/bibendi/dip) installed.
 
-Project is not production-ready, but is a proof-of-concept. Work is in progress. For example there is a mess with dotenv files and the frontend needs some more checks for blank fields.
+## How to start
+* Clone the repository ⬇️ `git clone git@github.com:Mayurifag/bets_accounting.git`
+* Enter project directory 📁 `cd bets_accounting`
+* Leave the rest of things to dip 😎 `dip provision`
 
-## How to launch
-**TL;DR:** `dip provision`
-
-Be sure that you installed latest stable `docker` and `docker-compose`.
-Project is developed with `docker 18.09.2` and `docker-compose 1.23.2`.
-
-* Clone the repository and enter the directory:
-`git clone https://github.com/Mayurifag/bets_accounting.git ; cd bets_accounting`
-
-* (Optional) Maybe there is a WIP branch to use, you may checkout there
-
-* Build development environment: `docker-compose build`
-
-* Launch development environment in detached mode: `docker-compose up -d`
-
-* Seed the database if its the first launch: `docker-compose exec app rails db:setup`
-
-* Application is ready, visit `lvh.me:3000`
+## Entrypoints
+Frontend: [http://localhost:3333](http://localhost:3333). Backend: [http://localhost:8888](http://localhost:8888).
