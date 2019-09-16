@@ -1,11 +1,9 @@
 # Insert new cops alphabetically
 
-require: rubocop-performance
-
 AllCops:
   DisplayCopNames: true
   DisplayStyleGuide: true
-  TargetRubyVersion: 2.6
+  TargetRubyVersion: 2.5
   Exclude:
     - 'vendor/**/*'
     - 'db/schema.rb'

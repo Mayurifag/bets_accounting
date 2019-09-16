@@ -11,9 +11,10 @@ To start development server you need latest stable versions of `git`, `docker`,
 `docker-compose` and [dip](https://github.com/bibendi/dip) installed.
 
 ## How to start
-* Clone the repository ⬇️ `git clone git@github.com:Mayurifag/bets_accounting.git`
-* Enter project directory 📁 `cd bets_accounting`
-* Leave the rest of things to dip 😎 `dip provision`
+1. Clone the repository ⬇️ `git clone git@github.com:Mayurifag/bets_accounting.git`
+2. Enter project directory 📁 `cd bets_accounting`
+3. Leave the rest of things to dip 😎 `dip provision`
 
 ## Entrypoints
-Frontend: [http://localhost:3333](http://localhost:3333). Backend: [http://localhost:8888](http://localhost:8888).
+* Frontend: [localhost:3333](http://localhost:3333)
+* Backend: [localhost:8888](http://localhost:8888)

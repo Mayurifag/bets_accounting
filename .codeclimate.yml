@@ -1,0 +1,15 @@
+version: '2'
+plugins:
+  brakeman:
+    enabled: true
+    config:
+      app_path: backend
+  rubocop:
+    enabled: true
+  bundler-audit:
+    enabled: true
+    config:
+      path: backend/Gemfile.lock
+exclude_patterns:
+  - "backend/db"
+  - "**/node_modules/"
