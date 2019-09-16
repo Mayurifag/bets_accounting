@@ -1,47 +1,54 @@
-version: "3"
-
-volumes:
-  db-data:
-    external: false
+# TODO: users for backend/frontend // fix rights
+version: '3.5'
 
 services:
   db:
-    env_file:
-      - '.env'
-    image: postgres:11
+    image: postgres:${POSTGRES_VERSION:-11}-alpine
     ports:
-      - 5432:5432
-    environment:
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-    volumes:
-      - db-data:/usr/local/pgsql/data
+      - "5432"
+    tmpfs:
+      - /tmp
 
-  webpacker:
-    build: .
-    environment:
-      WEBPACKER_DEV_SERVER_HOST: 0.0.0.0
-      WEBPACKER_DEV_SERVER_PUBLIC: 0.0.0.0:3035
-    # command: bash -c "rm -rf /usr/src/app/public/packs; /usr/src/app/bin/webpack-dev-server"
-    command: /usr/src/app/bin/webpack-dev-server
+  backend:
+    build:
+      context: backend
     volumes:
-      - .:/usr/src/app
-    ports:
-      - '3035:3035'
-
-  app:
-    env_file:
-      - '.env'
-    command: bash -c "rm -f /usr/src/app/tmp/pids/server.pid && bundle exec puma -C config/puma.rb"
+      - ./backend:/usr/src/app:cached
+      - rails_cache:/usr/src/app/tmp/cache
+      - bundle:/bundle
     environment:
-      WEBPACKER_DEV_SERVER_HOST: webpacker
-      WEBPACKER_DEV_SERVER_PUBLIC: webpacker:3035
-    build: .
-    volumes:
-      - .:/usr/src/app
+      - RAILS_ENV=${RAILS_ENV:-development}
+      - BOOTSNAP_CACHE_DIR=/bundle/bootsnap
+      - MALLOC_ARENA_MAX=2
+      - WEB_CONCURRENCY=${WEB_CONCURRENCY:-1}
+      - EDITOR=vi
+    command: bundle exec rails server -b 0.0.0.0 -p 8080
     ports:
-      - "3000:3000"
-      - "8443:8443"
+      - "8888:8080"
     depends_on:
       - db
-      - webpacker
+    stdin_open: true
+    tty: true
+    tmpfs:
+      - /tmp
+
+  frontend:
+    build:
+      context: frontend
+    volumes:
+      - ./frontend:/usr/src/app:cached
+      - node_modules:/usr/src/app/node_modules
+      - packs:/usr/src/app/public/packs
+    environment:
+      - NODE_ENV=${NODE_ENV:-development}
+    command: yarn run serve
+    ports:
+      - "3333:8080"
+    tmpfs:
+      - /tmp
+
+volumes:
+  bundle:
+  node_modules:
+  rails_cache:
+  packs:

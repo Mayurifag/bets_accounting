@@ -1,0 +1,15 @@
+# frozen_string_literal: true
+
+json = {
+  id: bet.id,
+  coefficient: bet.coefficient,
+  profit: number_with_precision(bet.profit.to_f, precision: 2),
+  outcome: bet.outcome,
+  wager: bet.wager
+}
+
+%i[choice1 choice2 discipline result_variant event bet_type bookmaker].each do |attr|
+  json[attr] = bet.public_send(attr)&.name
+end
+
+json
