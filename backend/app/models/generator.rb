@@ -7,7 +7,9 @@ class Generator
 
       bets = []
       number.times { bets << generate_bet(build: true) }
-      Bet.import! bets
+      bets.in_groups_of(1000, false) do |group|
+        Bet.import! group
+      end
     end
 
     def generate_bet(build: false)
@@ -20,11 +22,22 @@ class Generator
 
     private
 
-    # TODO: prevent additional selects from database via metaprogramming / caching
-    # there is also https://github.com/haopingfan/quick_random_records
-    # still not sure if its needed: 1ms on select is maximum on development
+    # Switch on the cache if you want to import thousands of bets in development environment.
+    # Don't forget to switch it off!
+    #
+    # 1) dip rails dev:cache
+    # 2) dip rails c
+    # 3) Generator.generate_bets(15000)
+    # 4) exit
+    # 5) dip rails dev:cache
+    #
     def random_from_class(class_name)
-      class_name.to_s.classify.constantize.ids.sample
+      klass_string = class_name.to_s.classify
+      ids = Rails.cache.fetch(klass_string, expires_in: 1.minutes) do
+        klass_string.constantize.ids
+      end
+
+      ids.sample
     end
 
     def random_bet_params
