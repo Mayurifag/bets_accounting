@@ -7,9 +7,7 @@ class Generator
 
       bets = []
       number.times { bets << generate_bet(build: true) }
-      bets.in_groups_of(1000, false) do |group|
-        Bet.import! group
-      end
+      Bet.import! bets, batch_size: 1000
     end
 
     def generate_bet(build: false)
