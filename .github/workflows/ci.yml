@@ -3,6 +3,22 @@ name: Main
 on: [push]
 
 jobs:
+  brakeman:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+
+    - name: Set up Ruby 2.6
+      uses: actions/setup-ruby@v1
+      with:
+        ruby-version: 2.6.x
+
+    - name: brakeman
+      working-directory: ./backend
+      run: |
+        gem install brakeman
+        brakeman
+#######################################
   bundle-audit:
     runs-on: ubuntu-latest
     steps:
@@ -64,9 +80,9 @@ jobs:
         PGUSER: postgres
         PGPORT: ${{ job.services.postgres.ports[5432] }} # get randomly assigned published port
         RAILS_ENV: test
-        GIT_BRANCH: master
         CC_TEST_REPORTER_ID: 74855e8480493fa17a796717c03a42ba418a1a0f2cc96a1d7418e9ba572b2a9b
       run: |
+        GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
         gem install bundler
         cd backend
         bundle install --without development production --jobs 4 --retry 3
