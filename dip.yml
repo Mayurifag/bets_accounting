@@ -63,7 +63,8 @@ interaction:
 
 provision:
   - dip compose build
-  - dip bundle install --binstubs="$BUNDLE_BIN"
+  - dip yarn
+  - dip bundle install
   - dip rails db:reset
   - dip up -d
   - echo "=================================================="

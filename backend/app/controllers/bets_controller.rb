@@ -8,7 +8,7 @@ class BetsController < ApplicationController
   def index
     # TODO: pseudo-pagination
     @bets = avoid_n_plus_one_query(Bet.newest_first)
-    render status: :ok
+    json_response(BetBlueprint.render(@bets))
   end
 
   # POST /bets
@@ -16,7 +16,7 @@ class BetsController < ApplicationController
     @bet = Bet.new(bet_params)
 
     if @bet.save
-      render status: :created
+      json_response(BetBlueprint.render(@bet), :created)
     else
       json_response(@bet.errors, :unprocessable_entity)
     end
@@ -24,13 +24,13 @@ class BetsController < ApplicationController
 
   # GET /bets/:id
   def show
-    render status: :ok
+    json_response(BetBlueprint.render(@bet))
   end
 
   # PUT /bets/:id
   def update
     if @bet.update(bet_params)
-      render status: :ok
+      json_response(BetBlueprint.render(@bet))
     else
       json_response(@bet.errors, :unprocessable_entity)
     end
