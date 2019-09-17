@@ -1,3 +1,7 @@
+![Build Status][build-badger]
+[![Maintainability][maitainability-badger]][codeclimate]
+[![Test Coverage][test-coverage]][testcoveragelink]
+
 <p align="center">
   <img src="frontend/public/img/icons/apple-touch-icon.png" alt="Logo" width="80" height="80">
   <h3 align="center"><b>Bets Accounting</b></h3>
@@ -33,3 +37,9 @@ commands:
 
 * `RAILS_ENV=test dip rake parallel:setup`
 * `dip spec`
+
+[build-badger]: https://github.com/Mayurifag/bets_accounting/workflows/Main/badge.svg
+[maitainability-badger]: https://api.codeclimate.com/v1/badges/1d95ce316920a6a8228b/maintainability
+[codeclimate]: https://codeclimate.com/github/Mayurifag/bets_accounting/maintainability
+[test-coverage]: https://api.codeclimate.com/v1/badges/1d95ce316920a6a8228b/test_coverage
+[testcoveragelink]: https://codeclimate.com/github/Mayurifag/bets_accounting/test_coverage
