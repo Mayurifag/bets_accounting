@@ -3,7 +3,7 @@
 class Generator
   class << self
     def generate_bets(number = 1)
-      number = 1 if this_is_not_a_positive_integer?(number)
+      return generate_bet if this_is_not_a_positive_integer?(number)
 
       bets = []
       number.times { bets << generate_bet(build: true) }
