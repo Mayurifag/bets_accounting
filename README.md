@@ -1,6 +1,7 @@
 ![Build Status][build-badger]
-[![Maintainability][maitainability-badger]][codeclimate]
-[![Test Coverage][test-coverage]][testcoveragelink]
+[![Maintainability][maitainability-badger]][codeclimate-link]
+[![Test Coverage][testcoverage-badger]][testcoverage-link]
+[![License: LGPL v3][license-badger]][license-link]
 
 <p align="center">
   <img src="frontend/public/img/icons/apple-touch-icon.png" alt="Logo" width="80" height="80">
@@ -12,7 +13,7 @@
 
 ## Prerequisites
 To start development server you need latest stable versions of `git`, `docker`,
-`docker-compose` and [dip](https://github.com/bibendi/dip) installed.
+`docker-compose` and [dip][dip-link] installed.
 
 ## How to start
 1. Clone the repository ⬇️ `git clone git@github.com:Mayurifag/bets_accounting.git`
@@ -20,8 +21,8 @@ To start development server you need latest stable versions of `git`, `docker`,
 3. Leave the rest of things to dip 😎 `dip provision`
 
 ## Entrypoints
-* Frontend: [localhost:3333](http://localhost:3333)
-* Backend: [localhost:8888](http://localhost:8888)
+* Frontend: [localhost:3333][frontend-localhost]
+* Backend: [localhost:8888][backend-localhost]
 
 # Tests
 
@@ -40,6 +41,11 @@ commands:
 
 [build-badger]: https://github.com/Mayurifag/bets_accounting/workflows/Main/badge.svg
 [maitainability-badger]: https://api.codeclimate.com/v1/badges/1d95ce316920a6a8228b/maintainability
-[codeclimate]: https://codeclimate.com/github/Mayurifag/bets_accounting/maintainability
-[test-coverage]: https://api.codeclimate.com/v1/badges/1d95ce316920a6a8228b/test_coverage
-[testcoveragelink]: https://codeclimate.com/github/Mayurifag/bets_accounting/test_coverage
+[codeclimate-link]: https://codeclimate.com/github/Mayurifag/bets_accounting/maintainability
+[testcoverage-badger]: https://api.codeclimate.com/v1/badges/1d95ce316920a6a8228b/test_coverage
+[testcoverage-link]: https://codeclimate.com/github/Mayurifag/bets_accounting/test_coverage
+[license-badger]: https://img.shields.io/badge/License-LGPL%20v3-gree.svg
+[license-link]: https://www.gnu.org/licenses/lgpl-3.0
+[dip-link]: https://github.com/bibendi/dip
+[frontend-localhost]: http://localhost:3333
+[backend-localhost]: http://localhost:8888
