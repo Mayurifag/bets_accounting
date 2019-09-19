@@ -45,8 +45,7 @@ class BetsController < ApplicationController
   private
 
   def avoid_n_plus_one_query(bets)
-    bets.eager_load(:discipline, :result_variant, :bet_type, :bookmaker,
-                    :choice1, :choice2)
+    bets.eager_load(:discipline, :result_variant, :bet_type, :bookmaker, :choice1, :choice2, :event)
   end
 
   # TODO: something wrong with created_at here, need a new column ['betted_at'?]

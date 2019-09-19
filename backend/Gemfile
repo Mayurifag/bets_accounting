@@ -5,16 +5,16 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby File.read(File.expand_path('.ruby-version', __dir__)).chomp
 
-gem 'rails', '>= 6.0.0'
+gem 'rails', '~> 6.0'
 
-gem 'pg', '>= 0.18', '< 2.0'
+gem 'pg', '~> 1.0'
 gem 'pg_search'
-gem 'puma', '>= 4.1'
+gem 'puma', '~> 4.1'
 
 gem 'activerecord-import'
 gem 'bcrypt'
 gem 'blueprinter'
-gem 'bootsnap', '>= 1.4.2', require: false
+gem 'bootsnap', require: false
 gem 'faker'
 gem 'fast_blank'
 gem 'knock', github: 'Mayurifag/knock'
@@ -39,7 +39,7 @@ group :development do
   gem 'brakeman', require: false
   gem 'bullet'
   gem 'bundler-audit', require: false
-  gem 'listen', '>= 3.0.5', '< 3.2'
+  gem 'listen'
   gem 'ordinare', require: false
   gem 'rubocop'
   gem 'strong_migrations'
@@ -50,6 +50,9 @@ group :test do
   gem 'factory_bot_rails'
   gem 'fuubar'
   gem 'regressor'
+  # TODO: get rid of git when gem gonna be ready for rails 6+
+  gem 'rspec-sqlimit', git: 'https://github.com/nepalez/rspec-sqlimit',
+                       ref: '0c62feb61710c93f20f086a427a7a14784e5ca0d'
   gem 'shoulda-matchers'
   gem 'simplecov'
   gem 'simplecov-console'

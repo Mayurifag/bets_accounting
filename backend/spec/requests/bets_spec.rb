@@ -3,23 +3,20 @@
 require 'rails_helper'
 
 RSpec.describe 'Bets API', type: :request do
-  let(:coefficient) { 2.28 }
-
   # Test suite for GET /bets
   describe 'GET /api/bets' do
     context 'without any params' do
       let!(:bets) { create_list(:bet, 2) }
-      before { get '/api/bets' }
 
       it 'returns bets' do
-        # Note `json` is a custom helper to parse JSON responses
+        get '/api/bets'
+
         expect(json).not_to be_empty
         expect(json.size).to eq(2)
-      end
-
-      it 'returns status code 200' do
         expect(response).to have_http_status(200)
       end
+
+      it { expect { get '/api/bets' }.not_to exceed_query_limit(1).with(/SELECT/) }
     end
   end
 
@@ -49,6 +46,7 @@ RSpec.describe 'Bets API', type: :request do
 
   # Test suite for POST /bets
   describe 'POST /api/bets' do
+    let(:coefficient) { 2.28 }
     let!(:result_variant) { ResultVariant.create(id: 1, name: 'Победа') }
     let!(:bet_type) { create(:bet_type, name: 'Лайв') }
 
@@ -114,6 +112,7 @@ RSpec.describe 'Bets API', type: :request do
 
   # Test suite for PUT /bets/:id
   describe 'PUT /api/bets/:id' do
+    let(:coefficient) { 2.28 }
     let!(:bet) { create :bet }
     let(:bet_id) { bet.id }
     let(:params) do
