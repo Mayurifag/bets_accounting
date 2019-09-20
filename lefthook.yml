@@ -1,0 +1,39 @@
+# TODO: add something else
+
+pre-commit:
+  parallel: true
+  commands:
+    rubocop:
+      glob: "*.rb" # glob filter for list of files
+      exclude: "application.rb|routes.rb" # regexp filter for list of files
+      runner: "rubocop --safe-auto-correct {staged_files} && git add {staged_files}"
+    yarn:
+      glob: "*.{js,ts}"
+      runner: "dip yarn lint:fix && git add {staged_files}"
+
+pre-push:
+  parallel: false
+  commands:
+    rspec:
+      runner: dip rspec --fail-fast
+    gems-audit:
+      runner: dip bundle audit check --update
+
+commands: &commands
+  bundle-install:
+    files: git diff --name-only HEAD master
+    glob: '{backend/Gemfile,backend/Gemfile.lock}'
+    run: dip bundle install
+  yarn-install:
+    files: git diff --name-only HEAD master
+    glob: '{frontend/package.json,frontend/yarn.lock}'
+    run: dip yarn install
+
+post-checkout:
+  commands: *commands
+
+post-merge:
+  commands: *commands
+
+post-rewrite:
+  commands: *commands

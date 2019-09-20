@@ -8,18 +8,17 @@ ruby File.read(File.expand_path('.ruby-version', __dir__)).chomp
 gem 'rails', '~> 6.0'
 
 gem 'pg'
-gem 'puma', '>= 4.1'
+gem 'puma', '~> 4.0'
 
 gem 'activerecord-import'
 gem 'bcrypt'
 gem 'blueprinter'
 gem 'bootsnap', require: false
 gem 'faker'
-gem 'fast_blank'
+gem 'fast_blank', platform: :mri
 gem 'knock', github: 'Mayurifag/knock'
 gem 'oj'
 gem 'rack-cors'
-gem 'strong_migrations'
 
 group :development, :test do
   gem 'awesome_rails_console', github: 'Mayurifag/awesome_rails_console',
@@ -39,10 +38,10 @@ group :development do
   gem 'brakeman', require: false
   gem 'bullet'
   gem 'bundler-audit', require: false
-  gem 'database_consistency', require: false
   gem 'listen'
   gem 'ordinare', require: false
   gem 'rubocop'
+  gem 'strong_migrations'
 end
 
 group :test do
@@ -50,7 +49,6 @@ group :test do
   gem 'factory_bot_rails'
   gem 'factory_trace'
   gem 'fuubar'
-  gem 'regressor'
   # TODO: get rid of git when gem gonna be ready for rails 6+
   gem 'rspec-sqlimit', git: 'https://github.com/nepalez/rspec-sqlimit',
                        ref: '0c62feb61710c93f20f086a427a7a14784e5ca0d'
@@ -58,3 +56,8 @@ group :test do
   gem 'simplecov'
   gem 'simplecov-console'
 end
+
+# TODO: not working on rails 6 or dip?
+# gem 'regressor'
+# gem 'factory_trace'
+# gem 'database_consistency', require: false
