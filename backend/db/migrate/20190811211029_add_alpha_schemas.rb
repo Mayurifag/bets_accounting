@@ -72,6 +72,7 @@ class AddAlphaSchemas < ActiveRecord::Migration[6.0]
       t.float :coefficient, null: false
       # Профит
       # t.monetize :profit
+      # TODO: default 0, null false, validations
       t.decimal :profit
       # Выбор
       t.string :outcome, null: false

@@ -9,8 +9,8 @@ class BetBlueprint < Blueprinter::Base
   fields :coefficient, :outcome, :wager
 
   # TODO: is this fine
-  field :profit do |bet, _options|
-    format('%0.02f', bet.profit)
+  field :profit do |bet|
+    format('%0.02f', bet.profit) # if bet.profit.present?
   end
 
   FIELDS_WITH_NAMES.each do |attr|

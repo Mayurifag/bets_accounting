@@ -39,6 +39,7 @@ group :development do
   gem 'brakeman', require: false
   gem 'bullet'
   gem 'bundler-audit', require: false
+  gem 'database_consistency', require: false
   gem 'listen'
   gem 'ordinare', require: false
   gem 'rubocop'
@@ -47,6 +48,7 @@ end
 group :test do
   gem 'database_rewinder'
   gem 'factory_bot_rails'
+  gem 'factory_trace'
   gem 'fuubar'
   gem 'regressor'
   # TODO: get rid of git when gem gonna be ready for rails 6+

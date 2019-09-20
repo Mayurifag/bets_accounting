@@ -51,7 +51,7 @@ class BetsController < ApplicationController
   # TODO: something wrong with created_at here, need a new column ['betted_at'?]
   # TODO: autocomplete etc. for event
 
-  ATTRS = %i[coefficient comment wager profit event_id event outcome
+  ATTRS = %i[coefficient comment wager event_id event outcome
              choice1_id choice2_id discipline_id result_variant_id
              bet_type_id bookmaker_id].freeze
 

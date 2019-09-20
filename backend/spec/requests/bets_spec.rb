@@ -119,9 +119,9 @@ RSpec.describe 'Bets API', type: :request do
       { bet: { coefficient: coefficient, wager: 1000, result_variant_id: 2 } }
     end
 
-    context 'when the record exists' do
-      before { put "/api/bets/#{bet_id}", params: params }
+    before { put "/api/bets/#{bet_id}", params: params }
 
+    context 'when the record exists' do
       it 'updates record and profit column with lose' do
         expect(json['profit']).to eq '-1000.00'
       end
@@ -131,8 +131,6 @@ RSpec.describe 'Bets API', type: :request do
       let(:params) do
         { bet: { id: bet_id, coefficient: 'asd' } }
       end
-
-      before { put "/api/bets/#{bet_id}", params: params }
 
       it 'returns status code 422' do
         expect(json).not_to be_empty
