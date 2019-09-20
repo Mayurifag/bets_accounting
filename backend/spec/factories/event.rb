@@ -2,6 +2,6 @@
 
 FactoryBot.define do
   factory :event do
-    name { Faker::Esport.event }
+    name { 'event' }
   end
 end

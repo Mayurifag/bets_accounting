@@ -33,23 +33,17 @@ RSpec.describe 'Users API', type: :request do
       end
 
       it 'creates user' do
+        expect(response).to have_http_status(201)
         # TODO: maybe i dont have to share this information
         expect(json['password_digest']).not_to be_empty
-      end
-
-      it 'returns status code 201' do
-        expect(response).to have_http_status(201)
       end
     end
 
     context 'when the request is invalid' do
       let(:params) { {} }
 
-      it 'returns status code 422' do
-        expect(response).to have_http_status(422)
-      end
-
       it 'returns a validation failure message' do
+        expect(response).to have_http_status(422)
         expect(json['errors']).not_to be_empty
       end
     end
@@ -145,7 +139,7 @@ RSpec.describe 'Users API', type: :request do
     end
 
     context 'unprivileged user tries to delete not himself' do
-      let(:another_user) { create(:user) }
+      let(:another_user) { build(:user) }
       let(:headers) { authentication_header(another_user) }
 
       it 'returns unauthorized' do

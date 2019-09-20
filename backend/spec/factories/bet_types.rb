@@ -14,6 +14,6 @@
 
 FactoryBot.define do
   factory :bet_type do
-    name { Faker::Lorem.word }
+    name { 'live' }
   end
 end

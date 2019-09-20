@@ -16,6 +16,6 @@
 
 FactoryBot.define do
   factory :bookmaker do
-    name { Faker::Company.name }
+    name { 'scum' }
   end
 end

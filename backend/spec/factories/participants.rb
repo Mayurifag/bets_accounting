@@ -16,6 +16,6 @@
 
 FactoryBot.define do
   factory :participant do
-    name { Faker::Esport.team }
+    name { 'team' }
   end
 end

@@ -16,6 +16,6 @@
 
 FactoryBot.define do
   factory :discipline do
-    name { Faker::Esport.game }
+    name { 'doka 2' }
   end
 end
