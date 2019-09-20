@@ -7,9 +7,8 @@ ruby File.read(File.expand_path('.ruby-version', __dir__)).chomp
 
 gem 'rails', '~> 6.0'
 
-gem 'pg', '~> 1.0'
-gem 'pg_search'
-gem 'puma', '~> 4.1'
+gem 'pg'
+gem 'puma', '>= 4.1'
 
 gem 'activerecord-import'
 gem 'bcrypt'
@@ -20,6 +19,7 @@ gem 'fast_blank'
 gem 'knock', github: 'Mayurifag/knock'
 gem 'oj'
 gem 'rack-cors'
+gem 'strong_migrations'
 
 group :development, :test do
   gem 'awesome_rails_console', github: 'Mayurifag/awesome_rails_console',
@@ -42,7 +42,6 @@ group :development do
   gem 'listen'
   gem 'ordinare', require: false
   gem 'rubocop'
-  gem 'strong_migrations'
 end
 
 group :test do

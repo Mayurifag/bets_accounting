@@ -71,5 +71,4 @@ provision:
   - echo "Provision done."
   - echo "Frontend is located at localhost:3333"
   - echo "Backend is located at localhost:8888"
-  - echo "Parallel tests may be executed by command dip spec"
   - echo "=================================================="

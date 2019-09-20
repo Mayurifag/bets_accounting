@@ -13,27 +13,29 @@
 ActiveRecord::Schema.define(version: 2019_08_11_211029) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_trgm"
   enable_extension "plpgsql"
 
   create_table "bet_types", force: :cascade do |t|
     t.string "name", null: false
+    t.index ["name"], name: "index_bet_types_on_name", opclass: :gin_trgm_ops, using: :gin
   end
 
   create_table "bets", force: :cascade do |t|
-    t.text "comment"
-    t.float "coefficient", null: false
-    t.decimal "profit"
-    t.string "outcome", null: false
-    t.integer "wager", null: false
+    t.bigint "bet_type_id"
+    t.bigint "bookmaker_id"
     t.bigint "choice1_id"
     t.bigint "choice2_id"
-    t.bigint "bookmaker_id"
+    t.float "coefficient", null: false
+    t.text "comment"
+    t.datetime "created_at", precision: 6, null: false
     t.bigint "discipline_id"
     t.bigint "event_id"
+    t.string "outcome", null: false
+    t.decimal "profit"
     t.bigint "result_variant_id"
-    t.bigint "bet_type_id"
-    t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "wager", null: false
     t.index ["bet_type_id"], name: "index_bets_on_bet_type_id"
     t.index ["bookmaker_id"], name: "index_bets_on_bookmaker_id"
     t.index ["choice1_id"], name: "index_bets_on_choice1_id"
@@ -44,43 +46,43 @@ ActiveRecord::Schema.define(version: 2019_08_11_211029) do
   end
 
   create_table "bookmakers", force: :cascade do |t|
-    t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
+    t.string "name", null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_bookmakers_on_name", opclass: :gin_trgm_ops, using: :gin
   end
 
   create_table "disciplines", force: :cascade do |t|
-    t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
+    t.string "name", null: false
     t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "disciplines_participants", id: false, force: :cascade do |t|
-    t.bigint "discipline_id", null: false
-    t.bigint "participant_id", null: false
+    t.index ["name"], name: "index_disciplines_on_name", opclass: :gin_trgm_ops, using: :gin
   end
 
   create_table "events", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
     t.string "name", null: false
     t.date "period"
-    t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_events_on_name", opclass: :gin_trgm_ops, using: :gin
   end
 
   create_table "participants", force: :cascade do |t|
-    t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
+    t.string "name", null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_participants_on_name", opclass: :gin_trgm_ops, using: :gin
   end
 
   create_table "result_variants", force: :cascade do |t|
     t.string "name", null: false
+    t.index ["name"], name: "index_result_variants_on_name", opclass: :gin_trgm_ops, using: :gin
   end
 
   create_table "users", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
     t.string "email", null: false
     t.string "password_digest"
-    t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
   end

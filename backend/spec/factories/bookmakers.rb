@@ -9,6 +9,10 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
+# Indexes
+#
+#  index_bookmakers_on_name  (name) USING gin
+#
 
 FactoryBot.define do
   factory :bookmaker do

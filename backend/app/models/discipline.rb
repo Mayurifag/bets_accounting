@@ -9,13 +9,14 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
+# Indexes
+#
+#  index_disciplines_on_name  (name) USING gin
+#
 
 class Discipline < ApplicationRecord
+  include Searchable
   # has_and_belongs_to_many :participants
   # belongs_to :bet
-  include PgSearch::Model
-  pg_search_scope :autocomplete_name, against: :name,
-                                      using: { tsearch: { prefix: true } },
-                                      order_within_rank: 'created_at ASC'
   validates_presence_of :name
 end

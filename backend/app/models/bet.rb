@@ -37,9 +37,6 @@
 #
 
 class Bet < ApplicationRecord
-  include ActionView::Helpers::NumberHelper
-  include PgSearch::Model
-
   scope :newest_first, -> { order(created_at: :desc) }
 
   belongs_to :discipline,     optional: true

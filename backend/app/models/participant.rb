@@ -9,21 +9,19 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
+# Indexes
+#
+#  index_participants_on_name  (name) USING gin
+#
 
 class Participant < ApplicationRecord
+  include Searchable
   # has_and_belongs_to_many :disciplines
 
   # TODO: field full_name
 
   # has_many :participant_bets
   # has_many :bets, through: :participant_bets
-
-  include PgSearch::Model
-  pg_search_scope :autocomplete_name, against: :name,
-                                      using: {
-                                        tsearch: { prefix: true }
-                                      },
-                                      order_within_rank: 'created_at ASC'
 
   validates_presence_of :name
 end

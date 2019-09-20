@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'shoulda/matchers'
+
 RSpec.configure do |config|
   config.add_formatter 'Fuubar'
   config.filter_run_when_matching :focus

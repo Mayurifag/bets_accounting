@@ -2,15 +2,16 @@
 
 class AddAlphaSchemas < ActiveRecord::Migration[6.0]
   def change
-    # create_table :users do |t|
-    #   t.string :name, null: false
-    #   t.string :email, null: false
-    #   t.string :password_digest
-    #   t.monetize :balance
-    #   # TODO: image
-    #
-    #   t.timestamps
-    # end
+    enable_extension :pg_trgm
+
+    create_table :users do |t|
+      # TODO: name, balance, avatar, etc.
+      t.string :email, null: false
+      t.string :password_digest
+
+      t.timestamps
+    end
+    add_index :users, :email, unique: true
 
     create_table :disciplines do |t|
       t.string :name, null: false
@@ -18,6 +19,7 @@ class AddAlphaSchemas < ActiveRecord::Migration[6.0]
 
       t.timestamps
     end
+    add_index :disciplines, :name, using: :gin, opclass: { name: :gin_trgm_ops }
 
     create_table :participants do |t|
       t.string :name, null: false
@@ -25,10 +27,11 @@ class AddAlphaSchemas < ActiveRecord::Migration[6.0]
 
       t.timestamps
     end
+    add_index :participants, :name, using: :gin, opclass: { name: :gin_trgm_ops }
 
-    create_join_table :disciplines, :participants do |t|
+    # create_join_table :disciplines, :participants do |t|
       # t.index [:discipline_id, :participant_id]
-    end
+    # end
 
     create_table :bookmakers do |t|
       t.string :name, null: false
@@ -36,6 +39,7 @@ class AddAlphaSchemas < ActiveRecord::Migration[6.0]
 
       t.timestamps
     end
+    add_index :bookmakers, :name, using: :gin, opclass: { name: :gin_trgm_ops }
 
     create_table :events do |t|
       t.string :name, null: false
@@ -43,6 +47,7 @@ class AddAlphaSchemas < ActiveRecord::Migration[6.0]
 
       t.timestamps
     end
+    add_index :events, :name, using: :gin, opclass: { name: :gin_trgm_ops }
 
     # create_table :bookmaker_balances do |t|
     #   t.monetize :balance
@@ -53,10 +58,12 @@ class AddAlphaSchemas < ActiveRecord::Migration[6.0]
     create_table :result_variants do |t|
       t.string :name, null: false
     end
+    add_index :result_variants, :name, using: :gin, opclass: { name: :gin_trgm_ops }
 
     create_table :bet_types do |t|
       t.string :name, null: false
     end
+    add_index :bet_types, :name, using: :gin, opclass: { name: :gin_trgm_ops }
 
     create_table :bets do |t|
       # Комментарий
@@ -84,5 +91,6 @@ class AddAlphaSchemas < ActiveRecord::Migration[6.0]
 
       t.timestamps
     end
+    # add_index :bets, :profit
   end
 end
