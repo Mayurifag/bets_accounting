@@ -16,7 +16,7 @@ RSpec.describe 'Bets API', type: :request do
         expect(response).to have_http_status(200)
       end
 
-      it { expect { get '/api/bets' }.not_to exceed_query_limit(1).with(/SELECT/) }
+      it { expect { get '/api/bets' }.not_to exceed_query_limit(1) }
     end
   end
 
@@ -51,7 +51,7 @@ RSpec.describe 'Bets API', type: :request do
     let!(:bet_type) { create(:bet_type, name: 'Лайв') }
 
     context 'when the request is valid' do
-      let!(:discipline) { create(:discipline) }
+      let!(:discipline) { build(:discipline) }
       let!(:choice) { create(:participant) }
       let(:valid_attributes) do
         { bet: { choice1_id: choice.id, choice2_id: choice.id, discipline_id: discipline.id,

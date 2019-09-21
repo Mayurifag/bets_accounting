@@ -16,8 +16,6 @@ pre-push:
   commands:
     rspec:
       runner: dip rspec --fail-fast
-    gems-audit:
-      runner: dip bundle audit check --update
 
 commands: &commands
   bundle-install:

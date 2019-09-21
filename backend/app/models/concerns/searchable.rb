@@ -7,10 +7,11 @@ module Searchable
     # The more the threshold, the less results and the stricter the searches
     THRESHOLD_SCORE = 0.3
 
-    # TODO: escape this without dangerous query and sql injection
     def autocomplete_name(query)
-      where("similarity(name, ?) > #{THRESHOLD_SCORE}", query)
-      # .order("similarity(name, #{ActiveRecord::Base.connection.quote(query)}) DESC")
+      quoted_query = ActiveRecord::Base.connection.quote(query)
+
+      where('similarity(name, :word) > :score', word: quoted_query, score: THRESHOLD_SCORE)
+        .order(Arel.sql("similarity(name, #{quoted_query}) DESC"))
     end
   end
 end

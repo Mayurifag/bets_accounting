@@ -4,6 +4,8 @@ require 'rails_helper'
 
 RSpec.describe 'Autocomplete', type: :request do
   let!(:bookmaker) { create(:bookmaker, name: '1huibet') }
+  let!(:bookmaker2) { create(:bookmaker, name: '1huibetsad') }
+
   subject! { post '/api/autocomplete', params: params }
 
   context 'should work for bookmaker' do
@@ -12,6 +14,7 @@ RSpec.describe 'Autocomplete', type: :request do
     it 'should return autocomplete hash' do
       expect(response).to have_http_status(200)
       expect(json.first['name']).to eq('1huibet')
+      expect(json.second['name']).to eq('1huibetsad')
     end
   end
 
