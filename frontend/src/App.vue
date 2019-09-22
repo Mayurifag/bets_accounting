@@ -16,9 +16,9 @@
         router-link(to="/" exact).navbar-item Келли
         router-link(to="/bets" exact).navbar-item Демо
       .navbar-end
-        .navbar-item User [todo]
-        .navbar-item balance [todo]
-        .navbar-item About page [todo]
+        router-link(to="/user" exact).navbar-item User
+        //- .navbar-item balance [todo]
+        //- .navbar-item About page [todo]
   router-view(:key="$route.fullPath")
   //- TODO: footer with links license etc
 </template>
