@@ -10,4 +10,6 @@ RSpec.configure do |config|
   config.profile_examples = 4
   config.order = :random
   Kernel.srand config.seed
+
+  config.example_status_persistence_file_path = 'tmp/rspec_examples.txt'
 end

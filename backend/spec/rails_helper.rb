@@ -16,6 +16,10 @@ if ENV['TEST_ENV_NUMBER'] # parallel specs
 end
 SimpleCov.start 'rails'
 
+# lib is required due to simplecov coverage
+Dir[Rails.root.join('lib', '*.rb')].each { |f| load f }
+Dir[Rails.root.join('spec', 'support', '**', '*.rb')].each { |f| require f }
+
 require 'database_rewinder'
 
 Shoulda::Matchers.configure do |config|
@@ -24,8 +28,6 @@ Shoulda::Matchers.configure do |config|
     with.library :rails
   end
 end
-
-Dir[Rails.root.join('spec', 'support', '**', '*.rb')].each { |f| require f }
 
 begin
   ActiveRecord::Migration.maintain_test_schema!

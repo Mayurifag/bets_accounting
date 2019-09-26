@@ -11,44 +11,27 @@ class Generator
     end
 
     def generate_bet(build: false)
-      return Bet.create!(random_bet_params) unless build
-
       bet = Bet.new(random_bet_params)
+
+      return bet.save! unless build
+
       bet.update_profit_column
       bet
     end
 
     private
 
-    # Switch on the cache if you want to import thousands of bets in development environment.
-    # Don't forget to switch it off!
-    #
-    # 1) dip rails dev:cache
-    # 2) dip rails c
-    # 3) Generator.generate_bets(15000)
-    # 4) exit
-    # 5) dip rails dev:cache
-    #
-    def random_from_class(class_name)
-      klass_string = class_name.to_s.classify
-      ids = Rails.cache.fetch(klass_string, expires_in: 1.minutes) do
-        klass_string.constantize.ids
-      end
-
-      ids.sample
-    end
-
     def random_bet_params
-      { choice1_id: random_from_class(:participant),
-        choice2_id: random_from_class(:participant),
+      { choice1_id: Participant.memoized_sample_id,
+        choice2_id: Participant.memoized_sample_id,
         wager: rand(1000..100_000),
-        coefficient: rand(1.2...3.0).ceil(2),
-        outcome: 'П' + rand(1..2).to_s,
+        coefficient: rand(1.1...3.0).ceil(2),
+        outcome: 'П' + %w[1 2].sample,
         comment: Faker::Lorem.sentence,
-        discipline_id: random_from_class(:discipline),
-        bookmaker_id: random_from_class(:bookmaker),
-        result_variant_id: random_from_class(:result_variant),
-        bet_type_id: random_from_class(:bet_type) }
+        discipline_id: Discipline.memoized_sample_id,
+        bookmaker_id: Bookmaker.memoized_sample_id,
+        result_variant_id: ResultVariant.memoized_sample_id,
+        bet_type_id: BetType.memoized_sample_id }
     end
 
     def this_is_not_a_positive_integer?(number)
