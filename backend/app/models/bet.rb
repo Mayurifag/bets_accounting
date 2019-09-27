@@ -39,11 +39,11 @@
 class Bet < ApplicationRecord
   scope :newest_first, -> { order(created_at: :desc) }
 
-  belongs_to :discipline,     optional: true
+  belongs_to :discipline, optional: true
   belongs_to :result_variant, optional: true
-  belongs_to :bet_type,       optional: true
-  belongs_to :bookmaker,      optional: true
-  belongs_to :event,          optional: true
+  belongs_to :bet_type, optional: true
+  belongs_to :bookmaker, optional: true
+  belongs_to :event, optional: true
   belongs_to :choice1, class_name: 'Participant', foreign_key: :choice1_id
   belongs_to :choice2, class_name: 'Participant', foreign_key: :choice2_id
 

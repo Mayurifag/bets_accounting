@@ -5,6 +5,7 @@ require 'rails_helper'
 RSpec.describe 'Authentication', type: :request do
   describe 'POST /api/auth' do
     let!(:user) { create :user }
+
     subject! { post '/api/auth', params: params }
 
     context 'when the request is valid' do

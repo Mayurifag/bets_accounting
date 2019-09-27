@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Factories' do
-  it 'should be possible to use all factories' do
+  it 'is possible to use all factories' do
     FactoryBot.lint
   end
 end

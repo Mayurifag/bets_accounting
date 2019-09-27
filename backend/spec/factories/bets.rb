@@ -48,7 +48,7 @@ FactoryBot.define do
 
     coefficient { 1.4 }
     comment { 'test' }
-    wager   { 111 }
+    wager { 111 }
     outcome { 'П1' }
   end
 end

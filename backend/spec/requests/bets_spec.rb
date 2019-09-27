@@ -23,6 +23,7 @@ RSpec.describe 'Bets API', type: :request do
   # Test suite for GET /bets/:id
   describe 'GET /bets/:id' do
     let(:bet) { create :bet }
+
     before { get "/api/bets/#{bet_id}" }
 
     context 'when the record exists' do
@@ -39,7 +40,7 @@ RSpec.describe 'Bets API', type: :request do
 
       it 'returns a not found message' do
         expect(response).to have_http_status(404)
-        expect(response.body).to match(/Couldn't find Bet/)
+        expect(response.body).to match(%r{Couldn't find Bet})
       end
     end
   end
@@ -56,7 +57,7 @@ RSpec.describe 'Bets API', type: :request do
       let(:valid_attributes) do
         { bet: { choice1_id: choice.id, choice2_id: choice.id, discipline_id: discipline.id,
                  result_variant_id: result_variant.id, coefficient: coefficient, wager: 10_000,
-                 outcome: 'П1' } }
+                 outcome: 'П1' }}
       end
 
       before { post '/api/bets', params: valid_attributes }
@@ -71,14 +72,14 @@ RSpec.describe 'Bets API', type: :request do
     end
 
     context 'when the request is fully invalid' do
-      before { post '/api/bets', params: { bet: { title: 'Foobar' } } }
+      before { post '/api/bets', params: { bet: { title: 'Foobar' }} }
 
       it 'returns status code 422' do
         expect(response).to have_http_status(422)
       end
 
       it 'returns a validation failure message' do
-        expect(response.body).to match(/must exist/)
+        expect(response.body).to match(%r{must exist})
       end
     end
 
@@ -86,7 +87,7 @@ RSpec.describe 'Bets API', type: :request do
       let(:params_to_be_transformed) do
         { bet: { choice1: 'fuck specs', choice2: 'fuck specs', discipline: 'test disc',
                  result_variant: 'Победа', bet_type: 'Лайв', coefficient: coefficient,
-                 wager: 10_000, outcome: 'П1', bookmaker: '1huybet' } }
+                 wager: 10_000, outcome: 'П1', bookmaker: '1huybet' }}
       end
 
       before { post '/api/bets', params: params_to_be_transformed }
@@ -116,7 +117,7 @@ RSpec.describe 'Bets API', type: :request do
     let!(:bet) { create :bet }
     let(:bet_id) { bet.id }
     let(:params) do
-      { bet: { coefficient: coefficient, wager: 1000, result_variant_id: 2 } }
+      { bet: { coefficient: coefficient, wager: 1000, result_variant_id: 2 }}
     end
 
     before { put "/api/bets/#{bet_id}", params: params }
@@ -129,7 +130,7 @@ RSpec.describe 'Bets API', type: :request do
 
     context 'when the coefficient is invalid' do
       let(:params) do
-        { bet: { id: bet_id, coefficient: 'asd' } }
+        { bet: { id: bet_id, coefficient: 'asd' }}
       end
 
       it 'returns status code 422' do

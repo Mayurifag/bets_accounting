@@ -13,7 +13,7 @@
 #
 
 class ResultVariant < ApplicationRecord
-  validates_presence_of :name
+  validates :name, presence: true
 
   def self.win_id
     1

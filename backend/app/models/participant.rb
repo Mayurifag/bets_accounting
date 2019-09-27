@@ -23,5 +23,5 @@ class Participant < ApplicationRecord
   # has_many :participant_bets
   # has_many :bets, through: :participant_bets
 
-  validates_presence_of :name
+  validates :name, presence: true
 end

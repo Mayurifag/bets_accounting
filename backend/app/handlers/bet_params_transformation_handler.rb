@@ -7,12 +7,12 @@ class BetParamsTransformationHandler < ApplicationHandler
     %i[bookmaker find_or_create_by],
     %i[discipline find_or_create_by],
     %i[bet_type find_by],
-    %i[result_variant find_by]
+    %i[result_variant find_by],
   ].freeze
 
   def call
     FIELDS.each do |field_name, method_for_class|
-      next unless object.has_key?(field_name)
+      next unless object.key?(field_name)
 
       transform_field_to_field_id(field_name, method_for_class)
     end
@@ -38,7 +38,7 @@ class BetParamsTransformationHandler < ApplicationHandler
 
   def klass(name)
     # TODO: think about how to define this
-    return Participant if /choice/.match?(name)
+    return Participant if %r{choice}.match?(name)
 
     name.to_s.classify.constantize
   end

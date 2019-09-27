@@ -10,7 +10,7 @@ class BetBlueprint < Blueprinter::Base
 
   # TODO: is this fine
   field :profit do |bet|
-    format('%0.02f', bet.profit) # if bet.profit.present?
+    '%0.02f' % bet.profit # if bet.profit.present?
   end
 
   FIELDS_WITH_NAMES.each do |attr|

@@ -11,7 +11,7 @@ RSpec.describe 'Autocomplete', type: :request do
   context 'should work for bookmaker' do
     let(:params) { { class_name: 'Bookmaker', query: '1hui' } }
 
-    it 'should return autocomplete hash' do
+    it 'returns autocomplete hash' do
       expect(response).to have_http_status(200)
       expect(json.first['name']).to eq('1huibet')
       expect(json.second['name']).to eq('1huibetsad')
@@ -21,7 +21,7 @@ RSpec.describe 'Autocomplete', type: :request do
   context 'shouldnt work for unpermitted class names' do
     let(:params) { { class_name: 'ResultVariant', query: 'Победа' } }
 
-    it 'should return error' do
+    it 'returns error' do
       expect(response).to have_http_status(422)
       expect(json['errors']).to eq('Unpermitted class name ResultVariant')
     end

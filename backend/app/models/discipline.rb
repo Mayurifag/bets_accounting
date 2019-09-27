@@ -18,5 +18,5 @@ class Discipline < ApplicationRecord
   include Searchable
   # has_and_belongs_to_many :participants
   # belongs_to :bet
-  validates_presence_of :name
+  validates :name, presence: true
 end

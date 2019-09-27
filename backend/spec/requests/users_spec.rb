@@ -51,6 +51,7 @@ RSpec.describe 'Users API', type: :request do
 
   describe 'POST /api/user/:id update' do
     let(:user) { create(:user) }
+
     subject! { patch "/api/users/#{user.id}", params: params, headers: headers }
 
     context 'with an unauthenticated user' do
@@ -121,6 +122,7 @@ RSpec.describe 'Users API', type: :request do
 
   describe 'DELETE /api/user/:id #destroy' do
     let(:user) { create(:user) }
+
     subject! { delete "/api/users/#{user.id}", headers: headers }
 
     context 'with an unauthenticated user' do

@@ -2,8 +2,8 @@
 
 class UsersController < ApplicationController
   # Use Knock to make sure the current_user is authenticated before completing request.
-  before_action :authenticate_user,  only: %i[index show update]
-  before_action :authorize,          only: %i[update destroy]
+  before_action :authenticate_user, only: %i[index show update]
+  before_action :authorize, only: %i[update destroy]
 
   def index
     json_response(User.all)
