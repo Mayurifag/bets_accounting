@@ -63,8 +63,9 @@ jobs:
 
     - name: rubocop
       run: |
-        gem install rubocop
-        rubocop -c backend/.rubocop.yml
+        gem install rubocop spicerack-styleguide
+        cd backend
+        rubocop
 #######################################
   rspec:
     runs-on: ubuntu-latest

@@ -3,10 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe Generator, type: :model do
-  let!(:participant) { create :participant }
-  # Look at ActiveRecordExtension memoization
+  before { create :participant }
 
-  after { Participant.send(:remove_instance_variable, :@_ids) }
+  # Look at ActiveRecordExtension memoization
+  after { Participant.public_send(:remove_instance_variable, :@_ids) }
 
   describe '#generate_bets' do
     it 'has to create paramed integer number of bets' do

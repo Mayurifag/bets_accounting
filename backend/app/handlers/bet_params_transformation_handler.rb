@@ -12,7 +12,7 @@ class BetParamsTransformationHandler < ApplicationHandler
 
   def call
     FIELDS.each do |field_name, method_for_class|
-      next unless object.key?(field_name)
+      next unless object.has_key?(field_name)
 
       transform_field_to_field_id(field_name, method_for_class)
     end

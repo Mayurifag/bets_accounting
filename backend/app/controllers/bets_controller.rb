@@ -38,8 +38,7 @@ class BetsController < ApplicationController
 
   # DELETE /bets/:id
   def destroy
-    @bet.destroy
-    head :no_content
+    head :no_content if @bet.destroy!
   end
 
   private

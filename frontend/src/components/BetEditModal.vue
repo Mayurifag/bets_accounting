@@ -85,53 +85,53 @@
 </template>
 
 <script>
-import Vue from "vue";
-import api from "../api";
+import Vue from 'vue';
+import api from '../api';
 
 export default {
-  props: ["initialBet"],
+  props: ['initialBet'],
   data() {
     return {
       bet: Vue.util.extend({}, this.initialBet),
       participants: [],
       disciplines: [],
-      selected: null
+      selected: null,
     };
   },
   methods: {
     submitForm() {
-      this.$validator.validateAll().then(isValid => {
+      this.$validator.validateAll().then((isValid) => {
         if (isValid) {
           this.saveBet();
         }
       });
     },
     saveBet() {
-      this.$emit("submit", this.bet);
+      this.$emit('submit', this.bet);
     },
     getParticipants(model) {
       this.participants = [];
       api
-        .autocomplete("Participant", model)
+        .autocomplete('Participant', model)
         .then(({ data }) => {
           data.forEach(item => this.participants.push(item));
         })
-        .catch(error => {
+        .catch((error) => {
           throw error;
         });
     },
     getDisciplines() {
       this.disciplines = [];
       api
-        .autocomplete("Discipline", this.bet.discipline)
+        .autocomplete('Discipline', this.bet.discipline)
         .then(({ data }) => {
           data.forEach(item => this.disciplines.push(item));
         })
-        .catch(error => {
+        .catch((error) => {
           throw error;
         });
-    }
-  }
+    },
+  },
 };
 </script>
 

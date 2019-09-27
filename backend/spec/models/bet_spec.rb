@@ -36,11 +36,11 @@
 #  fk_rails_...  (choice2_id => participants.id)
 #
 
-require 'rails_helper'
+# require 'rails_helper'
 
-RSpec.describe Bet, type: :model do
-  # TODO: test profit calculation
-  # it { should validate_presence_of(:coefficient) }
-  # it { should validate_presence_of(:wager) }
-  # it { should validate_presence_of(:outcome) }
-end
+# RSpec.describe Bet, type: :model do
+#   # TODO: test profit calculation
+#   # it { should validate_presence_of(:coefficient) }
+#   # it { should validate_presence_of(:wager) }
+#   # it { should validate_presence_of(:outcome) }
+# end

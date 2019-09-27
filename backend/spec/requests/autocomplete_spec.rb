@@ -3,22 +3,24 @@
 require 'rails_helper'
 
 RSpec.describe 'Autocomplete', type: :request do
-  let!(:bookmaker) { create(:bookmaker, name: '1huibet') }
-  let!(:bookmaker2) { create(:bookmaker, name: '1huibetsad') }
+  before do
+    create(:bookmaker, name: '1huibet')
+    create(:bookmaker, name: '1huibetsad')
+  end
 
   subject! { post '/api/autocomplete', params: params }
 
-  context 'should work for bookmaker' do
+  context 'when query is valid for permitted class' do
     let(:params) { { class_name: 'Bookmaker', query: '1hui' } }
 
-    it 'returns autocomplete hash' do
+    it 'returns autocompleted ordered hash' do
       expect(response).to have_http_status(200)
       expect(json.first['name']).to eq('1huibet')
       expect(json.second['name']).to eq('1huibetsad')
     end
   end
 
-  context 'shouldnt work for unpermitted class names' do
+  context 'when query is valid for unpermitted class' do
     let(:params) { { class_name: 'ResultVariant', query: 'Победа' } }
 
     it 'returns error' do

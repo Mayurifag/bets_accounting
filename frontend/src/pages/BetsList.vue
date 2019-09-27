@@ -62,22 +62,20 @@ section.container
 </template>
 
 <script>
-import api from "../api";
-import BetEditModal from "../components/BetEditModal";
-import { mapGetters } from "vuex";
+import { mapGetters } from 'vuex';
+import api from '../api';
+import BetEditModal from '../components/BetEditModal';
 
 export default {
   // props: ['bets'],
-  components: { "bet-edit-modal": BetEditModal },
+  components: { 'bet-edit-modal': BetEditModal },
   computed: {
-    ...mapGetters(["bets"]),
+    ...mapGetters(['bets']),
 
     profit() {
-      let profit = this.bets.reduce(function(prev, cur) {
-        return prev + parseFloat(cur.profit);
-      }, 0);
+      const profit = this.bets.reduce((prev, cur) => prev + parseFloat(cur.profit), 0);
       return profit.toFixed(2);
-    }
+    },
   },
   data() {
     return {
@@ -85,9 +83,9 @@ export default {
       current: 1,
       isEditModalActive: false,
       initializeNewBet: {
-        choice1: "",
-        choice2: ""
-      }
+        choice1: '',
+        choice2: '',
+      },
     };
   },
   methods: {
@@ -106,32 +104,32 @@ export default {
     },
     saveBet(bet) {
       api.saveBet(bet).then(() => {
-        this.$store.dispatch("fetchBets").then(() => {
+        this.$store.dispatch('fetchBets').then(() => {
           this.hideModal();
-          this.$toast.open({ message: "Ставка сохранена", type: "is-success" });
+          this.$toast.open({ message: 'Ставка сохранена', type: 'is-success' });
         });
       });
     },
     deleteBet(bet) {
       // TODO: if user.wantsToConfirm; translation
       this.$dialog.confirm({
-        title: "Удаление ставки",
+        title: 'Удаление ставки',
         message:
-          "Вы уверены, что вы хотите <b>удалить</b> эту ставку? Это действие не может быть отменено.",
-        confirmText: "Да",
-        cancelText: "Нет",
-        type: "is-danger",
+          'Вы уверены, что вы хотите <b>удалить</b> эту ставку? Это действие не может быть отменено.',
+        confirmText: 'Да',
+        cancelText: 'Нет',
+        type: 'is-danger',
         hasIcon: true,
         onConfirm: () => {
           api.deleteBet(bet.id).then(() => {
-            this.$store.dispatch("fetchBets").then(() => {
-              this.$toast.open("Ставка удалена");
+            this.$store.dispatch('fetchBets').then(() => {
+              this.$toast.open('Ставка удалена');
             });
           });
-        }
+        },
       });
-    }
-  }
+    },
+  },
 };
 </script>
 

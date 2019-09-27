@@ -24,12 +24,12 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState } from 'vuex';
 
 export default {
   data() {
     return {
-      isNavbarActive: false
+      isNavbarActive: false,
     };
   },
 
@@ -37,13 +37,13 @@ export default {
     // $Progress for vue-progressbar
     this.$Progress.start();
 
-    this.$store.dispatch("fetchBets").then(() => {
+    this.$store.dispatch('fetchBets').then(() => {
       this.$Progress.finish();
     });
 
     this.$router.beforeEach((to, from, next) => {
       if (to.meta.progress !== undefined) {
-        let meta = to.meta.progress;
+        const meta = to.meta.progress;
         this.$Progress.parseMeta(meta);
       }
       this.$Progress.start();
@@ -56,7 +56,7 @@ export default {
   },
 
   computed: {
-    ...mapState(["bets"])
-  }
+    ...mapState(['bets']),
+  },
 };
 </script>

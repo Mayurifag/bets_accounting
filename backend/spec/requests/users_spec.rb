@@ -86,7 +86,7 @@ RSpec.describe 'Users API', type: :request do
       end
     end
 
-    context 'unprivileged user tries to update not himself' do
+    context 'when unprivileged user tries to update not himself' do
       let(:another_user) { create(:user) }
       let(:headers) { authentication_header(another_user) }
       let(:params) do
@@ -140,7 +140,7 @@ RSpec.describe 'Users API', type: :request do
       end
     end
 
-    context 'unprivileged user tries to delete not himself' do
+    context 'when unprivileged user tries to delete not himself' do
       let(:another_user) { build(:user) }
       let(:headers) { authentication_header(another_user) }
 

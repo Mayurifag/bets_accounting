@@ -3,5 +3,6 @@
 require 'oj'
 
 Blueprinter.configure do |config|
-  config.generator = Oj # default is JSON
+  # default is JSON
+  config.generator = Oj
 end

@@ -4,6 +4,18 @@ inherit_gem:
   spicerack-styleguide:
     - rubocop.yml
 
+Rails/InverseOf:
+  Exclude:
+    - app/models/bet.rb
+
+Style/NumericLiterals:
+  Exclude:
+    - config/initializers/strong_migrations.rb
+
+# has_key? and has_value? are more readable than key? and value?
+Style/PreferredHashMethods:
+  EnforcedStyle: verbose
+
 # You're gonna want a flak jacket for this one
 Style/StringLiterals:
   Enabled: true

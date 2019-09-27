@@ -6,7 +6,7 @@ RSpec.describe 'Bets API', type: :request do
   # Test suite for GET /bets
   describe 'GET /api/bets' do
     context 'without any params' do
-      let!(:bets) { create_list(:bet, 2) }
+      before { create_list(:bet, 2) }
 
       it 'returns bets' do
         get '/api/bets'
@@ -49,7 +49,6 @@ RSpec.describe 'Bets API', type: :request do
   describe 'POST /api/bets' do
     let(:coefficient) { 2.28 }
     let!(:result_variant) { ResultVariant.create(id: 1, name: 'Победа') }
-    let!(:bet_type) { create(:bet_type, name: 'Лайв') }
 
     context 'when the request is valid' do
       let!(:discipline) { build(:discipline) }
@@ -60,7 +59,10 @@ RSpec.describe 'Bets API', type: :request do
                  outcome: 'П1' }}
       end
 
-      before { post '/api/bets', params: valid_attributes }
+      before do
+        create(:bet_type, name: 'Лайв')
+        post '/api/bets', params: valid_attributes
+      end
 
       it 'creates a bet' do
         expect(json['coefficient']).to eq(coefficient)

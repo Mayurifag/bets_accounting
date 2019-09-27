@@ -8,9 +8,9 @@ class BetBlueprint < Blueprinter::Base
 
   fields :coefficient, :outcome, :wager
 
-  # TODO: is this fine
+  # TODO: is this fine # if bet.profit.present?
   field :profit do |bet|
-    '%0.02f' % bet.profit # if bet.profit.present?
+    '%0.02f' % bet.profit
   end
 
   FIELDS_WITH_NAMES.each do |attr|
