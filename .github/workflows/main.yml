@@ -61,11 +61,16 @@ jobs:
       with:
         ruby-version: 2.6.x
 
+    # required to compile pg ruby gem
+    - name: install PostgreSQL client
+      run: sudo apt-get install libpq-dev
+
     - name: rubocop
       run: |
-        gem install rubocop spicerack-styleguide
+        gem install bundler
         cd backend
-        rubocop
+        bundle install --jobs 4 --retry 3
+        bundle exec rubocop
 #######################################
   rspec:
     runs-on: ubuntu-latest
@@ -99,7 +104,7 @@ jobs:
         RAILS_ENV: test
         CC_TEST_REPORTER_ID: 74855e8480493fa17a796717c03a42ba418a1a0f2cc96a1d7418e9ba572b2a9b
       run: |
-        GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+        git checkout "${GITHUB_REF:11}" # get git branch name for codeclimate
         gem install bundler
         cd backend
         bundle install --without development production --jobs 4 --retry 3
