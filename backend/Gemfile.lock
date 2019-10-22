@@ -90,9 +90,6 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
       zeitwerk (~> 2.1, >= 2.1.8)
-    annotate (3.0.2)
-      activerecord (>= 3.2, < 7.0)
-      rake (>= 10.4, < 13.0)
     ansi (1.5.0)
     anyway_config (1.4.4)
     ast (2.4.0)
@@ -302,7 +299,6 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord-import
-  annotate
   awesome_rails_console!
   bcrypt
   blueprinter

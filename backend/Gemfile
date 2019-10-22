@@ -34,7 +34,6 @@ group :development, :test do
 end
 
 group :development do
-  gem 'annotate'
   gem 'brakeman', require: false
   gem 'bullet'
   gem 'bundler-audit', require: false
