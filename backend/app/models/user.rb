@@ -7,7 +7,7 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :password,
-            length: { minimum: 6, maximum: 40 },
+            length: { minimum: 4, maximum: 40 },
             if: -> { new_record? || password.present? }
 
   # https://engineering.musefind.com/building-a-simple-token-based-authorization-api-with-rails-a5c181b83e02

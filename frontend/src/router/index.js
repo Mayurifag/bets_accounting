@@ -3,14 +3,14 @@ import VueRouter from 'vue-router';
 
 import Kelly from '../pages/Kelly.vue';
 import BetsList from '../pages/BetsList.vue';
-import User from '../pages/User.vue'
+import Login from '../pages/Login.vue'
 
 Vue.use(VueRouter);
 
 const routes = [
   { path: '/', component: Kelly },
   { path: '/bets', component: BetsList, props: true },
-  { path: '/user', component: User },
+  { path: '/login', component: Login },
   // TODO: vue-error-page?
   { path: '*', component: Kelly },
 ];

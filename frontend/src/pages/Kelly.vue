@@ -10,6 +10,7 @@
       a(href='https://www.wikiwand.com/en/Kelly_criterion') wiki
 
   .content
+    | Debug info: Logged in? {{ isLoggedIn }}
     b-field(
       label="Текущий банк"
       :type="errors.has('bank') ? 'is-danger' : ''"
@@ -89,6 +90,9 @@ export default {
     kelly_result() {
       const result = this.kelly_percent * this.bank;
       return result.toFixed(2);
+    },
+    isLoggedIn() {
+      return this.$store.getters.isLoggedIn
     }
   }
 };

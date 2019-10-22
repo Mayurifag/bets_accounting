@@ -16,11 +16,10 @@
         router-link(to="/" exact).navbar-item Келли
         router-link(to="/bets" exact).navbar-item Демо
       .navbar-end
-        router-link(to="/user" exact).navbar-item User
+        router-link(to="/login" exact).navbar-item Login
         //- .navbar-item balance [todo]
         //- .navbar-item About page [todo]
   router-view(:key="$route.fullPath")
-  //- TODO: footer with links license etc
 </template>
 
 <script>
@@ -56,7 +55,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['bets']),
+    ...mapState(['bets'])
   },
 };
 </script>

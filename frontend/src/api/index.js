@@ -36,4 +36,12 @@ export default {
       query: autocomplete,
     });
   },
+
+  // Login
+  auth(email, password) {
+    return axios.post('/api/auth', {
+      email: email,
+      password: password
+    });
+  }
 };
