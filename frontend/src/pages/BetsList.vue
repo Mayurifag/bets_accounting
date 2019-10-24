@@ -73,8 +73,9 @@ export default {
     ...mapGetters(['bets']),
 
     profit() {
-      const profit = this.bets.reduce((prev, cur) => prev + parseFloat(cur.profit), 0);
-      return profit.toFixed(2);
+      return this.bets
+                 .reduce((prev, cur) => prev + parseFloat(cur.profit), 0)
+                 .toFixed(2);
     },
   },
   data() {
