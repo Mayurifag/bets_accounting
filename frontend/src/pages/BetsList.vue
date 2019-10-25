@@ -50,7 +50,7 @@ section.container
           .content
             p
               strong {{ props.row.bet_type }}
-              small  в БК {{ props.row.bookmaker }} ({{ new Date(new Date(props.row.created_at).toUTCString()).toLocaleDateString() }})
+              small  в БК {{ props.row.bookmaker }} ({{ props.row.created_at }})
               br
               | {{ props.row.comment }}
     template(slot='empty')
