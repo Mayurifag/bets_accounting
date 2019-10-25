@@ -27,7 +27,10 @@ export default {
         password: this.password
       }
       this.$store.dispatch('login', data)
-      .then(() => this.$router.push('/'))
+      .then(() => {
+        this.$router.push('/bets');
+        this.$toast.open(this.email);
+      })
       .catch(err => console.log(err))
     }
   }

@@ -11,7 +11,6 @@ export default new Vuex.Store({
     token: localStorage.getItem('token') || '',
   },
   actions: {
-    // fetchBets({ commit, state }) {
     fetchBets({ commit }) {
       return new Promise((resolve, reject) => {
         api
@@ -31,7 +30,6 @@ export default new Vuex.Store({
           .auth(user.email, user.password)
           .then((response) => {
             commit('SET_USER', response.data);
-            localStorage.setItem('token', response.jwt);
             resolve(response);
           })
           .catch((error) => {
@@ -47,13 +45,12 @@ export default new Vuex.Store({
       state.bets = bets;
     },
     SET_USER(state, response) {
+      localStorage.setItem('token', response.jwt);
       state.token = response.jwt
     }
   },
   getters: {
-    bets(state) {
-      return state.bets;
-    },
+    bets: state => state.bets,
     isLoggedIn: state => !!state.token,
   },
 });
