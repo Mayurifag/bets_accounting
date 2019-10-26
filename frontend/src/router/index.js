@@ -3,7 +3,7 @@ import VueRouter from 'vue-router';
 
 import Kelly from '../pages/Kelly.vue';
 import BetsList from '../pages/BetsList.vue';
-import Login from '../pages/Login.vue'
+import Login from '../pages/Login.vue';
 
 Vue.use(VueRouter);
 

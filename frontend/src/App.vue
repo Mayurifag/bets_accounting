@@ -60,15 +60,15 @@ export default {
   computed: {
     ...mapState(['bets']),
 
-    isLoggedIn: function() {
+    isLoggedIn() {
       return this.$store.getters.isLoggedIn;
-    }
+    },
   },
 
   methods: {
-    logout: function () {
-      this.$store.dispatch('logout').then(() => { this.$router.push('/login') })
-    }
+    logout() {
+      this.$store.dispatch('logout').then(() => { this.$router.push('/login'); });
+    },
   },
 };
 </script>

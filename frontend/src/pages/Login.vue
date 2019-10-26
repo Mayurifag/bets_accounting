@@ -12,28 +12,28 @@ section.container.login_form
 
 <script>
 export default {
-  data(){
+  data() {
     return {
       // TODO: убрать
-      email : "test@test.com",
-      password : "test"
-    }
+      email: 'test@test.com',
+      password: 'test',
+    };
   },
   methods: {
-    login: function () {
-      let data = {
+    login() {
+      const data = {
         email: this.email,
-        password: this.password
-      }
+        password: this.password,
+      };
       this.$store.dispatch('login', data)
-      .then(() => {
-        this.$router.push('/bets');
-      })
-      .catch(err => console.log(err))
-    }
-  }
+        .then(() => {
+          this.$router.push('/bets');
+        })
+        .catch(err => console.log(err));
+    },
+  },
 
-}
+};
 </script>
 
 <style scoped lang="scss">

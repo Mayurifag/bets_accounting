@@ -74,8 +74,8 @@ export default {
 
     profit() {
       return this.bets
-                 .reduce((prev, cur) => prev + parseFloat(cur.profit), 0)
-                 .toFixed(2);
+        .reduce((prev, cur) => prev + parseFloat(cur.profit), 0)
+        .toFixed(2);
     },
   },
   data() {

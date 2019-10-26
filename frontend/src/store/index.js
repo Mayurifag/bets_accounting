@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import api from '../api';
 import axios from 'axios';
+import api from '../api';
 
 Vue.use(Vuex);
 
@@ -37,7 +37,7 @@ export default new Vuex.Store({
             resolve(response);
           })
           .catch((error) => {
-            localStorage.removeItem('token')
+            localStorage.removeItem('token');
             reject(error);
           });
       });
@@ -45,11 +45,11 @@ export default new Vuex.Store({
     logout({ commit }) {
       return new Promise((resolve) => {
         commit('LOGOUT');
-        delete axios.defaults.headers.common['Authorization'];
+        delete axios.defaults.headers.common.Authorization;
         localStorage.removeItem('token');
         resolve();
-      })
-    }
+      });
+    },
   },
 
   mutations: {
@@ -61,7 +61,7 @@ export default new Vuex.Store({
     },
     LOGOUT(state) {
       state.token = '';
-    }
+    },
   },
 
   getters: {
