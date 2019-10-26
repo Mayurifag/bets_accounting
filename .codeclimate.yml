@@ -4,8 +4,6 @@ plugins:
     enabled: true
     config:
       app_path: backend
-  rubocop:
-    enabled: true
   bundler-audit:
     enabled: true
     config:
