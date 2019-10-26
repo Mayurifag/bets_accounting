@@ -15,8 +15,6 @@ RSpec.describe 'Bets API', type: :request do
         expect(json.size).to eq(2)
         expect(response).to have_http_status(200)
       end
-
-      it { expect { get '/api/bets' }.not_to exceed_query_limit(1) }
     end
   end
 

@@ -38,12 +38,7 @@ export default {
   },
 
   created() {
-    // $Progress for vue-progressbar
     this.$Progress.start();
-
-    this.$store.dispatch('fetchBets').then(() => {
-      this.$Progress.finish();
-    });
 
     this.$router.beforeEach((to, from, next) => {
       if (to.meta.progress !== undefined) {

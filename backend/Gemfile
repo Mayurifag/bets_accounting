@@ -49,9 +49,6 @@ group :test do
   gem 'database_rewinder'
   gem 'factory_bot_rails'
   gem 'fuubar'
-  # TODO: get rid of git when gem gonna be ready for rails 6+
-  gem 'rspec-sqlimit', git: 'https://github.com/nepalez/rspec-sqlimit',
-                       ref: '0c62feb61710c93f20f086a427a7a14784e5ca0d'
   gem 'shoulda-matchers'
   gem 'simplecov'
   gem 'simplecov-console'

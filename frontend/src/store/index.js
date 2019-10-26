@@ -11,13 +11,17 @@ export default new Vuex.Store({
   state: {
     bets: [],
     token: localStorage.getItem('token') || '',
+    total_bets: 0,
+    bets_page: 1,
+    bets_perPage: 25,
   },
 
   actions: {
     fetchBets({ commit }) {
       return new Promise((resolve, reject) => {
+        const params = `?page=${this.state.bets_page}`;
         api
-          .fetchBets()
+          .fetchBets(params)
           .then((response) => {
             commit('SET_BETS', response.data);
             resolve(response);
@@ -26,6 +30,9 @@ export default new Vuex.Store({
             reject(error);
           });
       });
+    },
+    setBetsPage({ commit }, page) {
+      commit('SET_BETS_PAGE_NUMBER', page);
     },
     login({ commit }, user) {
       return new Promise((resolve, reject) => {
@@ -68,8 +75,11 @@ export default new Vuex.Store({
   },
 
   mutations: {
-    SET_BETS(state, bets) {
-      state.bets = bets;
+    SET_BETS(state, payload) {
+      state.total_bets = payload.pagy.count;
+      state.bets_perPage = payload.pagy.vars.items;
+      state.bets_page = payload.pagy.page;
+      state.bets = payload.records;
     },
     SET_USER(state, response) {
       state.token = response.jwt;
@@ -77,10 +87,16 @@ export default new Vuex.Store({
     LOGOUT(state) {
       state.token = '';
     },
+    SET_BETS_PAGE_NUMBER(state, number) {
+      state.bets_page = number;
+    },
   },
 
   getters: {
     bets: state => state.bets,
     isLoggedIn: state => !!state.token,
+    bets_page: state => state.bets_page,
+    total_bets: state => state.total_bets,
+    bets_perPage: state => state.bets_perPage,
   },
 });

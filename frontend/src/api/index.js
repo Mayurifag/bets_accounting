@@ -13,8 +13,8 @@ if (token) {
 
 export default {
   // CRUD Bets
-  fetchBets() {
-    return axios.get('/api/bets');
+  fetchBets(params = '') {
+    return axios.get(`/api/bets${params}`);
   },
   saveBet(bet) {
     return bet && bet.id ? this.updateBet(bet) : this.createBet(bet);

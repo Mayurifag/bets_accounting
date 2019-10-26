@@ -11,30 +11,33 @@ section.container
     v-show="bets"
     :data='bets'
     paginated
+    backend-pagination
     detailed
     hoverable
     detail-key="id"
-    per-page='20'
-    :current.sync="current")
+    :total="total_bets"
+    :per-page="bets_perPage"
+    @page-change="onPageChange")
 
     template(slot-scope="props")
       //- TODO: add action on row click
-      b-table-column(field="discipline" label="Дисциплина" sortable)
+      //- TODO: async sorting
+      b-table-column(field="discipline" label="Дисциплина")
         | {{ props.row.discipline }}
-      b-table-column(field="choice1" label="Команда 1" sortable)
+      b-table-column(field="choice1" label="Команда 1")
         | {{ props.row.choice1 }}
-      b-table-column(field="choice2" label="Команда 2" sortable)
+      b-table-column(field="choice2" label="Команда 2")
         | {{ props.row.choice2 }}
       b-table-column(field="outcome" label="Прогноз" centered)
         | {{ props.row.outcome }}
-      b-table-column(field="wager" label="Ставка" numeric sortable)
+      b-table-column(field="wager" label="Ставка" numeric)
         | {{ props.row.wager }}
-      b-table-column(field="coefficent" label="Коэф-т" numeric sortable)
+      b-table-column(field="coefficent" label="Коэф-т" numeric)
         | {{ props.row.coefficient }}
-      b-table-column(field="result_variant" label="Результат" centered sortable)
+      b-table-column(field="result_variant" label="Результат" centered)
         span.tag(:class="resultVariantClass(props.row.result_variant)")
           | {{ props.row.result_variant }}
-      b-table-column(field="profit" label="Профит" numeric sortable)
+      b-table-column(field="profit" label="Профит" numeric)
         | {{ props.row.profit }}&nbsp;₽
       b-table-column(field="actions" label="")
         .actions
@@ -73,7 +76,12 @@ export default {
   // props: ['bets'],
   components: { 'bet-edit-modal': BetEditModal },
   computed: {
-    ...mapGetters(['bets']),
+    ...mapGetters([
+      'bets',
+      'total_bets',
+      'bets_page',
+      'bets_perPage',
+    ]),
 
     profit() {
       return this.bets
@@ -83,8 +91,6 @@ export default {
   },
   data() {
     return {
-      isPaginated: true,
-      current: 1,
       isEditModalActive: false,
       initializeNewBet: {
         choice1: '',
@@ -93,6 +99,13 @@ export default {
     };
   },
   methods: {
+    loadBets() {
+      this.$store.dispatch('fetchBets');
+    },
+    onPageChange(page) {
+      this.$store.dispatch('setBetsPage', page);
+      this.loadBets();
+    },
     showModal(bet = this.initializeNewBet) {
       this.initializeNewBet = bet;
       this.isEditModalActive = true;
@@ -141,6 +154,9 @@ export default {
       }
       return '';
     },
+  },
+  mounted() {
+    this.loadBets();
   },
 };
 </script>

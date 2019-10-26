@@ -112,7 +112,7 @@
 # See https://ddnexus.github.io/pagy/api/pagy#instance-variables
 # Pagy::VARS[:items] = 20                                   # default
 # TODO: move to env
-Pagy::VARS[:items] = 25
+Pagy::VARS[:items] = 15
 
 # Other Variables
 # See https://ddnexus.github.io/pagy/api/pagy#other-variables

@@ -5,7 +5,7 @@
         //- TODO: flex wraping?
         .inline-flex
 
-          //- TODO: warning if choice1 == choice2
+          //- TODO: warning if choice1 === choice2
           b-field(label="Команда 1" class="mr-8")
             b-autocomplete(v-model='bet.choice1', :data='participants',
                            field='name', @input='getParticipants(bet.choice1)',
