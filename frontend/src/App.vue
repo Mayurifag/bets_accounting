@@ -16,7 +16,10 @@
         router-link(to="/" exact).navbar-item Келли
         router-link(to="/bets" exact).navbar-item Демо
       .navbar-end
-        router-link(to="/login" exact).navbar-item Login
+        template(v-if="isLoggedIn")
+          a.navbar-item(@click="logout") Logout
+        template(v-else)
+          router-link(to="/login" exact).navbar-item Login
         //- .navbar-item balance [todo]
         //- .navbar-item About page [todo]
   router-view(:key="$route.fullPath")
@@ -55,7 +58,17 @@ export default {
   },
 
   computed: {
-    ...mapState(['bets'])
+    ...mapState(['bets']),
+
+    isLoggedIn: function() {
+      return this.$store.getters.isLoggedIn;
+    }
+  },
+
+  methods: {
+    logout: function () {
+      this.$store.dispatch('logout').then(() => { this.$router.push('/login') })
+    }
   },
 };
 </script>

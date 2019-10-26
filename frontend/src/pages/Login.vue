@@ -1,14 +1,13 @@
 <template lang="pug">
 section.container.login_form
-  div
-    form.login(@submit.prevent='login')
-      b-field(horizontal label='Email')
-        //- TODO: убрать
-        b-input(required v-model='email' type='email' placeholder='Email', value='test@test.com')
-      b-field(horizontal label='Пароль')
-        b-input(required v-model='password' type='password' placeholder='Пароль', value='test')
-      button.button
-        | Login
+  form.login(@submit.prevent='login')
+    b-field(horizontal label='Email')
+      //- TODO: убрать
+      b-input(required v-model='email' type='email' placeholder='Email', value='test@test.com')
+    b-field(horizontal label='Пароль')
+      b-input(required v-model='password' type='password' placeholder='Пароль', value='test')
+    button.button
+      | Login
 </template>
 
 <script>
@@ -29,7 +28,6 @@ export default {
       this.$store.dispatch('login', data)
       .then(() => {
         this.$router.push('/bets');
-        this.$toast.open(this.email);
       })
       .catch(err => console.log(err))
     }
