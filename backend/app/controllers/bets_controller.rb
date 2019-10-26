@@ -6,9 +6,9 @@ class BetsController < ApplicationController
 
   # GET /bets
   def index
-    # TODO: move pagy to query object
-    pagy, records = pagy(BetIndexQuery.call)
-    json_response(pagy: pagy, records: JSON.parse(BetBlueprint.render(records)))
+    query = BetIndexQuery.new(params).call
+    records = BetBlueprint.render_as_json(query[:records])
+    json_response(pagy: query[:pagy], records: records)
   end
 
   # POST /bets

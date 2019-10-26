@@ -3,7 +3,8 @@ section.container
   .table-actions
     a.button.m-10.is-primary(@click="newBet") Добавить ставку
     //- TODO: restyling
-    .profit.m-10.button(v-if='bets.length') Итого: {{ profit }} ₽
+    //- TODO: async loading
+    .profit.m-10.button(v-if='bets.length') Итого на странице: {{ profit }} ₽
     b-modal(:active.sync="isEditModalActive" has-modal-card)
       bet-edit-modal(:initialBet="initializeNewBet" @submit="saveBet")
 

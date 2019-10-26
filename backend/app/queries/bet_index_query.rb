@@ -1,25 +1,28 @@
 # frozen_string_literal: true
 
 class BetIndexQuery < BaseQuery
-  class << self
-    # TODO: test the sequel here :)
-    def call
-      set_order
-      avoid_n_plus_one
-      @scope
-    end
+  # TODO: test the sequel here :)
+  def call
+    set_order
+    avoid_n_plus_one
+    set_pagination
+    return_result_with_pagy_meta
+  end
 
-    private
+  private
 
-    def set_order
-      @scope = Bet.newest_first
-    end
+  def klass
+    Bet
+  end
 
-    def avoid_n_plus_one
-      @scope = @scope.eager_load(
-        :discipline, :result_variant, :bet_type, :bookmaker, :choice1, :choice2,
-        :event
-      )
-    end
+  def set_order
+    @scope = klass.newest_first
+  end
+
+  def avoid_n_plus_one
+    @scope = @scope.eager_load(
+      :discipline, :result_variant, :bet_type, :bookmaker, :choice1, :choice2,
+      :event
+    )
   end
 end

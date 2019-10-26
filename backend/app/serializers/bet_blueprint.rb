@@ -8,7 +8,6 @@ class BetBlueprint < Blueprinter::Base
 
   fields :coefficient, :outcome, :wager
 
-  # TODO: is this fine # if bet.profit.present?
   field :profit do |bet|
     '%0.02f' % bet.profit
   end
