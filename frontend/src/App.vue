@@ -6,12 +6,14 @@
     .navbar-brand
       router-link(to="/" exact).navbar-item
         img(src="./static/logo.png" alt="Logo")
-      .navbar-burger.burger(@click="isNavbarActive = !isNavbarActive" :class="isNavbarActive ? 'is-active' : ''")
+      .navbar-burger.burger(@click="isNavbarActive = !isNavbarActive"
+                            :class="isNavbarActive ? 'is-active' : ''")
         span
         span
         span
 
-    .navbar-menu(:class="isNavbarActive ? 'is-active' : ''" @click="isNavbarActive = !isNavbarActive")
+    .navbar-menu(:class="isNavbarActive ? 'is-active' : ''"
+                 @click="isNavbarActive = !isNavbarActive")
       .navbar-start
         router-link(to="/" exact).navbar-item Келли
         router-link(to="/bets" exact).navbar-item Демо
@@ -52,7 +54,7 @@ export default {
       next();
     });
 
-    this.$router.afterEach((to, from) => {
+    this.$router.afterEach(() => {
       this.$Progress.finish();
     });
   },

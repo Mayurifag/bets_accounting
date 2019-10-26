@@ -76,7 +76,7 @@ export default {
     kelly_percent() {
       const percent = ((this.player_prediction / 100) * this.bookmaker_coefficent - 1)
         / (this.bookmaker_coefficent - 1);
-      if (isFinite(percent)) {
+      if (Number.isFinite(percent)) {
         return percent.toFixed(6);
       }
       return null;

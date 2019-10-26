@@ -7,13 +7,17 @@
 
           //- TODO: warning if choice1 == choice2
           b-field(label="Команда 1" class="mr-8")
-            b-autocomplete(v-model='bet.choice1', :data='participants', field='name', @input='getParticipants(bet.choice1)', @select='option => selected = option', autofocus)
+            b-autocomplete(v-model='bet.choice1', :data='participants',
+                           field='name', @input='getParticipants(bet.choice1)',
+                           @select='option => selected = option', autofocus)
               template(slot-scope='props')
                 .media
                   .media-content
                     | {{ props.option.name }}
           b-field(label="Команда 2" class="mr-8")
-            b-autocomplete(v-model='bet.choice2', :data='participants', field='name', @input='getParticipants(bet.choice2)', @select='option => selected = option')
+            b-autocomplete(v-model='bet.choice2', :data='participants',
+                           field='name', @input='getParticipants(bet.choice2)',
+                           @select='option => selected = option')
               template(slot-scope='props')
                 .media
                   .media-content
@@ -24,7 +28,9 @@
 
         .inline-flex
           b-field(label="Дисциплина" class="mr-8")
-            b-autocomplete(v-model='bet.discipline', :data='disciplines', field='name', @input='getDisciplines', @select='option => selected = option')
+            b-autocomplete(v-model='bet.discipline', :data='disciplines',
+                           field='name', @input='getDisciplines',
+                           @select='option => selected = option')
               template(slot-scope='props')
                 .media
                   .media-content
@@ -34,10 +40,15 @@
             b-field(:type="errors.has('bet.wager') ? 'is-danger' : ''")
               p.control
                 span.button.is-static ₽
-              b-input(type="text" data-vv-name="bet.wager" v-validate="'numeric|required|between:0,2147483647'" v-model="bet.wager" class='small-input')
+              b-input(type="text" data-vv-name="bet.wager"
+                      v-validate="'numeric|required|between:0,2147483647'"
+                      v-model="bet.wager" class='small-input')
 
-          b-field(label="Коэффициент" class="mr-8" :type="errors.has('bet.coefficient') ? 'is-danger' : ''")
-            b-input(type="text" v-model="bet.coefficient" data-vv-name="bet.coefficient" class='medium-input' v-validate="'required|between:1,2147483647'")
+          b-field(label="Коэффициент" class="mr-8"
+                  :type="errors.has('bet.coefficient') ? 'is-danger' : ''")
+            b-input(type="text" v-model="bet.coefficient"
+                    data-vv-name="bet.coefficient" class='medium-input'
+                    v-validate="'required|between:1,2147483647'")
 
 
         b-field

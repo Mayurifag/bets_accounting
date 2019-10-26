@@ -7,15 +7,17 @@ pre-commit:
       glob: "*.rb" # glob filter for list of files
       exclude: "application.rb|routes.rb" # regexp filter for list of files
       runner: "rubocop --safe-auto-correct {staged_files} && git add {staged_files}"
-    # yarn:
-    #   glob: "*.{js,ts}"
-    #   runner: "dip yarn lint:fix && git add {staged_files}"
+    yarn:
+      glob: "*.{js,ts}"
+      runner: "dip yarn fix && git add {staged_files}"
 
 pre-push:
-  parallel: false
+  parallel: true
   commands:
     rspec:
       runner: dip rspec --fail-fast
+    yarn:
+      runner: dip yarn lint
 
 commands: &commands
   bundle-install:

@@ -30,10 +30,10 @@ section.container
       b-table-column(field="coefficent" label="Коэф-т" numeric sortable)
         | {{ props.row.coefficient }}
       b-table-column(field="result_variant" label="Результат" centered sortable)
-        span.tag(:class="{ 'is-success': props.row.result_variant == 'Победа', 'is-danger': props.row.result_variant == 'Проигрыш'}")
+        span.tag(:class="resultVariantClass(props.row.result_variant)")
           | {{ props.row.result_variant }}
       b-table-column(field="profit" label="Профит" numeric sortable)
-        | {{ props.row.profit }} ₽
+        | {{ props.row.profit }}&nbsp;₽
       b-table-column(field="actions" label="")
         .actions
           a.is-link(@click="editBet(props.row)")
@@ -45,7 +45,8 @@ section.container
       article.media
         figure.media-left
           p.image.is-64x64
-            img(src="../static/placeholder-128x128.png" alt="Лого букмекерской конторы (placeholder xd)")
+            img(src="../static/placeholder-128x128.png"
+                alt="Лого букмекерской конторы (placeholder)")
         .media-content
           .content
             p
@@ -58,13 +59,13 @@ section.container
         .content.has-text-grey.has-text-centered
           p
             b-icon(icon='emoticon-sad' size='is-large')
-          p Ставок нет.
+          p Ставок нет или произошла ошибка.
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
 import api from '../api';
-import BetEditModal from '../components/BetEditModal';
+import BetEditModal from '../components/BetEditModal.vue';
 
 export default {
   // props: ['bets'],
@@ -129,6 +130,15 @@ export default {
           });
         },
       });
+    },
+    resultVariantClass(resultVariant) {
+      if (resultVariant === 'Победа') {
+        return 'is-success';
+      } else if (resultVariant === 'Проигрыш') {
+        return 'is-danger';
+      } else {
+        return '';
+      }
     },
   },
 };
