@@ -6,13 +6,14 @@ class UsersController < ApplicationController
   before_action :authorize, only: %i[update destroy]
 
   def index
+    # TODO: no need / blueprint
     json_response(User.all)
   end
 
   def create
     @user = User.new(user_params)
     if @user.save
-      json_response(@user, :created)
+      head :created
     else
       record_invalid
     end

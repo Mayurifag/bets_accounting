@@ -134,11 +134,10 @@ export default {
     resultVariantClass(resultVariant) {
       if (resultVariant === 'Победа') {
         return 'is-success';
-      } else if (resultVariant === 'Проигрыш') {
+      } if (resultVariant === 'Проигрыш') {
         return 'is-danger';
-      } else {
-        return '';
       }
+      return '';
     },
   },
 };

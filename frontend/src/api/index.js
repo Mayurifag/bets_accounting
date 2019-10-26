@@ -37,11 +37,18 @@ export default {
     });
   },
 
-  // Login
+  // Users
   auth(email, password) {
     return axios.post('/api/auth', {
       email,
       password,
+    });
+  },
+  register(email, password, passwordConfirmation) {
+    return axios.post('/api/users', {
+      email,
+      password,
+      password_confirmation: passwordConfirmation,
     });
   },
 };

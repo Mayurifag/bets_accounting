@@ -33,7 +33,22 @@ export default new Vuex.Store({
           .auth(user.email, user.password)
           .then((response) => {
             commit('SET_USER', response.data);
+            axios.defaults.headers.common.Authorization = response.data.jwt;
             localStorage.setItem('token', response.data.jwt);
+            resolve(response);
+          })
+          .catch((error) => {
+            localStorage.removeItem('token');
+            reject(error);
+          });
+      });
+    },
+    register({ dispatch }, user) {
+      return new Promise((resolve, reject) => {
+        api
+          .register(user.email, user.password, user.password_confirmation)
+          .then((response) => {
+            dispatch('login', user, { root: true });
             resolve(response);
           })
           .catch((error) => {

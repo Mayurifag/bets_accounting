@@ -1,22 +1,43 @@
 <template lang="pug">
-section.container.login_form
-  form.login(@submit.prevent='login')
-    b-field(horizontal label='Email')
-      //- TODO: убрать
-      b-input(required v-model='email' type='email' placeholder='Email', value='test@test.com')
-    b-field(horizontal label='Пароль')
-      b-input(required v-model='password' type='password' placeholder='Пароль', value='test')
-    button.button
-      | Login
-</template>
+section
+  .has-text-centered.columns
+    form(@submit.prevent='login').column.is-offset-1
+      h1.title.is-1 Вход
+      b-field(label='Email')
+        b-input(required v-model='email' type='email' placeholder='Email')
+      b-field(label='Пароль')
+        b-input(required v-model='password' type='password' placeholder='Пароль' password-reveal)
 
+      b-message(type='is-info')
+        | Данные для тестов — test@test.com : test
+      button.button
+        | Войти
+
+    form(@submit.prevent='register' autocomplete='disabled').column
+      h1.title.is-1 Регистрация
+      b-field(label='Email')
+        b-input(required v-model='register_email' placeholder='Email' type='email')
+      b-field(label='Пароль')
+        b-input(required v-model='register_password' placeholder='Пароль'
+                type='password' password-reveal)
+      b-field(label='Подтверждение пароля')
+        b-input(required v-model='password_confirmation'
+                placeholder='Подтверждение пароля'
+                type='password' password-reveal)
+      button.button
+        | Войти
+</template>
+// TODO: validation
+// TODO: обработка 422 - вывод на экран/тоаст
 <script>
 export default {
   data() {
     return {
-      // TODO: убрать
-      email: 'test@test.com',
-      password: 'test',
+      email: '',
+      password: '',
+      register_email: '',
+      register_password: '',
+      password_confirmation: '',
     };
   },
   methods: {
@@ -31,14 +52,29 @@ export default {
         })
         .catch(err => console.log(err));
     },
+    register() {
+      const data = {
+        email: this.register_email,
+        password: this.register_password,
+        password_confirmation: this.password_confirmation,
+      };
+      this.$store.dispatch('register', data)
+        .then(() => {
+          this.$router.push('/bets');
+        })
+        .catch(err => console.log(err));
+    },
   },
-
 };
 </script>
 
 <style scoped lang="scss">
-.login_form {
-  width: 400px;
+.columns {
   margin-top: 24px;
+}
+.column {
+  max-width: 500px;
+  margin: auto;
+  margin-top: 0;
 }
 </style>
