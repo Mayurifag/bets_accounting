@@ -34,8 +34,6 @@ RSpec.describe 'Users API', type: :request do
 
       it 'creates user' do
         expect(response).to have_http_status(201)
-        # TODO: maybe i dont have to share this information
-        expect(json['password_digest']).not_to be_empty
       end
     end
 

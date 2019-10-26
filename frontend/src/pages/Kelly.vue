@@ -68,29 +68,27 @@ export default {
     return {
       bank: 10000,
       bookmaker_coefficent: 1.93,
-      player_prediction: 67
+      player_prediction: 67,
     };
   },
 
   computed: {
     kelly_percent() {
-      const percent =
-        ((this.player_prediction / 100) * this.bookmaker_coefficent - 1) /
-        (this.bookmaker_coefficent - 1);
-      if (isFinite(percent)) {
+      const percent = ((this.player_prediction / 100) * this.bookmaker_coefficent - 1)
+        / (this.bookmaker_coefficent - 1);
+      if (Number.isFinite(percent)) {
         return percent.toFixed(6);
-      } else {
-        return null;
       }
+      return null;
     },
     kelly_percent_formatted() {
-      return (this.kelly_percent * 100).toFixed(2) + "%";
+      return `${(this.kelly_percent * 100).toFixed(2)}%`;
     },
     kelly_result() {
       const result = this.kelly_percent * this.bank;
       return result.toFixed(2);
-    }
-  }
+    },
+  },
 };
 </script>
 

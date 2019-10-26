@@ -13,6 +13,10 @@ class BetBlueprint < Blueprinter::Base
     '%0.02f' % bet.profit
   end
 
+  field :created_at do |bet|
+    bet.created_at.httpdate
+  end
+
   FIELDS_WITH_NAMES.each do |attr|
     field attr do |bet|
       bet.public_send(attr)&.name

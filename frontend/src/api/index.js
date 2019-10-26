@@ -1,12 +1,15 @@
+import Vue from 'vue';
 import axios from 'axios';
-
-// Rails arguing for csrf :S
-// axios.defaults.headers.common['X-CSRF-Token'] = document
-//   .querySelector('meta[name="csrf-token"]')
-//   .getAttribute('content');
 
 // TODO: Env port for backend
 axios.defaults.baseURL = 'http://localhost:8888';
+
+Vue.prototype.$http = axios;
+const token = localStorage.getItem('token');
+
+if (token) {
+  Vue.prototype.$http.defaults.headers.common.Authorization = token;
+}
 
 export default {
   // CRUD Bets
@@ -31,6 +34,21 @@ export default {
     return axios.post('/api/autocomplete', {
       class_name: className,
       query: autocomplete,
+    });
+  },
+
+  // Users
+  auth(email, password) {
+    return axios.post('/api/auth', {
+      email,
+      password,
+    });
+  },
+  register(email, password, passwordConfirmation) {
+    return axios.post('/api/users', {
+      email,
+      password,
+      password_confirmation: passwordConfirmation,
     });
   },
 };

@@ -6,21 +6,25 @@
     .navbar-brand
       router-link(to="/" exact).navbar-item
         img(src="./static/logo.png" alt="Logo")
-      .navbar-burger.burger(@click="isNavbarActive = !isNavbarActive" :class="isNavbarActive ? 'is-active' : ''")
+      .navbar-burger.burger(@click="isNavbarActive = !isNavbarActive"
+                            :class="isNavbarActive ? 'is-active' : ''")
         span
         span
         span
 
-    .navbar-menu(:class="isNavbarActive ? 'is-active' : ''" @click="isNavbarActive = !isNavbarActive")
+    .navbar-menu(:class="isNavbarActive ? 'is-active' : ''"
+                 @click="isNavbarActive = !isNavbarActive")
       .navbar-start
         router-link(to="/" exact).navbar-item Келли
         router-link(to="/bets" exact).navbar-item Демо
       .navbar-end
-        .navbar-item User [todo]
-        .navbar-item balance [todo]
-        .navbar-item About page [todo]
+        template(v-if="isLoggedIn")
+          a.navbar-item(@click="logout") Logout
+        template(v-else)
+          router-link(to="/login" exact).navbar-item Login
+        //- .navbar-item balance [todo]
+        //- .navbar-item About page [todo]
   router-view(:key="$route.fullPath")
-  //- TODO: footer with links license etc
 </template>
 
 <script>
@@ -50,13 +54,23 @@ export default {
       next();
     });
 
-    this.$router.afterEach((to, from) => {
+    this.$router.afterEach(() => {
       this.$Progress.finish();
     });
   },
 
   computed: {
     ...mapState(['bets']),
+
+    isLoggedIn() {
+      return this.$store.getters.isLoggedIn;
+    },
+  },
+
+  methods: {
+    logout() {
+      this.$store.dispatch('logout').then(() => { this.$router.push('/login'); });
+    },
   },
 };
 </script>

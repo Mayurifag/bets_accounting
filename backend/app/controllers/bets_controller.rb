@@ -2,13 +2,11 @@
 
 class BetsController < ApplicationController
   before_action :set_bet, only: %i[show update destroy]
-  before_action :transform_bet_params, only: %i[create update]
+  before_action :transform_frontend_bet_params, only: %i[create update]
 
   # GET /bets
   def index
-    # TODO: pseudo-pagination
-    @bets = avoid_n_plus_one_query(Bet.newest_first)
-    json_response(BetBlueprint.render(@bets))
+    json_response(BetBlueprint.render(BetIndexQuery.call))
   end
 
   # POST /bets
@@ -43,10 +41,6 @@ class BetsController < ApplicationController
 
   private
 
-  def avoid_n_plus_one_query(bets)
-    bets.eager_load(:discipline, :result_variant, :bet_type, :bookmaker, :choice1, :choice2, :event)
-  end
-
   # TODO: something wrong with created_at here, need a new column ['betted_at'?]
   # TODO: autocomplete etc. for event
 
@@ -62,7 +56,7 @@ class BetsController < ApplicationController
     @bet = Bet.find(params[:id])
   end
 
-  def transform_bet_params
+  def transform_frontend_bet_params
     return if params[:bet].blank?
 
     params[:bet] = BetParamsTransformationHandler.new(params[:bet]).call
