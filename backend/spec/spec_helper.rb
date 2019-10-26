@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'shoulda/matchers'
+require 'zonebie/rspec'
 
 RSpec.configure do |config|
   config.add_formatter 'Fuubar'

@@ -4,25 +4,15 @@ class BetIndexQuery < BaseQuery
   class << self
     # TODO: test the sequel here :)
     def call
-      set_class
       set_order
       avoid_n_plus_one
-      # TODO: pagination
-      return_result
+      @scope
     end
 
     private
 
-    def return_result
-      @scope
-    end
-
-    def set_class
-      @scope = Bet
-    end
-
     def set_order
-      @scope = @scope.newest_first
+      @scope = Bet.newest_first
     end
 
     def avoid_n_plus_one

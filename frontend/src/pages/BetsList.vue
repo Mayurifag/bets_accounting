@@ -12,11 +12,13 @@ section.container
     :data='bets'
     paginated
     detailed
+    hoverable
     detail-key="id"
     per-page='20'
     :current.sync="current")
 
     template(slot-scope="props")
+      //- TODO: add action on row click
       b-table-column(field="discipline" label="Дисциплина" sortable)
         | {{ props.row.discipline }}
       b-table-column(field="choice1" label="Команда 1" sortable)
