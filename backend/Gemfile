@@ -18,6 +18,7 @@ gem 'faker'
 gem 'fast_blank', platform: :mri
 gem 'knock', github: 'Mayurifag/knock'
 gem 'oj'
+gem 'pagy'
 gem 'rack-cors'
 
 group :development, :test do

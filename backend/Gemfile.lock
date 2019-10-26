@@ -163,6 +163,7 @@ GEM
       mini_portile2 (~> 2.4.0)
     oj (3.9.2)
     ordinare (0.4.0)
+    pagy (3.6.0)
     parallel (1.18.0)
     parallel_tests (2.29.2)
       parallel
@@ -320,6 +321,7 @@ DEPENDENCIES
   listen
   oj
   ordinare
+  pagy
   parallel_tests
   pg
   pry-byebug
