@@ -4,6 +4,11 @@ inherit_gem:
   spicerack-styleguide:
     - rubocop.yml
 
+AllCops:
+  Exclude:
+    - db/schema.rb
+    - db/migrate/20190811211029_add_alpha_schemas.rb
+
 Rails/InverseOf:
   Exclude:
     - app/models/bet.rb

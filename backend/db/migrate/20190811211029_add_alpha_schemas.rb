@@ -30,7 +30,7 @@ class AddAlphaSchemas < ActiveRecord::Migration[6.0]
     add_index :participants, :name, using: :gin, opclass: { name: :gin_trgm_ops }
 
     # create_join_table :disciplines, :participants do |t|
-      # t.index [:discipline_id, :participant_id]
+    # t.index [:discipline_id, :participant_id]
     # end
 
     create_table :bookmakers do |t|
@@ -57,11 +57,15 @@ class AddAlphaSchemas < ActiveRecord::Migration[6.0]
 
     create_table :result_variants do |t|
       t.string :name, null: false
+
+      t.timestamps
     end
     add_index :result_variants, :name, using: :gin, opclass: { name: :gin_trgm_ops }
 
     create_table :bet_types do |t|
       t.string :name, null: false
+
+      t.timestamps
     end
     add_index :bet_types, :name, using: :gin, opclass: { name: :gin_trgm_ops }
 
@@ -92,6 +96,6 @@ class AddAlphaSchemas < ActiveRecord::Migration[6.0]
 
       t.timestamps
     end
-    # add_index :bets, :profit
+    add_index :bets, :created_at
   end
 end

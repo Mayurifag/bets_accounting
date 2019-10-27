@@ -17,7 +17,9 @@ ActiveRecord::Schema.define(version: 2019_08_11_211029) do
   enable_extension "plpgsql"
 
   create_table "bet_types", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
     t.string "name", null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["name"], name: "index_bet_types_on_name", opclass: :gin_trgm_ops, using: :gin
   end
 
@@ -40,6 +42,7 @@ ActiveRecord::Schema.define(version: 2019_08_11_211029) do
     t.index ["bookmaker_id"], name: "index_bets_on_bookmaker_id"
     t.index ["choice1_id"], name: "index_bets_on_choice1_id"
     t.index ["choice2_id"], name: "index_bets_on_choice2_id"
+    t.index ["created_at"], name: "index_bets_on_created_at"
     t.index ["discipline_id"], name: "index_bets_on_discipline_id"
     t.index ["event_id"], name: "index_bets_on_event_id"
     t.index ["result_variant_id"], name: "index_bets_on_result_variant_id"
@@ -75,7 +78,9 @@ ActiveRecord::Schema.define(version: 2019_08_11_211029) do
   end
 
   create_table "result_variants", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
     t.string "name", null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["name"], name: "index_result_variants_on_name", opclass: :gin_trgm_ops, using: :gin
   end
 
