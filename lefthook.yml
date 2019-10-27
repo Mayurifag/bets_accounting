@@ -4,8 +4,8 @@ pre-commit:
   parallel: true
   commands:
     rubocop:
-      glob: "*.rb" # glob filter for list of files
-      exclude: "application.rb|routes.rb" # regexp filter for list of files
+      glob: "*.rb"
+      exclude: "application.rb|routes.rb"
       runner: "rubocop --safe-auto-correct {staged_files} && git add {staged_files}"
     yarn:
       glob: "*.{js,ts}"

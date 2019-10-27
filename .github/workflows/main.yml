@@ -6,87 +6,87 @@ jobs:
   brakeman:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
+      - uses: actions/checkout@v1
 
-    - name: Set up Ruby 2.6
-      uses: actions/setup-ruby@v1
-      with:
-        ruby-version: 2.6.x
+      - name: Set up Ruby 2.6
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: 2.6.x
 
-    - name: brakeman
-      working-directory: ./backend
-      run: |
-        gem install brakeman
-        brakeman
+      - name: brakeman
+        working-directory: ./backend
+        run: |
+          gem install brakeman
+          brakeman
 #######################################
   bundle-leak:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
+      - uses: actions/checkout@v1
 
-    - name: Set up Ruby 2.6
-      uses: actions/setup-ruby@v1
-      with:
-        ruby-version: 2.6.x
+      - name: Set up Ruby 2.6
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: 2.6.x
 
-    - name: bundle leak
-      working-directory: ./backend
-      run: |
-        gem install bundler bundler-leak
-        bundle leak check --update
+      - name: bundle leak
+        working-directory: ./backend
+        run: |
+          gem install bundler bundler-leak
+          bundle leak check --update
 #######################################
   bundle-audit:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
+      - uses: actions/checkout@v1
 
-    - name: Set up Ruby 2.6
-      uses: actions/setup-ruby@v1
-      with:
-        ruby-version: 2.6.x
+      - name: Set up Ruby 2.6
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: 2.6.x
 
-    - name: bundle audit
-      working-directory: ./backend
-      run: |
-        gem install bundler bundler-audit
-        bundle audit check --update
+      - name: bundle audit
+        working-directory: ./backend
+        run: |
+          gem install bundler bundler-audit
+          bundle audit check --update
 #######################################
   rails-best-practices:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
+      - uses: actions/checkout@v1
 
-    - name: Set up Ruby 2.6
-      uses: actions/setup-ruby@v1
-      with:
-        ruby-version: 2.6.x
+      - name: Set up Ruby 2.6
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: 2.6.x
 
-    - name: rails_best_practices
-      working-directory: ./backend
-      run: |
-        gem install rails_best_practices
-        rails_best_practices .
+      - name: rails_best_practices
+        working-directory: ./backend
+        run: |
+          gem install rails_best_practices
+          rails_best_practices .
 #######################################
   rubocop:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
+      - uses: actions/checkout@v1
 
-    - name: Set up Ruby 2.6
-      uses: actions/setup-ruby@v1
-      with:
-        ruby-version: 2.6.x
+      - name: Set up Ruby 2.6
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: 2.6.x
 
-    # required to compile pg ruby gem
-    - name: install PostgreSQL client
-      run: sudo apt-get install libpq-dev
+      # required to compile pg ruby gem
+      - name: install PostgreSQL client
+        run: sudo apt-get install libpq-dev
 
-    - name: rubocop
-      working-directory: ./backend
-      run: |
-        gem install bundler
-        bundle install --jobs 4 --retry 3
-        bundle exec rubocop --parallel
+      - name: rubocop
+        working-directory: ./backend
+        run: |
+          gem install bundler
+          bundle install --jobs 4 --retry 3
+          bundle exec rubocop --parallel
 #######################################
   rspec:
     runs-on: ubuntu-latest
@@ -98,35 +98,35 @@ jobs:
           POSTGRES_PASSWORD: ""
           POSTGRES_DB: backend_test
         ports:
-        - 5432/tcp
+          - 5432/tcp
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
     steps:
-    - uses: actions/checkout@v1
+      - uses: actions/checkout@v1
 
-    - name: Set up Ruby 2.6
-      uses: actions/setup-ruby@v1
-      with:
-        ruby-version: 2.6.x
+      - name: Set up Ruby 2.6
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: 2.6.x
 
-    # required to compile pg ruby gem
-    - name: install PostgreSQL client
-      run: sudo apt-get install libpq-dev
+      # required to compile pg ruby gem
+      - name: install PostgreSQL client
+        run: sudo apt-get install libpq-dev
 
-    - name: Build DB and run Rspec
-      working-directory: ./backend
-      env:
-        PGHOST: localhost
-        PGUSER: postgres
-        PGPORT: ${{ job.services.postgres.ports[5432] }} # get randomly assigned published port
-        RAILS_ENV: test
-        CC_TEST_REPORTER_ID: 74855e8480493fa17a796717c03a42ba418a1a0f2cc96a1d7418e9ba572b2a9b
-      run: |
-        git checkout "${GITHUB_REF:11}" # get git branch name for codeclimate
-        gem install bundler
-        bundle install --without development production --jobs 4 --retry 3
-        bundle exec rails db:setup
-        curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-        chmod +x ./cc-test-reporter
-        ./cc-test-reporter before-build
-        bundle exec rspec
-        ./cc-test-reporter after-build || echo “Skipping CC coverage upload”
+      - name: Build DB and run Rspec
+        working-directory: ./backend
+        env:
+          PGHOST: localhost
+          PGUSER: postgres
+          PGPORT: ${{ job.services.postgres.ports[5432] }}              # get randomly assigned published port
+          RAILS_ENV: test
+          CC_TEST_REPORTER_ID: 74855e8480493fa17a796717c03a42ba418a1a0f2cc96a1d7418e9ba572b2a9b
+        run: |
+          git checkout "${GITHUB_REF:11}"                               # get git branch name for codeclimate
+          gem install bundler
+          bundle install --without development production --jobs 4 --retry 3
+          bundle exec rails db:setup
+          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+          chmod +x ./cc-test-reporter
+          ./cc-test-reporter before-build
+          bundle exec rspec
+          ./cc-test-reporter after-build || echo “Skipping CC coverage upload”
