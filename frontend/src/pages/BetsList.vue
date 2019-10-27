@@ -12,6 +12,7 @@ section.container
     v-show="bets"
     :data='bets'
     paginated
+    striped
     backend-pagination
     detailed
     hoverable
@@ -64,8 +65,8 @@ section.container
       section.section
         .content.has-text-grey.has-text-centered
           p
-            b-icon(icon='emoticon-sad' size='is-large')
-          p Ставок нет или произошла ошибка.
+            b-icon(icon='emoticon-happy' size='is-large')
+          p Ставок нет, но, наверное, скоро появятся.
 </template>
 
 <script>
@@ -74,7 +75,6 @@ import api from '../api';
 import BetEditModal from '../components/BetEditModal.vue';
 
 export default {
-  // props: ['bets'],
   components: { 'bet-edit-modal': BetEditModal },
   computed: {
     ...mapGetters([
