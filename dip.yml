@@ -62,6 +62,11 @@ interaction:
     command: yarn
     compose_run_options: [no-deps]
 
+  db_reset:
+    service: backend
+    command: bundle exec rails db:drop db:create db:migrate db:seed
+    compose_run_options: [no-deps]
+
   psql:
     service: db
     command: psql -h db -U postgres -d backend_development
@@ -70,7 +75,7 @@ provision:
   - dip compose build
   - dip yarn
   - dip bundle install
-  - dip rails db:drop db:create db:migrate db:seed
+  - dip db_reset
   - dip up -d
   - echo "=================================================="
   - echo "Provision done."

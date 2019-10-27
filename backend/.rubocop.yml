@@ -7,7 +7,14 @@ inherit_gem:
 AllCops:
   Exclude:
     - db/schema.rb
-    - db/migrate/20190811211029_add_alpha_schemas.rb
+
+Metrics/MethodLength:
+  Exclude:
+    - db/migrate/20190811211029_add_schemas.rb
+
+Metrics/AbcSize:
+  Exclude:
+    - db/migrate/20190811211029_add_schemas.rb
 
 Rails/InverseOf:
   Exclude:
