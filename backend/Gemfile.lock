@@ -102,6 +102,7 @@ GEM
     byebug (11.0.1)
     coderay (1.1.2)
     concurrent-ruby (1.1.5)
+    consistency_fail (0.3.7)
     crass (1.0.5)
     database_rewinder (0.9.1)
     debug_inspector (0.0.3)
@@ -296,6 +297,7 @@ DEPENDENCIES
   bullet
   bundler-audit
   byebug
+  consistency_fail
   database_rewinder
   factory_bot_rails
   faker

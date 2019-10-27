@@ -35,6 +35,42 @@ jobs:
           gem install bundler bundler-leak
           bundle leak check --update
 #######################################
+  consistency-fail:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:11
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: ""
+          POSTGRES_DB: backend_test
+        ports:
+          - 5432/tcp
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Set up Ruby 2.6
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: 2.6.x
+
+      - name: install PostgreSQL client
+        run: sudo apt-get install libpq-dev
+
+      - name: Launch consistency_fail
+        working-directory: ./backend
+        env:
+          RAILS_ENV: test
+          PGHOST: localhost
+          PGUSER: postgres
+          PGPORT: ${{ job.services.postgres.ports[5432] }}              # get randomly assigned published port
+        run: |
+          gem install bundler
+          bundle install --without development production --jobs 4 --retry 3
+          bundle exec rails db:setup
+          bundle exec consistency_fail
+#######################################
   bundle-audit:
     runs-on: ubuntu-latest
     steps:

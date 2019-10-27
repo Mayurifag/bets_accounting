@@ -46,6 +46,7 @@ group :development do
 end
 
 group :test do
+  gem 'consistency_fail'
   gem 'database_rewinder'
   gem 'factory_bot_rails'
   gem 'fuubar'

@@ -52,6 +52,11 @@ interaction:
     command: bundle exec rubocop --parallel
     compose_run_options: [no-deps]
 
+  consistency_fail:
+    service: backend
+    command: RAILS_ENV=test dip bundle exec consistency_fail .
+    compose_run_options: [no-deps]
+
   yarn:
     service: frontend
     command: yarn
