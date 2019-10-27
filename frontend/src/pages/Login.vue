@@ -10,7 +10,7 @@ section
                 password-reveal)
 
       b-message(type='is-info')
-        | Данные для тестов — test@test.com : test
+        | Тест: test@test.test : qwerty
       button.button
         | Войти
 

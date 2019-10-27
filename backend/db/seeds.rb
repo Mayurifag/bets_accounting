@@ -25,7 +25,7 @@ Bookmaker.find_or_create_by!(name: 'Leon')
 5.times { Event.find_or_create_by(name: Faker::Esport.event) }
 
 User.destroy_all
-User.create!(email: 'test@test.com', password: 'test', password_confirmation: 'test')
+User.create!(email: 'test@test.test', password: 'qwerty', password_confirmation: 'qwerty')
 
 Bet.delete_all
 Generator.generate_bets(25)
