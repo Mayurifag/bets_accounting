@@ -70,7 +70,7 @@ jobs:
         gem install bundler
         cd backend
         bundle install --jobs 4 --retry 3
-        bundle exec rubocop
+        bundle exec rubocop --parallel
 #######################################
   rspec:
     runs-on: ubuntu-latest

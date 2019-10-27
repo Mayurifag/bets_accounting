@@ -49,7 +49,7 @@ interaction:
 
   rubocop:
     service: backend
-    command: bundle exec rubocop
+    command: bundle exec rubocop --parallel
     compose_run_options: [no-deps]
 
   yarn:
