@@ -1,29 +1,31 @@
 <template lang="pug">
 section
   .has-text-centered.columns
-    form(@submit.prevent='login').column.is-offset-1
+    form.column.is-offset-1(@submit.prevent='login')
       h1.title.is-1 Вход
       b-field(label='Email')
         b-input(required v-model='email' type='email' placeholder='Email')
       b-field(label='Пароль')
-        b-input(required v-model='password' type='password' placeholder='Пароль' password-reveal)
+        b-input(required v-model='password' type='password' placeholder='Пароль'
+                password-reveal)
 
       b-message(type='is-info')
         | Данные для тестов — test@test.com : test
       button.button
         | Войти
 
-    form(@submit.prevent='register' autocomplete='disabled').column
+    form.column(@submit.prevent='register' autocomplete="off")
       h1.title.is-1 Регистрация
       b-field(label='Email')
-        b-input(required v-model='register_email' placeholder='Email' type='email')
+        b-input(required v-model='register_email' placeholder='Email' type='email'
+                autocomplete="new-password")
       b-field(label='Пароль')
         b-input(required v-model='register_password' placeholder='Пароль'
-                type='password' password-reveal)
+                type='password' password-reveal autocomplete="new-password")
       b-field(label='Подтверждение пароля')
         b-input(required v-model='password_confirmation'
                 placeholder='Подтверждение пароля'
-                type='password' password-reveal)
+                type='password' password-reveal autocomplete="new-password")
       button.button
         | Войти
 </template>
