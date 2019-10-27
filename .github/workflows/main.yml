@@ -30,9 +30,9 @@ jobs:
         ruby-version: 2.6.x
 
     - name: bundle leak
+      working-directory: ./backend
       run: |
         gem install bundler bundler-leak
-        cd backend
         bundle leak check --update
 #######################################
   bundle-audit:
@@ -46,10 +46,26 @@ jobs:
         ruby-version: 2.6.x
 
     - name: bundle audit
+      working-directory: ./backend
       run: |
         gem install bundler bundler-audit
-        cd backend
         bundle audit check --update
+#######################################
+  rails-best-practices:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+
+    - name: Set up Ruby 2.6
+      uses: actions/setup-ruby@v1
+      with:
+        ruby-version: 2.6.x
+
+    - name: rails_best_practices
+      working-directory: ./backend
+      run: |
+        gem install rails_best_practices
+        rails_best_practices .
 #######################################
   rubocop:
     runs-on: ubuntu-latest
@@ -66,9 +82,9 @@ jobs:
       run: sudo apt-get install libpq-dev
 
     - name: rubocop
+      working-directory: ./backend
       run: |
         gem install bundler
-        cd backend
         bundle install --jobs 4 --retry 3
         bundle exec rubocop --parallel
 #######################################
@@ -97,6 +113,7 @@ jobs:
       run: sudo apt-get install libpq-dev
 
     - name: Build DB and run Rspec
+      working-directory: ./backend
       env:
         PGHOST: localhost
         PGUSER: postgres
@@ -106,7 +123,6 @@ jobs:
       run: |
         git checkout "${GITHUB_REF:11}" # get git branch name for codeclimate
         gem install bundler
-        cd backend
         bundle install --without development production --jobs 4 --retry 3
         bundle exec rails db:setup
         curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
