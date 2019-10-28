@@ -1,0 +1,9 @@
+version: '2.4'
+
+services:
+  prodbuild:
+    build:
+      context: frontend
+      dockerfile: build.Dockerfile
+    ports:
+      - '8000:80'

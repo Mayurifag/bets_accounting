@@ -47,6 +47,7 @@ services:
   frontend:
     build:
       context: frontend
+      dockerfile: dev.Dockerfile
     volumes:
       - ./frontend:/usr/src/app:cached
       - node_modules:/usr/src/app/node_modules
