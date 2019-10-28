@@ -51,8 +51,7 @@ export default {
       this.$store.dispatch('login', data)
         .then(() => {
           this.$router.push('/bets');
-        })
-        .catch(err => console.log(err));
+        });
     },
     register() {
       const data = {
@@ -63,8 +62,7 @@ export default {
       this.$store.dispatch('register', data)
         .then(() => {
           this.$router.push('/bets');
-        })
-        .catch(err => console.log(err));
+        });
     },
   },
 };

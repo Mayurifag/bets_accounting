@@ -2,10 +2,12 @@
 import Vue from "vue";
 
 import VueProgressBar from "vue-progressbar";
+// TODO: upgrade to v.3
 import VeeValidate from "vee-validate";
 
+// TODO: Individual components as Vue plugins
 import Buefy from "buefy";
-import "buefy/lib/buefy.css";
+import "buefy/dist/buefy.css";
 
 import { sync } from "vuex-router-sync";
 import router from "./router/index.js";
