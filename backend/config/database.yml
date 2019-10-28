@@ -7,14 +7,14 @@ default: &default
 
 development:
   <<: *default
-  database: betsaccounting_development
+  database: bets_accounting_development
 
 test:
   <<: *default
-  database: betsaccounting_test<%= ENV['TEST_ENV_NUMBER'] %>
+  database: bets_accounting_test<%= ENV['TEST_ENV_NUMBER'] %>
 
 production:
   <<: *default
-  database: betsaccounting_production
-  username: betsaccounting
+  database: bets_accounting_production
+  username: bets_accounting
   password: <%= ENV['BACKEND_DATABASE_PASSWORD'] %>
