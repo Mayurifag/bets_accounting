@@ -75,7 +75,7 @@ provision:
   - dip compose build
   - dip yarn
   - dip bundle install
-  - dip db_reset
+  - dip rails db:drop db:create db:migrate db:seed
   - dip up -d
   - echo "=================================================="
   - echo "Provision done."
