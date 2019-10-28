@@ -7,3 +7,16 @@ services:
       dockerfile: build.Dockerfile
     ports:
       - '8000:80'
+
+  e2e:
+    image: cypress
+    build: ./e2e
+    container_name: cypress
+    depends_on:
+      - prodbuild
+    environment:
+      - CYPRESS_baseUrl=http://prodbuild
+    command: npx cypress run
+    volumes:
+      - ./e2e/cypress:/app/cypress
+      - ./e2e/cypress.json:/app/cypress.json
