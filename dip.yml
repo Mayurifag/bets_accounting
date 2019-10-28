@@ -49,7 +49,7 @@ interaction:
 
   rubocop:
     service: backend
-    command: bundle exec rubocop --parallel
+    command: bundle exec rubocop
     compose_run_options: [no-deps]
 
   consistency_fail:
@@ -75,7 +75,7 @@ provision:
   - dip compose build
   - dip yarn
   - dip bundle install
-  - dip db_reset
+  - dip rails db:drop db:create db:migrate db:seed
   - dip up -d
   - echo "=================================================="
   - echo "Provision done."

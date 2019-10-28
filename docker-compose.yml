@@ -1,5 +1,5 @@
 # TODO: users for backend/frontend // fix rights
-version: '3.5'
+version: '2.4'
 
 services:
   db:
@@ -10,6 +10,11 @@ services:
       - /tmp
     volumes:
       - db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   backend:
     build:
@@ -28,7 +33,8 @@ services:
     ports:
       - "8888:8080"
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     stdin_open: true
     tty: true
     tmpfs:
