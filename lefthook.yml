@@ -6,7 +6,7 @@ pre-commit:
     rubocop:
       glob: "*.rb"
       exclude: "application.rb|routes.rb"
-      runner: "rubocop --safe-auto-correct {staged_files} && git add {staged_files}"
+      runner: "dip rubocop --safe-auto-correct {staged_files} && git add {staged_files}"
     yarn:
       glob: "*.{js,ts}"
       runner: "dip yarn fix && git add {staged_files}"
