@@ -2,6 +2,7 @@ FROM cypress/base:10
 
 WORKDIR /app
 
+# TODO: think about that
 # dependencies will be installed only if the package files change
 COPY package.json .
 COPY package-lock.json .

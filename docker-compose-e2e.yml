@@ -1,6 +1,7 @@
 version: '2.4'
 
 services:
+  # dont touch the name or rename everythere
   prodbuild:
     build:
       context: frontend

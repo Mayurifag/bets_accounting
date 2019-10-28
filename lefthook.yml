@@ -16,6 +16,8 @@ pre-push:
       runner: dip yarn lint
     rubocop:
       runner: dip bundle exec rubocop --safe-auto-correct
+    endtoend:
+      runner: make test
 
 commands: &commands
   bundle-install:

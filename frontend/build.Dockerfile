@@ -2,7 +2,8 @@
 FROM node:current-alpine as develop-stage
 
 WORKDIR /app
-COPY package*.json ./
+COPY package.json ./
+COPY yarn.lock ./
 RUN yarn install
 COPY . .
 
