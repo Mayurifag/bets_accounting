@@ -12,7 +12,6 @@ section.container
     v-show="bets"
     :data='bets'
     paginated
-    striped
     backend-pagination
     detailed
     hoverable

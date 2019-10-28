@@ -3,10 +3,6 @@
 pre-commit:
   parallel: true
   commands:
-    rubocop:
-      glob: "*.rb"
-      exclude: "application.rb|routes.rb"
-      runner: "dip rubocop --safe-auto-correct {staged_files} && git add {staged_files}"
     yarn:
       glob: "*.{js,ts}"
       runner: "dip yarn fix && git add {staged_files}"
@@ -18,6 +14,8 @@ pre-push:
       runner: dip rspec --fail-fast
     yarn:
       runner: dip yarn lint
+    rubocop:
+      runner: dip bundle exec rubocop --safe-auto-correct
 
 commands: &commands
   bundle-install:

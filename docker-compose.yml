@@ -1,4 +1,8 @@
 # TODO: users for backend/frontend // fix rights
+
+# Dont upgrade version to 3+
+# > Version 3 no longer supports the condition form of depends_on.
+# https://docs.docker.com/compose/compose-file/#depends_on
 version: '2.4'
 
 services:

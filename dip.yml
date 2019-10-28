@@ -47,11 +47,6 @@ interaction:
       RAILS_ENV: test
     command: rake parallel:spec
 
-  rubocop:
-    service: backend
-    command: bundle exec rubocop
-    compose_run_options: [no-deps]
-
   consistency_fail:
     service: backend
     command: RAILS_ENV=test dip bundle exec consistency_fail .

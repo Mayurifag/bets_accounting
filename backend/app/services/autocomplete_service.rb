@@ -1,11 +1,8 @@
 # frozen_string_literal: true
 
 class AutocompleteService < BaseService
-  attr_accessor :params
-
   def initialize(params)
     @params = params
-    @success = false
   end
 
   # TODO: another class specially for bets
@@ -14,11 +11,11 @@ class AutocompleteService < BaseService
   private_constant :ALLOWED_AUTOCOMPLETE_CLASSES
 
   def call
-    if ALLOWED_AUTOCOMPLETE_CLASSES.include? params[:class_name]
-      result = params[:class_name].constantize.autocomplete_name(params[:query])
-      @success = true if result
-    end
+    return fail! unless ALLOWED_AUTOCOMPLETE_CLASSES.include? @params[:class_name]
 
-    Result.new(result: result, success: @success)
+    klass = @params[:class_name].constantize
+    result = klass.autocomplete_name(@params[:query])
+
+    success!(result: result)
   end
 end
