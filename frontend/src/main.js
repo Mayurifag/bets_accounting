@@ -2,7 +2,7 @@
 import Vue from "vue";
 
 import VueProgressBar from "vue-progressbar";
-// TODO: upgrade to v.3
+// TODO: upgrade to v.3 :: change to vuelidate
 import VeeValidate from "vee-validate";
 
 // TODO: Individual components as Vue plugins

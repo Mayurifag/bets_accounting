@@ -3,12 +3,13 @@ name: Main
 on: push
 
 jobs:
-  test:
+  cypress-run:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - name: Test
+      - name: Run dockerized Cypress
         run: make test
+#######################################
   brakeman:
     runs-on: ubuntu-latest
     steps:
