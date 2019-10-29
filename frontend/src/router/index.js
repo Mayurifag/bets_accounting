@@ -2,9 +2,9 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import store from '../store';
 
-import Kelly from '../pages/Kelly.vue';
-import BetsList from '../pages/BetsList.vue';
-import Login from '../pages/Login.vue';
+const Kelly = () => import(/* webpackChunkName: "group-kelly" */ '../pages/Kelly.vue');
+const BetsList = () => import(/* webpackChunkName: "group-betslist" */ '../pages/BetsList.vue');
+const Login = () => import(/* webpackChunkName: "group-login" */ '../pages/Login.vue');
 
 Vue.use(VueRouter);
 
