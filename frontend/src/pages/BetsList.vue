@@ -93,8 +93,8 @@ export default {
     return {
       isEditModalActive: false,
       initializeNewBet: {
-        choice1: '',
-        choice2: '',
+        choice1: null,
+        choice2: null,
       },
     };
   },
@@ -129,7 +129,7 @@ export default {
     },
     deleteBet(bet) {
       // TODO: if user.wantsToConfirm; translation
-      this.$dialog.confirm({
+      this.$buefy.dialog.confirm({
         title: 'Удаление ставки',
         message:
           'Вы уверены, что вы хотите <b>удалить</b> эту ставку? Это действие не может быть отменено.',
