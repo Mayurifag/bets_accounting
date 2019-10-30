@@ -8,7 +8,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Run dockerized Cypress
-        run: make test
+        run: make cypress
 #######################################
   brakeman:
     runs-on: ubuntu-latest

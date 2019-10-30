@@ -31,13 +31,13 @@ To start development server you need latest stable versions of `git`, `docker`,
 Just use `dip rspec` to launch `rspec` and get the spec coverage from
 simplecov.
 
-## Parallel tests
+## Parallel tests for RSpec
 
-If you want to use all the cores of your CPU for specs, you may use these
-commands:
+If you want to use all the cores of your CPU for API specs, you may use `make parallel`.
 
-* `RAILS_ENV=test dip rake parallel:setup`
-* `dip spec`
+## Cypress
+
+There are simple end-to-end tests, you may launch them with `make cypress`.
 
 [build-badger]: https://github.com/Mayurifag/bets_accounting/workflows/Main/badge.svg
 [maitainability-badger]: https://api.codeclimate.com/v1/badges/1d95ce316920a6a8228b/maintainability
