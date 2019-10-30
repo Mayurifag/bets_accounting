@@ -41,11 +41,11 @@ section.container
       b-table-column(field="profit" label="Профит" numeric)
         | {{ props.row.profit }}&nbsp;₽
       b-table-column(field="actions" label="")
-        .actions
+        .is-inline-flex
           a.is-link(@click="editBet(props.row)")
             b-icon(icon='pencil')
-          a.is-link(@click="deleteBet(props.row)")
-            b-icon(icon='delete' type='is-danger' class='ml-4')
+          a.is-link.has-text-danger(@click="deleteBet(props.row)")
+            b-icon.ml-4(icon='delete')
 
     template(slot="detail" slot-scope="props")
       article.media
@@ -171,8 +171,5 @@ export default {
 .table-actions {
   justify-content: space-between;
   display: flex;
-}
-.actions {
-  display: inline-flex;
 }
 </style>
