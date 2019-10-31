@@ -1,9 +1,5 @@
 # TODO: users for backend/frontend // fix rights
-
-# Dont upgrade version to 3+
-# > Version 3 no longer supports the condition form of depends_on.
-# https://docs.docker.com/compose/compose-file/#depends_on
-version: '2.4'
+version: '3.5'
 
 services:
   db:
@@ -14,12 +10,8 @@ services:
       - /tmp
     volumes:
       - db-data:/var/lib/postgresql/data
-      - ./postgres_configuration/postgresql.auto.conf:/var/lib/postgresql/data/postgresql.auto.conf
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
+      - ./postgres_config.sql:/docker-entrypoint-initdb.d/postgres_config.sql
+    restart: unless-stopped
 
   backend:
     build:
@@ -34,12 +26,11 @@ services:
       - MALLOC_ARENA_MAX=2
       - WEB_CONCURRENCY=${WEB_CONCURRENCY:-1}
       - EDITOR=vi
-    command: bundle exec rails server -b 0.0.0.0 -p 8080
+    command: sh -c "rm /usr/src/app/tmp/pids/server.pid ; bundle exec rails s -p 8080 -b 0.0.0.0"
     ports:
       - "8888:8080"
     depends_on:
-      db:
-        condition: service_healthy
+      - db
     stdin_open: true
     tty: true
     tmpfs:
@@ -60,6 +51,13 @@ services:
       - "3333:8080"
     tmpfs:
       - /tmp
+
+  waiter:
+    build:
+      context: waiter
+      dockerfile: Dockerfile
+    depends_on:
+      - db
 
 volumes:
   db-data:

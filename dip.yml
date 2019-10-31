@@ -70,6 +70,7 @@ provision:
   - dip compose build
   - dip yarn
   - dip bundle install
+  - dip compose run --rm waiter db
   - dip rails db:drop db:create db:migrate db:seed
   - dip up -d
   - echo "=================================================="
