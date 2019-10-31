@@ -33,7 +33,8 @@ simplecov.
 
 ## Parallel tests for RSpec
 
-If you want to use all the cores of your CPU for API specs, you may use `make parallel`.
+If you want to use all the cores of your CPU for API specs, you may use
+`make parallel`. Its not profitable due to small number of specs, though.
 
 ## Cypress
 

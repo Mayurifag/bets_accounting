@@ -2,8 +2,8 @@
 
 class AutocompleteController < ApplicationController
   def search
-    if service_run.success?
-      json_response(service_run.response[:result])
+    if result_object.success?
+      json_response(result_object.response[:result])
     else
       record_invalid("Unpermitted class name #{autocomplete_params[:class_name]}")
     end
@@ -11,8 +11,8 @@ class AutocompleteController < ApplicationController
 
   private
 
-  def service_run
-    @service_run ||= AutocompleteService.run(autocomplete_params)
+  def result_object
+    @result_object ||= AutocompleteInteractor.run(autocomplete_params)
   end
 
   def autocomplete_params

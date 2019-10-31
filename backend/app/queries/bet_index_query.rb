@@ -3,9 +3,10 @@
 class BetIndexQuery < BaseQuery
   # TODO: test the sequel here :)
   def call
+    set_klass
     set_order
     avoid_n_plus_one
-    # maybe denormalization: https://stackoverflow.com/questions/6618366/improving-offset-performance-in-postgresql
+    # TODO: maybe denormalization: https://stackoverflow.com/questions/6618366/improving-offset-performance-in-postgresql
     set_pagination
     return_result_with_pagy_meta
   end
@@ -16,8 +17,12 @@ class BetIndexQuery < BaseQuery
     Bet
   end
 
+  def set_klass
+    @scope = klass
+  end
+
   def set_order
-    @scope = klass.newest_first
+    @scope = @scope.newest_first
   end
 
   def avoid_n_plus_one
