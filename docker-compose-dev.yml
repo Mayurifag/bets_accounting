@@ -7,13 +7,14 @@ version: '2.4'
 
 services:
   db:
-    image: postgres:${POSTGRES_VERSION:-11}-alpine
+    image: postgres:${POSTGRES_VERSION:-12}-alpine
     ports:
-      - "5432"
+      - "15433:5432"
     tmpfs:
       - /tmp
     volumes:
       - db-data:/var/lib/postgresql/data
+      - ./postgres_configuration/postgresql.auto.conf:/var/lib/postgresql/data/postgresql.auto.conf
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 10s

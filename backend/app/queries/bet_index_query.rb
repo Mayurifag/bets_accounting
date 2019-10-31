@@ -5,6 +5,7 @@ class BetIndexQuery < BaseQuery
   def call
     set_order
     avoid_n_plus_one
+    # maybe denormalization: https://stackoverflow.com/questions/6618366/improving-offset-performance-in-postgresql
     set_pagination
     return_result_with_pagy_meta
   end

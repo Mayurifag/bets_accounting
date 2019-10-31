@@ -120,6 +120,7 @@ export default {
       this.showModal(bet);
     },
     saveBet(bet) {
+      // TODO: if no bet id -> current page reset. vise verca
       api.saveBet(bet).then(() => {
         this.$store.dispatch('fetchBets').then(() => {
           this.hideModal();
