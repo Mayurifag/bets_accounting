@@ -29,6 +29,7 @@ module.exports = {
     ],
     optimization: {
       splitChunks: {
+        chunks: 'all',
         cacheGroups: {
           styles: {
             name: 'styles',

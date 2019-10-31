@@ -26,7 +26,7 @@ services:
       - MALLOC_ARENA_MAX=2
       - WEB_CONCURRENCY=${WEB_CONCURRENCY:-1}
       - EDITOR=vi
-    command: sh -c "rm /usr/src/app/tmp/pids/server.pid ; bundle exec rails s -p 8080 -b 0.0.0.0"
+    command: sh -c "rm -f /usr/src/app/tmp/pids/server.pid ; bundle exec rails s -p 8080 -b 0.0.0.0"
     ports:
       - "8888:8080"
     depends_on:
