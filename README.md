@@ -40,7 +40,7 @@ If you want to use all the cores of your CPU for API specs, you may use
 
 There are simple end-to-end tests, you may launch them with `make cypress`.
 
-[build-badger]: https://github.com/Mayurifag/bets_accounting/workflows/Main/badge.svg
+[build-badger]: https://github.com/Mayurifag/bets_accounting/workflows/CI/badge.svg
 [maitainability-badger]: https://api.codeclimate.com/v1/badges/1d95ce316920a6a8228b/maintainability
 [codeclimate-link]: https://codeclimate.com/github/Mayurifag/bets_accounting/maintainability
 [testcoverage-badger]: https://api.codeclimate.com/v1/badges/1d95ce316920a6a8228b/test_coverage
