@@ -1,4 +1,4 @@
-FROM ruby:${RUBY_VERSION:-2.6.3}-alpine
+FROM ruby:${RUBY_VERSION:-2.6.3-alpine}
 
 ENV LANG=C.UTF-8 \
     GEM_HOME=/bundle \
