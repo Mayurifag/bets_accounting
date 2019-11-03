@@ -150,16 +150,20 @@ export default {
 .small-input {
   width: 80px;
 }
+
 .medium-input {
   width: 100px;
 }
+
 // TODO: move to have everythere
 .inline-flex {
   display: inline-flex;
 }
+
 .mr-8 {
   margin-right: 8px;
 }
+
 .flex {
   display: flex;
 }

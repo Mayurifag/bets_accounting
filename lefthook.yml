@@ -4,16 +4,21 @@ pre-commit:
   parallel: true
   commands:
     yarn:
-      glob: "*.{js,ts}"
+      glob: "*.{js,ts,vue}"
       runner: "dip yarn fix && git add {staged_files}"
+    stylelint:
+      glob: "*.{js,ts,vue}"
+      runnter: dip yarn css:lint
 
 pre-push:
   parallel: true
   commands:
     rspec:
       runner: dip rspec --fail-fast
-    yarn:
+    eslint:
       runner: dip yarn lint
+    stylelint:
+      runnter: dip yarn css:lint
     rubocop:
       runner: dip bundle exec rubocop --safe-auto-correct
     cypress:

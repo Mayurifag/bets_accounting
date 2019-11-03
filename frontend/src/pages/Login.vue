@@ -69,9 +69,11 @@ export default {
 </script>
 
 <style scoped lang="scss">
+// TODO: mt-24
 .columns {
   margin-top: 24px;
 }
+
 .column {
   max-width: 500px;
   margin: auto;

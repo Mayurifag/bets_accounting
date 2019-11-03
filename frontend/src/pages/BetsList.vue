@@ -166,9 +166,11 @@ export default {
 .m-10 {
   margin: 10px;
 }
+
 .ml-4 {
   margin-left: 4px;
 }
+
 .table-actions {
   justify-content: space-between;
   display: flex;

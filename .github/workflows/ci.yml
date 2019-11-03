@@ -3,7 +3,21 @@ name: CI
 on: push
 
 jobs:
-  cypress-run:
+  stylelint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+
+      - name: stylelint
+        working-directory: ./frontend
+        run: |
+          yarn
+          yarn css:lint
+#######################################
+  cypress:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
