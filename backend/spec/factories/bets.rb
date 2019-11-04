@@ -2,11 +2,11 @@
 
 FactoryBot.define do
   factory :bet do
-    discipline
-    bookmaker
+    discipline { FactoryBot.build(:discipline) }
+    bookmaker { FactoryBot.build(:bookmaker) }
     result_variant_id { ResultVariant.win_id }
-    bet_type
-    event
+    bet_type { FactoryBot.build(:bet_type) }
+    # event { FactoryBot.build(:event) }
     choice1 { FactoryBot.build(:participant) }
     choice2 { FactoryBot.build(:participant) }
 

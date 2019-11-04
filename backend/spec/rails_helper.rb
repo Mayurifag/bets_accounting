@@ -1,11 +1,14 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-ENV['RAILS_ENV'] ||= 'test'
+ENV['RAILS_ENV'] = 'test'
 require File.expand_path('../config/environment', __dir__)
 abort('The Rails environment is running in production mode!') if Rails.env.production?
+
 require 'rspec/rails'
 require 'simplecov'
+require 'database_rewinder'
+
 # parallel specs
 if ENV['TEST_ENV_NUMBER']
   require 'simplecov-console'
@@ -20,8 +23,6 @@ SimpleCov.start 'rails'
 # lib is required due to simplecov coverage
 Dir[Rails.root.join('lib', '*.rb')].each { |f| load f }
 Dir[Rails.root.join('spec', 'support', '**', '*.rb')].each { |f| require f }
-
-require 'database_rewinder'
 
 Shoulda::Matchers.configure do |config|
   config.integrate do |with|
@@ -49,7 +50,6 @@ RSpec.configure do |config|
     DatabaseRewinder.clean
   end
 
-  config.use_transactional_fixtures = false
   config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!
   config.silence_filter_announcements = true if ENV['TEST_ENV_NUMBER']
