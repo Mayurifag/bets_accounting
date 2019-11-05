@@ -61,6 +61,6 @@ group :test do
   gem 'zonebie'
 end
 
-# TODO: not working on rails 6 or dip?
-# gem 'regressor'
+# TODO: cant use out-of-box because of knock's problem with zeitwerk
 # gem 'database_consistency', require: false
+# gem 'regressor'
