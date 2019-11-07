@@ -16,7 +16,7 @@ gem 'blueprinter'
 gem 'bootsnap', require: false
 gem 'faker'
 gem 'fast_blank', platform: :mri
-gem 'knock', github: 'Mayurifag/knock'
+gem 'knock_knock'
 gem 'oj'
 gem 'pagy'
 gem 'polist'
