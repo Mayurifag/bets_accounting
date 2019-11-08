@@ -1,6 +1,6 @@
 <template lang="pug">
 #bets_accounting
-  vue-progress-bar
+  //- vue-progress-bar
 
   nav.navbar.is-primary.is-sticky.containter
     .navbar-brand
@@ -37,22 +37,22 @@ export default {
     };
   },
 
-  created() {
-    this.$Progress.start();
+  // created() {
+  //   this.$Progress.start();
 
-    this.$router.beforeEach((to, from, next) => {
-      if (to.meta.progress !== undefined) {
-        const meta = to.meta.progress;
-        this.$Progress.parseMeta(meta);
-      }
-      this.$Progress.start();
-      next();
-    });
+  //   this.$router.beforeEach((to, from, next) => {
+  //     if (to.meta.progress !== undefined) {
+  //       const meta = to.meta.progress;
+  //       this.$Progress.parseMeta(meta);
+  //     }
+  //     this.$Progress.start();
+  //     next();
+  //   });
 
-    this.$router.afterEach(() => {
-      this.$Progress.finish();
-    });
-  },
+  //   this.$router.afterEach(() => {
+  //     this.$Progress.finish();
+  //   });
+  // },
 
   computed: {
     ...mapState(['bets']),

@@ -37,18 +37,13 @@
                     | {{ props.option.name }}
 
           b-field(label="Ставка" class="mr-8")
-            b-field(:type="errors.has('bet.wager') ? 'is-danger' : ''")
+            b-field
               p.control
                 span.button.is-static ₽
-              b-input(type="text" data-vv-name="bet.wager"
-                      v-validate="'numeric|required|between:0,2147483647'"
-                      v-model="bet.wager" class='small-input')
+              b-input(type="text" v-model="bet.wager" class='small-input')
 
-          b-field(label="Коэффициент" class="mr-8"
-                  :type="errors.has('bet.coefficient') ? 'is-danger' : ''")
-            b-input(type="text" v-model="bet.coefficient"
-                    data-vv-name="bet.coefficient" class='medium-input'
-                    v-validate="'required|between:1,2147483647'")
+          b-field(label="Коэффициент" class="mr-8")
+            b-input(type="text" v-model="bet.coefficient" class='medium-input')
 
 
         b-field
@@ -92,7 +87,7 @@
 
       footer.modal-card-foot
         button.button(type="button" @click="$parent.close()") Закрыть
-        button.button.is-primary(:disabled="errors.any()") {{ bet.id ? 'Сохранить' : 'Создать' }}
+        button.button.is-primary {{ bet.id ? 'Сохранить' : 'Создать' }}
 </template>
 
 <script>
@@ -111,11 +106,11 @@ export default {
   },
   methods: {
     submitForm() {
-      this.$validator.validateAll().then((isValid) => {
-        if (isValid) {
-          this.saveBet();
-        }
-      });
+      // this.$validator.validateAll().then((isValid) => {
+      // if (isValid) {
+      this.saveBet();
+      // }
+      // });
     },
     saveBet() {
       this.$emit('submit', this.bet);

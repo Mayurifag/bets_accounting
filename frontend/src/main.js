@@ -1,9 +1,9 @@
 /* eslint-disable */
 import Vue from "vue";
 
-import VueProgressBar from "vue-progressbar";
+// import VueProgressBar from "vue-progressbar";
 // TODO: upgrade to v.3 :: change to vuelidate
-import VeeValidate from "vee-validate";
+// import VeeValidate from "vee-validate";
 
 // TODO: Individual components as Vue plugins
 import Buefy from "buefy";
@@ -18,8 +18,8 @@ import App from "./App.vue";
 sync(store, router);
 
 Vue.use(Buefy);
-Vue.use(VueProgressBar);
-Vue.use(VeeValidate);
+// Vue.use(VueProgressBar);
+// Vue.use(VeeValidate);
 
 Vue.config.productionTip = false;
 
