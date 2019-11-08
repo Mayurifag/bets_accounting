@@ -13,3 +13,6 @@ prodbuild:
 
 yml:
 		docker run --rm -ti -v $(PWD):/workdir giantswarm/yamllint -d relaxed .
+
+report:
+		NODE_ENV=production yarn run report

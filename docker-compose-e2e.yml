@@ -3,6 +3,8 @@ version: '2.4'
 services:
   # dont touch the name or rename everythere
   prodbuild:
+    environment:
+      - NODE_ENV=production
     build:
       context: frontend
       dockerfile: build.Dockerfile
