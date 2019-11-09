@@ -9,7 +9,7 @@ class BetBlueprint < Blueprinter::Base
   fields :coefficient, :outcome, :wager
 
   field :profit do |bet|
-    '%0.02f' % bet.profit
+    "%0.02f" % bet.profit
   end
 
   field :created_at do |bet|

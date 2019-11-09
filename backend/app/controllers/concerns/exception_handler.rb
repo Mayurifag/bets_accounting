@@ -22,15 +22,15 @@ module ExceptionHandler
     end
   end
 
-  def unauthorized(message = 'Unauthorized')
+  def unauthorized(message = "Unauthorized")
     json_response({errors: message}, :unauthorized)
   end
 
-  def record_invalid(message = 'Record invalid')
+  def record_invalid(message = "Record invalid")
     json_response({errors: message}, :unprocessable_entity)
   end
 
-  def not_found(message = 'Not found')
+  def not_found(message = "Not found")
     json_response({errors: message}, :not_found)
   end
 end

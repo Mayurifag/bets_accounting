@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require "spec_helper"
 
 RSpec.describe Bookmaker, type: :model do
   it { is_expected.to have_db_column :id }

@@ -2,6 +2,6 @@
 
 FactoryBot.define do
   factory :participant do
-    name { 'team' }
+    name { "team" }
   end
 end

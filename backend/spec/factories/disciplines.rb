@@ -2,6 +2,6 @@
 
 FactoryBot.define do
   factory :discipline do
-    name { 'doka 2' }
+    name { "doka 2" }
   end
 end

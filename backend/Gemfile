@@ -1,64 +1,64 @@
 # frozen_string_literal: true
 
-source 'https://rubygems.org'
+source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby File.read(File.expand_path('.ruby-version', __dir__)).chomp
+ruby File.read(File.expand_path(".ruby-version", __dir__)).chomp
 
-gem 'rails'
+gem "rails"
 
-gem 'pg'
-gem 'puma'
+gem "pg"
+gem "puma"
 
-gem 'activerecord-import'
-gem 'bcrypt'
-gem 'blueprinter'
-gem 'bootsnap', require: false
-gem 'faker'
-gem 'fast_blank', platform: :mri
-gem 'knock_knock'
-gem 'oj'
-gem 'pagy'
-gem 'polist'
-gem 'rack-cors'
+gem "activerecord-import"
+gem "bcrypt"
+gem "blueprinter"
+gem "bootsnap", require: false
+gem "faker"
+gem "fast_blank", platform: :mri
+gem "knock_knock"
+gem "oj"
+gem "pagy"
+gem "polist"
+gem "rack-cors"
 
 group :development, :test do
-  gem 'awesome_rails_console', github: 'Mayurifag/awesome_rails_console',
-                               branch: 'fix-parent-name-deprecation'
-  gem 'byebug', platforms: %i[mri mingw x64_mingw]
-  gem 'factory_bot_rails'
-  gem 'factory_trace'
-  gem 'hirb'
-  gem 'hirb-unicode-steakknife', require: 'hirb-unicode'
-  gem 'isolator'
-  gem 'parallel_tests'
-  gem 'pry-byebug'
-  gem 'pry-stack_explorer'
-  gem 'rspec-rails'
-  gem 'ruby-prof', '>= 0.16.0', require: false
-  gem 'stackprof', '>= 0.2.9', require: false
+  gem "awesome_rails_console", github: "Mayurifag/awesome_rails_console",
+                               branch: "fix-parent-name-deprecation"
+  gem "byebug", platforms: %i[mri mingw x64_mingw]
+  gem "factory_bot_rails"
+  gem "factory_trace"
+  gem "hirb"
+  gem "hirb-unicode-steakknife", require: "hirb-unicode"
+  gem "isolator"
+  gem "parallel_tests"
+  gem "pry-byebug"
+  gem "pry-stack_explorer"
+  gem "rspec-rails"
+  gem "ruby-prof", ">= 0.16.0", require: false
+  gem "stackprof", ">= 0.2.9", require: false
 end
 
 group :development do
-  gem 'brakeman', require: false
-  gem 'bullet'
-  gem 'bundler-audit', require: false
-  gem 'jetrockets-standard', github: 'Mayurifag/jetrockets-standard',
-                             branch: 'fix-warning-no-department-stringliterals'
-  gem 'listen'
-  gem 'ordinare', require: false
-  gem 'strong_migrations'
+  gem "brakeman", require: false
+  gem "bullet"
+  gem "bundler-audit", require: false
+  gem "jetrockets-standard", github: "Mayurifag/jetrockets-standard",
+                             branch: "fix-warning-no-department-stringliterals"
+  gem "listen"
+  gem "ordinare", require: false
+  gem "strong_migrations"
 end
 
 group :test do
-  gem 'consistency_fail'
-  gem 'database_rewinder'
-  gem 'fuubar'
-  gem 'shoulda-matchers'
-  gem 'simplecov'
-  gem 'simplecov-console'
-  gem 'test-prof'
-  gem 'zonebie'
+  gem "consistency_fail"
+  gem "database_rewinder"
+  gem "fuubar"
+  gem "shoulda-matchers"
+  gem "simplecov"
+  gem "simplecov-console"
+  gem "test-prof"
+  gem "zonebie"
 end
 
 # TODO: cant use out-of-box because of knock's problem with zeitwerk

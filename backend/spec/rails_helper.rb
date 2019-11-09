@@ -1,29 +1,29 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
-ENV['RAILS_ENV'] = 'test'
-require File.expand_path('../config/environment', __dir__)
-abort('The Rails environment is running in production mode!') if Rails.env.production?
+require "spec_helper"
+ENV["RAILS_ENV"] = "test"
+require File.expand_path("../config/environment", __dir__)
+abort("The Rails environment is running in production mode!") if Rails.env.production?
 
-require 'rspec/rails'
-require 'simplecov'
-require 'shoulda/matchers'
-require 'database_rewinder'
+require "rspec/rails"
+require "simplecov"
+require "shoulda/matchers"
+require "database_rewinder"
 
 # parallel specs
-if ENV['TEST_ENV_NUMBER']
-  require 'simplecov-console'
+if ENV["TEST_ENV_NUMBER"]
+  require "simplecov-console"
   SimpleCov.formatter = SimpleCov::Formatter::Console
   SimpleCov.at_exit do
     result = SimpleCov.result
     result.format! if ParallelTests.number_of_running_processes <= 1
   end
 end
-SimpleCov.start 'rails'
+SimpleCov.start "rails"
 
 # lib is required due to simplecov coverage
-Dir[Rails.root.join('lib', '*.rb')].each { |f| load f }
-Dir[Rails.root.join('spec', 'support', '**', '*.rb')].each { |f| require f }
+Dir[Rails.root.join("lib", "*.rb")].each { |f| load f }
+Dir[Rails.root.join("spec", "support", "**", "*.rb")].each { |f| require f }
 
 Shoulda::Matchers.configure do |config|
   config.integrate do |with|
@@ -53,5 +53,5 @@ RSpec.configure do |config|
 
   config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!
-  config.silence_filter_announcements = true if ENV['TEST_ENV_NUMBER']
+  config.silence_filter_announcements = true if ENV["TEST_ENV_NUMBER"]
 end

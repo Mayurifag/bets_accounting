@@ -26,7 +26,7 @@ class Generator
        choice2_id: Participant.memoized_sample_id,
        wager: rand(1000..100_000),
        coefficient: rand(1.1...3.0).ceil(2),
-       outcome: 'П' + %w[1 2].sample,
+       outcome: "П" + %w[1 2].sample,
        comment: Faker::Lorem.sentence,
        discipline_id: Discipline.memoized_sample_id,
        bookmaker_id: Bookmaker.memoized_sample_id,

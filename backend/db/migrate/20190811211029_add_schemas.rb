@@ -60,11 +60,11 @@ class AddSchemas < ActiveRecord::Migration[6.0]
     add_index :bet_types, :name, using: :gin, opclass: {name: :gin_trgm_ops}
 
     create_table :bets do |t|
-      t.text :comment, comment: 'Комментарий'
-      t.float :coefficient, null: false, comment: 'Коэффициент'
-      t.decimal :profit, null: false, default: 0, comment: 'Профит'
-      t.string :outcome, null: false, comment: 'Выбор'
-      t.integer :wager, null: false, comment: 'Ставка'
+      t.text :comment, comment: "Комментарий"
+      t.float :coefficient, null: false, comment: "Коэффициент"
+      t.decimal :profit, null: false, default: 0, comment: "Профит"
+      t.string :outcome, null: false, comment: "Выбор"
+      t.integer :wager, null: false, comment: "Ставка"
 
       t.references :choice1, index: true, foreign_key: {to_table: :participants}
       t.references :choice2, index: true, foreign_key: {to_table: :participants}

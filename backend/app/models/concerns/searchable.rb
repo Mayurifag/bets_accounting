@@ -10,7 +10,7 @@ module Searchable
     def autocomplete_name(query)
       quoted_query = ActiveRecord::Base.connection.quote(query)
 
-      where('similarity(name, :word) > :score', word: quoted_query, score: THRESHOLD_SCORE)
+      where("similarity(name, :word) > :score", word: quoted_query, score: THRESHOLD_SCORE)
         .order(Arel.sql("similarity(name, #{quoted_query}) DESC"))
     end
   end

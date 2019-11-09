@@ -24,7 +24,7 @@ class BetParamsTransformationHandler < ApplicationHandler
 
   def transform_field_to_field_id(field, method)
     if object[field].present?
-      field_id_symbol = (field.to_s + '_id').to_sym
+      field_id_symbol = (field.to_s + "_id").to_sym
       model_object = find_model_object_by_name(field, method)
       object[field_id_symbol] = model_object&.id
     end

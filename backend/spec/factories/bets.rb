@@ -7,6 +7,6 @@ FactoryBot.define do
 
     coefficient { 1.4 }
     wager { 111 }
-    outcome { 'П1' }
+    outcome { "П1" }
   end
 end
