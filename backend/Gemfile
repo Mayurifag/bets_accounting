@@ -43,10 +43,10 @@ group :development do
   gem 'brakeman', require: false
   gem 'bullet'
   gem 'bundler-audit', require: false
+  gem 'jetrockets-standard', github: 'Mayurifag/jetrockets-standard',
+                             branch: 'fix-warning-no-department-stringliterals'
   gem 'listen'
   gem 'ordinare', require: false
-  gem 'rubocop'
-  gem 'spicerack-styleguide'
   gem 'strong_migrations'
 end
 

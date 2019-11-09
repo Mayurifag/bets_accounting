@@ -8,6 +8,16 @@ GIT
       pry-rails
       railties
 
+GIT
+  remote: https://github.com/Mayurifag/jetrockets-standard.git
+  revision: 5dec89aae964826850925e7abbe42b1f91861d93
+  branch: fix-warning-no-department-stringliterals
+  specs:
+    jetrockets-standard (1.0.3)
+      rubocop-rails (~> 2.3.2)
+      rubocop-rspec (~> 1.35.0)
+      standard (~> 0.1.4)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -176,7 +186,7 @@ GEM
     pry-stack_explorer (0.4.9.3)
       binding_of_caller (>= 0.7)
       pry (>= 0.9.11)
-    puma (4.2.1)
+    puma (4.3.0)
       nio4r (~> 2.0)
     rack (2.0.7)
     rack-cors (1.0.3)
@@ -230,16 +240,16 @@ GEM
       rspec-mocks (~> 3.9.0)
       rspec-support (~> 3.9.0)
     rspec-support (3.9.0)
-    rubocop (0.74.0)
+    rubocop (0.75.1)
       jaro_winkler (~> 1.5.1)
       parallel (~> 1.10)
       parser (>= 2.6)
       rainbow (>= 2.2.2, < 4.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 1.7)
-    rubocop-performance (1.4.1)
+    rubocop-performance (1.5.0)
       rubocop (>= 0.71.0)
-    rubocop-rails (2.3.0)
+    rubocop-rails (2.3.2)
       rack (>= 1.1)
       rubocop (>= 0.72.0)
     rubocop-rspec (1.35.0)
@@ -252,7 +262,7 @@ GEM
       docile (~> 1.1)
       json (>= 1.8, < 3)
       simplecov-html (~> 0.10.0)
-    simplecov-console (0.5.0)
+    simplecov-console (0.6.0)
       ansi
       simplecov
       terminal-table
@@ -260,11 +270,6 @@ GEM
     sniffer (0.3.2)
       active_attr (>= 0.10.2)
       anyway_config (~> 1.0)
-    spicerack-styleguide (0.18.0)
-      rubocop (= 0.74)
-      rubocop-performance (= 1.4.1)
-      rubocop-rails (= 2.3.0)
-      rubocop-rspec (= 1.35.0)
     sprockets (4.0.0)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
@@ -273,6 +278,9 @@ GEM
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
     stackprof (0.2.13)
+    standard (0.1.5)
+      rubocop (~> 0.75.0)
+      rubocop-performance (~> 1.5.0)
     strong_migrations (0.4.2)
       activerecord (>= 5)
     tainbox (2.1.2)
@@ -316,6 +324,7 @@ DEPENDENCIES
   hirb
   hirb-unicode-steakknife
   isolator
+  jetrockets-standard!
   knock_knock
   listen
   oj
@@ -330,12 +339,10 @@ DEPENDENCIES
   rack-cors
   rails
   rspec-rails
-  rubocop
   ruby-prof (>= 0.16.0)
   shoulda-matchers
   simplecov
   simplecov-console
-  spicerack-styleguide
   stackprof (>= 0.2.9)
   strong_migrations
   test-prof

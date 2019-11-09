@@ -126,6 +126,16 @@ jobs:
 #######################################
   rubocop:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:12
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: ""
+          POSTGRES_DB: backend_test
+        ports:
+          - 5432/tcp
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
     steps:
       - uses: actions/checkout@v1
 
@@ -134,16 +144,21 @@ jobs:
         with:
           ruby-version: 2.6.x
 
-      # required to compile pg ruby gem
       - name: install PostgreSQL client
         run: sudo apt-get install libpq-dev
 
-      - name: rubocop
+      - name: Launch rubocop
         working-directory: ./backend
+        env:
+          RAILS_ENV: test
+          PGHOST: localhost
+          PGUSER: postgres
+          PGPORT: ${{ job.services.postgres.ports[5432] }}              # get randomly assigned published port
         run: |
           gem install bundler
-          bundle install --jobs 4 --retry 3
-          bundle exec rubocop --parallel
+          bundle install --without development production --jobs 4 --retry 3
+          bundle exec rails db:setup
+          bundle exec rubocop
 #######################################
   rspec:
     runs-on: ubuntu-latest
