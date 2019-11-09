@@ -8,16 +8,6 @@ GIT
       pry-rails
       railties
 
-GIT
-  remote: https://github.com/Mayurifag/jetrockets-standard.git
-  revision: 5dec89aae964826850925e7abbe42b1f91861d93
-  branch: fix-warning-no-department-stringliterals
-  specs:
-    jetrockets-standard (1.0.3)
-      rubocop-rails (~> 2.3.2)
-      rubocop-rspec (~> 1.35.0)
-      standard (~> 0.1.4)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -135,6 +125,10 @@ GEM
     isolator (0.6.1)
       sniffer (~> 0.3.1)
     jaro_winkler (1.5.4)
+    jetrockets-standard (1.0.4)
+      rubocop-rails (~> 2.3.2)
+      rubocop-rspec (~> 1.35.0)
+      standard (~> 0.1.4)
     json (2.2.0)
     jwt (2.2.1)
     knock_knock (0.1.1.pre.preview1)
@@ -324,7 +318,7 @@ DEPENDENCIES
   hirb
   hirb-unicode-steakknife
   isolator
-  jetrockets-standard!
+  jetrockets-standard
   knock_knock
   listen
   oj
