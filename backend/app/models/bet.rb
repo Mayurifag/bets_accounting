@@ -11,9 +11,9 @@ class Bet < ApplicationRecord
   belongs_to :choice1, class_name: 'Participant', foreign_key: :choice1_id
   belongs_to :choice2, class_name: 'Participant', foreign_key: :choice2_id
 
-  validates :wager, numericality: { greater_than: 0 }, allow_blank: true
+  validates :wager, numericality: {greater_than: 0}, allow_blank: true
   validates :coefficient, allow_blank: true,
-                          numericality: { greater_than_or_equal_to: 1.0 }
+                          numericality: {greater_than_or_equal_to: 1.0}
 
   before_save :update_profit_column
 

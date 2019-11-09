@@ -11,7 +11,7 @@ RSpec.describe 'Autocomplete', type: :request do
   subject! { post '/api/autocomplete', params: params }
 
   context 'when query is valid for permitted class' do
-    let(:params) { { class_name: 'Bookmaker', query: '1hui' } }
+    let(:params) { {class_name: 'Bookmaker', query: '1hui'} }
 
     it 'returns autocompleted ordered hash' do
       expect(response).to have_http_status(200)
@@ -21,7 +21,7 @@ RSpec.describe 'Autocomplete', type: :request do
   end
 
   context 'when query is valid for unpermitted class' do
-    let(:params) { { class_name: 'ResultVariant', query: 'Победа' } }
+    let(:params) { {class_name: 'ResultVariant', query: 'Победа'} }
 
     it 'returns error' do
       expect(response).to have_http_status(422)

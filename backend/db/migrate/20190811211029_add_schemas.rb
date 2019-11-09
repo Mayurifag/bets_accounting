@@ -19,7 +19,7 @@ class AddSchemas < ActiveRecord::Migration[6.0]
 
       t.timestamps
     end
-    add_index :disciplines, :name, using: :gin, opclass: { name: :gin_trgm_ops }
+    add_index :disciplines, :name, using: :gin, opclass: {name: :gin_trgm_ops}
 
     create_table :participants do |t|
       t.string :name, null: false
@@ -27,7 +27,7 @@ class AddSchemas < ActiveRecord::Migration[6.0]
 
       t.timestamps
     end
-    add_index :participants, :name, using: :gin, opclass: { name: :gin_trgm_ops }
+    add_index :participants, :name, using: :gin, opclass: {name: :gin_trgm_ops}
 
     create_table :bookmakers do |t|
       t.string :name, null: false
@@ -35,7 +35,7 @@ class AddSchemas < ActiveRecord::Migration[6.0]
 
       t.timestamps
     end
-    add_index :bookmakers, :name, using: :gin, opclass: { name: :gin_trgm_ops }
+    add_index :bookmakers, :name, using: :gin, opclass: {name: :gin_trgm_ops}
 
     create_table :events do |t|
       t.string :name, null: false
@@ -43,21 +43,21 @@ class AddSchemas < ActiveRecord::Migration[6.0]
 
       t.timestamps
     end
-    add_index :events, :name, using: :gin, opclass: { name: :gin_trgm_ops }
+    add_index :events, :name, using: :gin, opclass: {name: :gin_trgm_ops}
 
     create_table :result_variants do |t|
       t.string :name, null: false
 
       t.timestamps
     end
-    add_index :result_variants, :name, using: :gin, opclass: { name: :gin_trgm_ops }
+    add_index :result_variants, :name, using: :gin, opclass: {name: :gin_trgm_ops}
 
     create_table :bet_types do |t|
       t.string :name, null: false
 
       t.timestamps
     end
-    add_index :bet_types, :name, using: :gin, opclass: { name: :gin_trgm_ops }
+    add_index :bet_types, :name, using: :gin, opclass: {name: :gin_trgm_ops}
 
     create_table :bets do |t|
       t.text :comment, comment: 'Комментарий'
@@ -66,8 +66,8 @@ class AddSchemas < ActiveRecord::Migration[6.0]
       t.string :outcome, null: false, comment: 'Выбор'
       t.integer :wager, null: false, comment: 'Ставка'
 
-      t.references :choice1, index: true, foreign_key: { to_table: :participants }
-      t.references :choice2, index: true, foreign_key: { to_table: :participants }
+      t.references :choice1, index: true, foreign_key: {to_table: :participants}
+      t.references :choice2, index: true, foreign_key: {to_table: :participants}
 
       # t.belongs_to :user, index: { unique: true }
       t.belongs_to :bookmaker, index: true

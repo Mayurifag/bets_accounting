@@ -29,7 +29,7 @@ RSpec.describe 'Users API', type: :request do
 
     context 'when the request is valid' do
       let(:params) do
-        { email: 'test@test.com', password: 'password', password_confirmation: 'password' }
+        {email: 'test@test.com', password: 'password', password_confirmation: 'password'}
       end
 
       it 'creates user' do
@@ -63,7 +63,7 @@ RSpec.describe 'Users API', type: :request do
     context 'with an authenticated user and valid params' do
       let(:headers) { authentication_header(user) }
       let(:params) do
-        { email: 'test@test.com', password: '123456', password_confirmation: '123456' }
+        {email: 'test@test.com', password: '123456', password_confirmation: '123456'}
       end
 
       it 'renders json listing resource with id' do
@@ -75,7 +75,7 @@ RSpec.describe 'Users API', type: :request do
     context 'with an authenticated user and invalid params' do
       let(:headers) { authentication_header(user) }
       let(:params) do
-        { email: 'asd' }
+        {email: 'asd'}
       end
 
       it 'returns record invalid' do
@@ -88,7 +88,7 @@ RSpec.describe 'Users API', type: :request do
       let(:another_user) { create(:user) }
       let(:headers) { authentication_header(another_user) }
       let(:params) do
-        { email: 'test@test.com', password: '123456', password_confirmation: '123456' }
+        {email: 'test@test.com', password: '123456', password_confirmation: '123456'}
       end
 
       it 'returns unauthorized' do

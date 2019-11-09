@@ -10,7 +10,7 @@ class BaseQuery
   private
 
   def return_result_with_pagy_meta
-    { pagy: @pagy, records: @records }
+    {pagy: @pagy, records: @records}
   end
 
   def set_pagination

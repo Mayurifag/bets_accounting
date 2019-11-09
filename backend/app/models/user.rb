@@ -5,10 +5,9 @@ class User < ApplicationRecord
 
   # TODO: add validations
   validates :email, presence: true, uniqueness: true
-  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
-  validates :password,
-            length: { minimum: 6, maximum: 40 },
-            if: -> { new_record? || password.present? }
+  validates :email, format: {with: URI::MailTo::EMAIL_REGEXP}
+  validates :password, length: {minimum: 6, maximum: 40},
+                       if: -> { new_record? || password.present? }
 
   # https://engineering.musefind.com/building-a-simple-token-based-authorization-api-with-rails-a5c181b83e02
   # This method gives us a simple call to check if a user has permission to modify.

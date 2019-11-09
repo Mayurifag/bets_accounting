@@ -9,7 +9,7 @@ RSpec.describe 'Authentication', type: :request do
     subject! { post '/api/auth', params: params }
 
     context 'when the request is valid' do
-      let(:params) { { email: user.email, password: user.password } }
+      let(:params) { {email: user.email, password: user.password} }
 
       it 'creates user' do
         expect(json['jwt']).not_to be_empty
@@ -21,7 +21,7 @@ RSpec.describe 'Authentication', type: :request do
     end
 
     context 'when the password is wrong' do
-      let(:params) { { email: user.email, password: 'wrong_pass' } }
+      let(:params) { {email: user.email, password: 'wrong_pass'} }
 
       it 'returns status code 422' do
         expect(response).to have_http_status(422)
