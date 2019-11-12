@@ -69,3 +69,6 @@ export default {
   },
 };
 </script>
+<style lang="scss">
+@import "~buefy/dist/buefy.min.css";
+</style>

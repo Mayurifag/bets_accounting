@@ -12,7 +12,7 @@ import Field from 'buefy/dist/components/field'; // b-field
 import Icon from 'buefy/dist/components/icon'; // b-icon
 import Input from 'buefy/dist/components/input'; // b-input
 
-import 'buefy/dist/buefy.css';
+// import 'buefy/dist/buefy.css';
 
 import store from './store/index';
 import router from './router/index';
