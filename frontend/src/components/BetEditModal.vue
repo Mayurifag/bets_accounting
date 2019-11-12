@@ -9,7 +9,8 @@
           b-field(label="Команда 1" class="mr-8")
             b-autocomplete(v-model='bet.choice1', :data='participants',
                            field='name', @input='getParticipants(bet.choice1)',
-                           @select='option => selected = option', autofocus)
+                           @select='option => selected = option', autofocus,
+                           keep-first)
               template(slot-scope='props')
                 .media
                   .media-content
@@ -17,7 +18,7 @@
           b-field(label="Команда 2" class="mr-8")
             b-autocomplete(v-model='bet.choice2', :data='participants',
                            field='name', @input='getParticipants(bet.choice2)',
-                           @select='option => selected = option')
+                           @select='option => selected = option', keep-first)
               template(slot-scope='props')
                 .media
                   .media-content
@@ -29,7 +30,7 @@
         .inline-flex
           b-field(label="Дисциплина" class="mr-8")
             b-autocomplete(v-model='bet.discipline', :data='disciplines',
-                           field='name', @input='getDisciplines',
+                           field='name', @input='getDisciplines', keep-first,
                            @select='option => selected = option')
               template(slot-scope='props')
                 .media
@@ -47,6 +48,7 @@
 
 
         b-field
+          //- TODO: https://buefy.org/documentation/steps
           b-radio-button(v-model='bet.result_variant' native-value='Победа' type='is-success')
             b-icon(icon='check')
             span Победа
@@ -92,7 +94,17 @@
 
 <script>
 import Vue from 'vue';
+
+import Autocomplete from 'buefy/dist/components/autocomplete'; // b-autocompete
+import Collapse from 'buefy/dist/components/collapse'; // b-collapse
+import Radio from 'buefy/dist/components/radio'; // b-radio
+import Select from 'buefy/dist/components/select'; // b-select
 import api from '../api';
+
+Vue.use(Autocomplete);
+Vue.use(Collapse);
+Vue.use(Radio);
+Vue.use(Select);
 
 export default {
   props: ['initialBet'],

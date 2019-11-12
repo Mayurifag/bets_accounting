@@ -32,6 +32,11 @@ section
 // TODO: validation
 // TODO: обработка 422 - вывод на экран/тоаст
 <script>
+import Vue from 'vue';
+import Message from 'buefy/dist/components/message'; // b-message
+
+Vue.use(Message);
+
 export default {
   data() {
     return {

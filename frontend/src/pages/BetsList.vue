@@ -69,9 +69,22 @@ section.container
 </template>
 
 <script>
+import Vue from 'vue';
+
+import Dialog from 'buefy/dist/components/dialog'; // this.$buefy.dialog
+import Modal from 'buefy/dist/components/modal'; // b-modal
+import Table from 'buefy/dist/components/table'; // b-table
+import Toast from 'buefy/dist/components/toast'; // this.$buefy.toast
+
 import { mapGetters } from 'vuex';
 import api from '../api';
+
 import BetEditModal from '../components/BetEditModal.vue';
+
+Vue.use(Dialog);
+Vue.use(Modal);
+Vue.use(Table);
+Vue.use(Toast);
 
 export default {
   components: { 'bet-edit-modal': BetEditModal },
@@ -124,7 +137,7 @@ export default {
       api.saveBet(bet).then(() => {
         this.$store.dispatch('fetchBets').then(() => {
           this.hideModal();
-          this.$toast.open({ message: 'Ставка сохранена', type: 'is-success' });
+          this.$buefy.toast.open({ message: 'Ставка сохранена', type: 'is-success' });
         });
       });
     },
@@ -141,7 +154,7 @@ export default {
         onConfirm: () => {
           api.deleteBet(bet.id).then(() => {
             this.$store.dispatch('fetchBets').then(() => {
-              this.$toast.open('Ставка удалена');
+              this.$buefy.toast.open('Ставка удалена');
             });
           });
         },
