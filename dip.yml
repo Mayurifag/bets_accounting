@@ -1,4 +1,4 @@
-version: '2'
+version: '4.1'
 
 environment:
   RAILS_ENV: development
@@ -40,6 +40,18 @@ interaction:
     environment:
       RAILS_ENV: test
     command: bundle exec rspec
+
+  rubocop:
+    service: backend
+    environment:
+      RAILS_ENV: test
+    command: bundle exec rubocop
+
+  report:
+    service: frontend
+    environment:
+      NODE_ENV: production
+    command: yarn run report
 
   spec:
     service: backend

@@ -14,13 +14,12 @@ ENV LANG=C.UTF-8 \
 # postgresql-dev - pg
 # tzdata - tzinfo-data to prevent TZInfo::DataSourceNotFound: tzinfo-data is not present on rails db create/migrate/etc.
 RUN apk add --update --no-cache \
-  build-base \
-  git \
-  postgresql-dev \
-  tzdata \
-  xz-dev && \
-  gem update --system && \
-  gem install bundler
+    build-base \
+    git \
+    postgresql-dev \
+    tzdata \
+    xz-dev \
+  ;
 
 WORKDIR /usr/src/app
 
