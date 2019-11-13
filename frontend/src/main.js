@@ -8,17 +8,19 @@ import { sync } from 'vuex-router-sync';
 // Vue.use(VueProgressBar);
 // Vue.use(VeeValidate);
 
+import Button from 'buefy/dist/components/button'; // b-button
 import Field from 'buefy/dist/components/field'; // b-field
 import Icon from 'buefy/dist/components/icon'; // b-icon
 import Input from 'buefy/dist/components/input'; // b-input
 
-// import 'buefy/dist/buefy.css';
+import 'buefy/dist/buefy.css';
 
 import store from './store/index';
 import router from './router/index';
 
 import App from './App.vue';
 
+Vue.use(Button);
 Vue.use(Field);
 Vue.use(Icon);
 Vue.use(Input);

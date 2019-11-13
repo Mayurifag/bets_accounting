@@ -1,12 +1,12 @@
 <template lang="pug">
 section.container
   .table-actions
-    a.button.m-10.is-primary(@click="newBet") Добавить ставку
+    b-button.m-10.is-primary(icon-left='plus' @click="newBet") Добавить ставку
     //- TODO: restyling
     //- TODO: async loading
     .profit.m-10.button(v-if='bets.length') Итого на странице: {{ profit }} ₽
     b-modal(:active.sync="isEditModalActive" has-modal-card)
-      bet-edit-modal(:initialBet="initializeNewBet" @submit="saveBet")
+      betEditModal(:initialBet="initializeNewBet" @submit="saveBet")
 
   b-table(
     v-show="bets"
@@ -77,9 +77,9 @@ import Table from 'buefy/dist/components/table'; // b-table
 import Toast from 'buefy/dist/components/toast'; // this.$buefy.toast
 
 import { mapGetters } from 'vuex';
-import api from '../api';
-
 import BetEditModal from '../components/BetEditModal.vue';
+
+import api from '../api';
 
 Vue.use(Dialog);
 Vue.use(Modal);
@@ -87,7 +87,9 @@ Vue.use(Table);
 Vue.use(Toast);
 
 export default {
-  components: { 'bet-edit-modal': BetEditModal },
+  components: {
+    BetEditModal,
+  },
   computed: {
     ...mapGetters([
       'bets',

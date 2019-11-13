@@ -4,8 +4,6 @@ const glob = require('glob-all');
 const path = require('path');
 
 module.exports = {
-  productionSourceMap: false,
-  lintOnSave: process.env.NODE_ENV !== 'production',
   chainWebpack(config) {
     config.plugins.delete('prefetch');
     config.plugin('CompressionPlugin').use(CompressionPlugin);
@@ -23,8 +21,9 @@ module.exports = {
           path.join(__dirname, './public/index.html'),
           path.join(__dirname, './src/**/*.@(vue|js)'),
         ]),
-        // whitelistPatterns: [/^navbar-/, /^has-text-/, /^fa-/, /^has-numberinput-/]
-        whitelistPatterns: [/^navbar-/, /^has-numberinput-/, /^ml-/],
+        // whitelistPatterns: [/^navbar-/, /^has-text-/, /^fa-/, /^has-numberinput-/, /switch/]
+        whitelistPatterns: [/mdi/, /icon/, /is-grouped/],
+        whitelistPatternsChildren: [/select/, /modal/, /autocomplete/, /dropdown/],
       }),
     ],
     optimization: {
