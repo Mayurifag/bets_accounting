@@ -22,6 +22,7 @@ section.container
 
     template(slot-scope="props")
       //- TODO: add action on row click
+      //- TODO: loading on load bets
       //- TODO: async sorting
       b-table-column(field="discipline" label="Дисциплина")
         | {{ props.row.discipline }}

@@ -79,6 +79,7 @@ interaction:
     command: psql -h db -U postgres -d backend_development
 
 provision:
+  - dip down
   - dip compose build
   - dip yarn
   - dip bundle install

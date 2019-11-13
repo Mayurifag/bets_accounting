@@ -28,4 +28,4 @@ User.destroy_all
 User.create!(email: "test@test.test", password: "qwerty", password_confirmation: "qwerty")
 
 Bet.delete_all
-Generator.generate_bets(25)
+Generator.generate_bets(100)
