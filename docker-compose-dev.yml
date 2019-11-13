@@ -44,8 +44,6 @@ services:
       - ./frontend:/usr/src/app:cached
       - node_modules:/usr/src/app/node_modules
       - packs:/usr/src/app/public/packs
-    environment:
-      - NODE_ENV=${NODE_ENV:-development}
     command: yarn run serve
     ports:
       - "3333:8080"
