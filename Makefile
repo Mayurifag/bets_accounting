@@ -9,7 +9,7 @@ parallel:
 		dip spec
 
 prodbuild:
-		docker-compose --file docker-compose-e2e.yml up --abort-on-container-exit --exit-code-from prodbuild prodbuild
+		docker-compose --file docker-compose-e2e.yml up --build --abort-on-container-exit --exit-code-from prodbuild prodbuild
 
 yml:
 		docker run --rm -ti -v $(PWD):/workdir giantswarm/yamllint -d relaxed .
