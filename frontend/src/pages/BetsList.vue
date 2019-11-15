@@ -188,7 +188,7 @@ export default {
 }
 
 .table-actions {
-  justify-content: space-between;
   display: flex;
+  justify-content: space-between;
 }
 </style>
