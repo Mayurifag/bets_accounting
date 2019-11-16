@@ -6,7 +6,6 @@
         img(src="../static/placeholder-96x96.png" alt="Kelly")
     .media-content
       p.title.is-4 Расчет критерия Келли
-      //- TODO: need a better link I guess..
       a(href='https://www.wikiwand.com/en/Kelly_criterion') wiki
 
   .content

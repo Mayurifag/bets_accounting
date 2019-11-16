@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# TODO: load for specs -- change factories and set readonlies
 BetType.find_or_create_by!(name: "Прематч")
 BetType.find_or_create_by!(name: "Лайв")
 

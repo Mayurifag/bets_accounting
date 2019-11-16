@@ -1,4 +1,3 @@
-# TODO: users for backend/frontend // fix rights
 version: '3.5'
 
 services:

@@ -69,7 +69,8 @@
             .content
               .inline-flex
                 b-field(label="Букмекерская контора" class="mr-8")
-                  //- TODO: refactor this
+                  //- TODO: refactor this: maybe on login i may upload to vuex
+                  //- and give to backend as ids
                   b-select(v-model='bet.bookmaker')
                     option(value='Другая') Другая
                     option(value='GG.Bet') GG.Bet

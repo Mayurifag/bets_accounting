@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class BetsController < ApplicationController
+  # TODO: move logics to form objects
+
   before_action :set_bet, only: %i[show update destroy]
   before_action :transform_frontend_bet_params, only: %i[create update]
 

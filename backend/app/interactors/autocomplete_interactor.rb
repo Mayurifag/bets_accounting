@@ -5,7 +5,6 @@ class AutocompleteInteractor < BaseInteractor
     @params = params
   end
 
-  # TODO: another class specially for bets
   # TODO: Bet.reflect_on_all_associations
   ALLOWED_AUTOCOMPLETE_CLASSES = %w[Bookmaker Discipline Event Participant].freeze
   private_constant :ALLOWED_AUTOCOMPLETE_CLASSES
