@@ -19,6 +19,7 @@ RUN apk add --update --no-cache \
     postgresql-dev \
     tzdata \
     xz-dev \
+    && gem install bundler -v '~> 2' \
   ;
 
 WORKDIR /usr/src/app
