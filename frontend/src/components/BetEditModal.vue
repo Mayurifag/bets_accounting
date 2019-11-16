@@ -107,7 +107,25 @@ Vue.use(Radio);
 Vue.use(Select);
 
 export default {
-  props: ['initialBet'],
+  props: {
+    initialBet: {
+      type: Object,
+      default() {
+        return {
+          choice1: '',
+          choice2: '',
+          outcome: '',
+          discipline: '',
+          wager: null,
+          coefficient: null,
+          result_variant: '',
+          bookmaker: '',
+          bet_type: '',
+          comment: '',
+        };
+      },
+    },
+  },
   data() {
     return {
       bet: Vue.util.extend({}, this.initialBet),
@@ -132,7 +150,7 @@ export default {
       api
         .autocomplete('Participant', model)
         .then(({ data }) => {
-          data.forEach(item => this.participants.push(item));
+          data.forEach((item) => this.participants.push(item));
         })
         .catch((error) => {
           throw error;
@@ -143,7 +161,7 @@ export default {
       api
         .autocomplete('Discipline', this.bet.discipline)
         .then(({ data }) => {
-          data.forEach(item => this.disciplines.push(item));
+          data.forEach((item) => this.disciplines.push(item));
         })
         .catch((error) => {
           throw error;
