@@ -9,6 +9,9 @@ pre-commit:
     stylelint:
       glob: "*.{js,ts,vue}"
       runnter: dip yarn css:lint
+    rubocop:
+      glob: "*.rb"
+      runner: dip bundle exec rubocop --safe-auto-correct && git add {staged_files}
 
 pre-push:
   parallel: true
@@ -20,7 +23,7 @@ pre-push:
     stylelint:
       runnter: dip yarn css:lint
     rubocop:
-      runner: dip bundle exec rubocop --safe-auto-correct
+      runner: dip bundle exec rubocop
     cypress:
       runner: make cypress
 

@@ -91,6 +91,15 @@ export default {
   components: {
     BetEditModal,
   },
+  data() {
+    return {
+      isEditModalActive: false,
+      initializeNewBet: {
+        choice1: null,
+        choice2: null,
+      },
+    };
+  },
   computed: {
     ...mapGetters([
       'bets',
@@ -105,14 +114,8 @@ export default {
         .toFixed(2);
     },
   },
-  data() {
-    return {
-      isEditModalActive: false,
-      initializeNewBet: {
-        choice1: null,
-        choice2: null,
-      },
-    };
+  mounted() {
+    this.loadBets();
   },
   methods: {
     loadBets() {
@@ -171,9 +174,6 @@ export default {
       }
       return '';
     },
-  },
-  mounted() {
-    this.loadBets();
   },
 };
 </script>

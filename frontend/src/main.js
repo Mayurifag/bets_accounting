@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
       el,
       router,
       store,
-      render: h => h(App),
+      render: (h) => h(App),
     });
   }
 });

@@ -93,10 +93,10 @@ export default new Vuex.Store({
   },
 
   getters: {
-    bets: state => state.bets,
-    isLoggedIn: state => !!state.token,
-    bets_page: state => state.bets_page,
-    total_bets: state => state.total_bets,
-    bets_perPage: state => state.bets_perPage,
+    bets: (state) => state.bets,
+    isLoggedIn: (state) => !!state.token,
+    bets_page: (state) => state.bets_page,
+    total_bets: (state) => state.total_bets,
+    bets_perPage: (state) => state.bets_perPage,
   },
 });
