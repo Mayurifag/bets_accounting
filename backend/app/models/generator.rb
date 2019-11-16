@@ -12,11 +12,9 @@ class Generator
 
     def generate_bet(build: false)
       bet = Bet.new(random_bet_params)
+      bet.assign_new_profit_value!
 
-      return bet.save! unless build
-
-      bet.update_profit_column
-      bet
+      build.blank? ? bet.save : bet
     end
 
     private

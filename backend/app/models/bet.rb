@@ -15,10 +15,8 @@ class Bet < ApplicationRecord
   validates :coefficient, allow_blank: true,
                           numericality: {greater_than_or_equal_to: 1.0}
 
-  before_save :update_profit_column
-
-  def update_profit_column
-    BetProfitColumnHandler.new(self).set_profit
+  def assign_new_profit_value!
+    BetProfitColumnHandler.new(self).set_profit!
   end
 end
 

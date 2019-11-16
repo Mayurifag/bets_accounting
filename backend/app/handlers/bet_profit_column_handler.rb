@@ -3,10 +3,10 @@
 class BetProfitColumnHandler < ApplicationHandler
   PROFIT_RELATED_COLUMNS = %w[wager coefficient result_variant_id].freeze
 
-  def set_profit
+  def set_profit!
     return if profit_related_columns_did_not_changed?
 
-    object.profit = new_profit_value
+    object.assign_attributes(profit: new_profit_value)
   end
 
   private

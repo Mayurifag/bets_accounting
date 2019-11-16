@@ -14,6 +14,7 @@ class BetsController < ApplicationController
   # POST /bets
   def create
     @bet = Bet.new(bet_params)
+    @bet.assign_new_profit_value!
 
     if @bet.save
       json_response(BetBlueprint.render(@bet), :created)
@@ -29,7 +30,10 @@ class BetsController < ApplicationController
 
   # PUT /bets/:id
   def update
-    if @bet.update(bet_params)
+    @bet.assign_attributes(bet_params)
+    @bet.assign_new_profit_value!
+
+    if @bet.save
       json_response(BetBlueprint.render(@bet))
     else
       json_response(@bet.errors, :unprocessable_entity)
