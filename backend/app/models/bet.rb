@@ -11,11 +11,12 @@ class Bet < ApplicationRecord
   belongs_to :choice1, class_name: "Participant", foreign_key: :choice1_id
   belongs_to :choice2, class_name: "Participant", foreign_key: :choice2_id
 
-  validates :wager, numericality: {greater_than: 0}, allow_blank: true
-  validates :coefficient, allow_blank: true,
-                          numericality: {greater_than_or_equal_to: 1.0}
+  validates :wager, presence: true, numericality: {greater_than: 0}
+  validates :coefficient, presence: true, numericality: {greater_than_or_equal_to: 1.0}
+  validates :outcome, presence: true
 
   def assign_new_profit_value!
+    # TODO: move to calculation object
     BetProfitColumnHandler.new(self).set_profit!
   end
 end

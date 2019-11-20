@@ -40,6 +40,7 @@ group :development, :test do
 end
 
 group :development do
+  gem "database_consistency", require: false
   gem "brakeman", require: false
   gem "bullet"
   gem "bundler-audit", require: false
@@ -60,6 +61,5 @@ group :test do
   gem "zonebie"
 end
 
-# TODO: cant use out-of-box because of knock's problem with zeitwerk
-# gem 'database_consistency', require: false
-# gem 'regressor'
+# TODO: Maybe add for db perfomance
+# https://github.com/toptal/database_validations

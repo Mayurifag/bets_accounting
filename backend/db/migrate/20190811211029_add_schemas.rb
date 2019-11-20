@@ -61,10 +61,10 @@ class AddSchemas < ActiveRecord::Migration[6.0]
 
     create_table :bets do |t|
       t.text :comment, comment: "Комментарий"
-      t.float :coefficient, null: false, comment: "Коэффициент"
+      t.float :coefficient, null: false, default: "", comment: "Коэффициент"
       t.decimal :profit, null: false, default: 0, comment: "Профит"
-      t.string :outcome, null: false, comment: "Выбор"
-      t.integer :wager, null: false, comment: "Ставка"
+      t.string :outcome, null: false, default: "", comment: "Выбор"
+      t.integer :wager, null: false, default: "", comment: "Ставка"
 
       t.references :choice1, index: true, foreign_key: {to_table: :participants}
       t.references :choice2, index: true, foreign_key: {to_table: :participants}

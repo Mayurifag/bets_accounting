@@ -124,7 +124,7 @@ jobs:
           gem install rails_best_practices
           rails_best_practices .
 #######################################
-  backend_lint:
+  rubocop:
     runs-on: ubuntu-latest
     services:
       postgres:
@@ -155,7 +155,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gem-
 
-      - name: Launch rubocop and consistency_fail
+      - name: Launch rubocop
         working-directory: ./backend
         env:
           RAILS_ENV: test
@@ -168,7 +168,96 @@ jobs:
           bundle install --jobs 4 --retry 3
           bundle exec rails db:setup
           bundle exec rubocop --parallel
+#######################################
+  consistency_fail:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:12
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: ""
+          POSTGRES_DB: backend_test
+        ports:
+          - 5432/tcp
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Set up Ruby 2.6
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: 2.6.x
+
+      - name: install PostgreSQL client
+        run: sudo apt-get install libpq-dev
+
+      - name: Cache gems
+        uses: actions/cache@v1
+        with:
+          path: backend/vendor/bundle
+          key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gem-
+
+      - name: consistency_fail
+        working-directory: ./backend
+        env:
+          RAILS_ENV: test
+          PGHOST: localhost
+          PGUSER: postgres
+          PGPORT: ${{ job.services.postgres.ports[5432] }}              # get randomly assigned published port
+        run: |
+          gem install bundler
+          bundle config path vendor/bundle
+          bundle install --jobs 4 --retry 3
+          bundle exec rails db:setup
           bundle exec consistency_fail
+#######################################
+  database_consistency:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:12
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: ""
+          POSTGRES_DB: backend_test
+        ports:
+          - 5432/tcp
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Set up Ruby 2.6
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: 2.6.x
+
+      - name: install PostgreSQL client
+        run: sudo apt-get install libpq-dev
+
+      - name: Cache gems
+        uses: actions/cache@v1
+        with:
+          path: backend/vendor/bundle
+          key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gem-
+
+      - name: Launch database_consistency
+        working-directory: ./backend
+        env:
+          RAILS_ENV: test
+          PGHOST: localhost
+          PGUSER: postgres
+          PGPORT: ${{ job.services.postgres.ports[5432] }}              # get randomly assigned published port
+        run: |
+          gem install bundler
+          bundle config path vendor/bundle
+          bundle install --jobs 4 --retry 3
+          bundle exec rails db:setup
+          bundle exec database_consistency
 #######################################
   rspec:
     runs-on: ubuntu-latest
