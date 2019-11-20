@@ -8,7 +8,8 @@ module ActiveRecordExtension
 
   class_methods do
     def memoized_sample_id
-      instance_variable_set("@_ids", instance_variable_get("@_ids") || ids).sample
+      var = "@_ids"
+      instance_variable_set(var, instance_variable_get(var) || ids).sample
     end
   end
 end

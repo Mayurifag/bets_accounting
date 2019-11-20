@@ -1,6 +1,6 @@
 name: CI
 
-on: push
+on: [push, pull_request]
 
 jobs:
   stylelint:
@@ -10,6 +10,17 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: '12.x'
+
+      - name: Get yarn cache
+        id: yarn-cache
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      - uses: actions/cache@v1
+        with:
+          path: ${{ steps.yarn-cache.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
 
       - name: stylelint
         working-directory: ./frontend
@@ -24,6 +35,17 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: '12.x'
+
+      - name: Get yarn cache
+        id: yarn-cache
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      - uses: actions/cache@v1
+        with:
+          path: ${{ steps.yarn-cache.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
 
       - name: eslint
         working-directory: ./frontend
@@ -125,6 +147,14 @@ jobs:
       - name: install PostgreSQL client
         run: sudo apt-get install libpq-dev
 
+      - name: Cache gems
+        uses: actions/cache@v1
+        with:
+          path: backend/vendor/bundle
+          key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gem-
+
       - name: Launch rubocop and consistency_fail
         working-directory: ./backend
         env:
@@ -134,9 +164,10 @@ jobs:
           PGPORT: ${{ job.services.postgres.ports[5432] }}              # get randomly assigned published port
         run: |
           gem install bundler
+          bundle config path vendor/bundle
           bundle install --jobs 4 --retry 3
           bundle exec rails db:setup
-          bundle exec rubocop
+          bundle exec rubocop --parallel
           bundle exec consistency_fail
 #######################################
   rspec:
@@ -163,6 +194,14 @@ jobs:
       - name: install PostgreSQL client
         run: sudo apt-get install libpq-dev
 
+      - name: Cache gems
+        uses: actions/cache@v1
+        with:
+          path: backend/vendor/bundle
+          key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gem-
+
       - name: Build DB and run Rspec
         working-directory: ./backend
         env:
@@ -174,6 +213,7 @@ jobs:
         run: |
           git checkout "${GITHUB_REF:11}"                               # get git branch name for codeclimate
           gem install bundler
+          bundle config path vendor/bundle
           bundle install --without development production --jobs 4 --retry 3
           bundle exec rails db:setup
           curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
