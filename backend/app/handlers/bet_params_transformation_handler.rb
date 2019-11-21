@@ -28,16 +28,23 @@ class BetParamsTransformationHandler < ApplicationHandler
   private
 
   def transform_field_to_field_id(field, method)
-    if object[field].present?
-      field_id_symbol = (field.to_s + "_id").to_sym
-      model_object = find_model_object_by_name(field, method)
-      object[field_id_symbol] = model_object&.id
-    end
-
+    move_field_value_to_ids(field, method) if object.fetch(field).present?
     object.delete(field)
   end
 
-  def find_model_object_by_name(field, method)
+  def move_field_value_to_ids(field, method)
+    db_entry = find_entry_by_its_name(field, method)
+    return if db_entry.blank?
+
+    object[field_as_hash_key_field_id(field)] = db_entry.id
+  end
+
+  def field_as_hash_key_field_id(field)
+    field_id_string = field.to_s + "_id"
+    field_id_string.to_sym
+  end
+
+  def find_entry_by_its_name(field, method)
     klass(field).public_send(method, name: object[field])
   end
 

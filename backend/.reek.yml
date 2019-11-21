@@ -1,0 +1,48 @@
+---
+detectors:
+  Attribute:
+    exclude:
+    - ApplicationHandler#object
+  DuplicateMethodCall:
+    exclude:
+    - Generator#random_bet_params
+  MissingSafeMethod:
+    exclude:
+    - BetProfitColumnHandler
+    - Bet
+  NilCheck:
+    exclude:
+    - UsersController#authorize
+    - BetParamsTransformationHandler#transform_field_to_field_id
+  UtilityFunction:
+    enabled: false
+
+directories:
+  # Reek default documented config to work with rails
+  "app/controllers":
+    IrresponsibleModule:
+      enabled: false
+    NestedIterators:
+      max_allowed_nesting: 2
+    UnusedPrivateMethod:
+      enabled: false
+    InstanceVariableAssumption:
+      enabled: false
+  "app/helpers":
+    IrresponsibleModule:
+      enabled: false
+    UtilityFunction:
+      enabled: false
+  "app/mailers":
+    InstanceVariableAssumption:
+      enabled: false
+  "app/models":
+    InstanceVariableAssumption:
+      enabled: false
+  # Not the defaults
+  "app/queries":
+    InstanceVariableAssumption:
+      enabled: false
+
+exclude_paths:
+  - db/migrate
