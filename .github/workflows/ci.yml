@@ -1,6 +1,10 @@
+---
+
 name: CI
 
-on: [push, pull_request]
+on:
+  - push
+  - pull_request
 
 jobs:
   stylelint:
@@ -59,7 +63,7 @@ jobs:
       - uses: actions/checkout@v1
       - name: Run dockerized Cypress
         run: make cypress
-#######################################
+
   brakeman:
     runs-on: ubuntu-latest
     steps:
@@ -151,7 +155,11 @@ jobs:
           POSTGRES_DB: backend_test
         ports:
           - 5432/tcp
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     steps:
       - uses: actions/checkout@v1
 
@@ -177,7 +185,7 @@ jobs:
           RAILS_ENV: test
           PGHOST: localhost
           PGUSER: postgres
-          PGPORT: ${{ job.services.postgres.ports[5432] }}              # get randomly assigned published port
+          PGPORT: ${{ job.services.postgres.ports[5432] }}
         run: |
           gem install bundler
           bundle config path vendor/bundle
@@ -196,7 +204,11 @@ jobs:
           POSTGRES_DB: backend_test
         ports:
           - 5432/tcp
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     steps:
       - uses: actions/checkout@v1
 
@@ -222,7 +234,7 @@ jobs:
           RAILS_ENV: test
           PGHOST: localhost
           PGUSER: postgres
-          PGPORT: ${{ job.services.postgres.ports[5432] }}              # get randomly assigned published port
+          PGPORT: ${{ job.services.postgres.ports[5432] }}
         run: |
           gem install bundler
           bundle config path vendor/bundle
@@ -241,7 +253,11 @@ jobs:
           POSTGRES_DB: backend_test
         ports:
           - 5432/tcp
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     steps:
       - uses: actions/checkout@v1
 
@@ -267,7 +283,7 @@ jobs:
           RAILS_ENV: test
           PGHOST: localhost
           PGUSER: postgres
-          PGPORT: ${{ job.services.postgres.ports[5432] }}              # get randomly assigned published port
+          PGPORT: ${{ job.services.postgres.ports[5432] }}
         run: |
           gem install bundler
           bundle config path vendor/bundle
@@ -286,7 +302,11 @@ jobs:
           POSTGRES_DB: backend_test
         ports:
           - 5432/tcp
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     steps:
       - uses: actions/checkout@v1
 
@@ -312,16 +332,19 @@ jobs:
         env:
           PGHOST: localhost
           PGUSER: postgres
-          PGPORT: ${{ job.services.postgres.ports[5432] }}              # get randomly assigned published port
+          PGPORT: ${{ job.services.postgres.ports[5432] }}
           RAILS_ENV: test
-          CC_TEST_REPORTER_ID: 74855e8480493fa17a796717c03a42ba418a1a0f2cc96a1d7418e9ba572b2a9b
+          CC_TEST_REPORTER_ID: "74855e8480493fa17a796717c03a42ba418a1a0f2cc96a1\
+                                d7418e9ba572b2a9b"
+          CC_LINK: "https://codeclimate.com/downloads/test-reporter/\
+                    test-reporter-latest-linux-amd64"
         run: |
-          git checkout "${GITHUB_REF:11}"                               # get git branch name for codeclimate
+          git checkout "${GITHUB_REF:11}" # get git branch name for codeclimate
           gem install bundler
           bundle config path vendor/bundle
           bundle install --without development production --jobs 4 --retry 3
           bundle exec rails db:setup
-          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+          curl -L ${CC_LINK} > ./cc-test-reporter
           chmod +x ./cc-test-reporter
           ./cc-test-reporter before-build
           bundle exec rspec

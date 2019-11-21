@@ -1,0 +1,6 @@
+---
+extends: default
+
+ignore: |
+  backend/vendor
+  frontend/node_modules

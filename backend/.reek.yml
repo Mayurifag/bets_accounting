@@ -2,18 +2,18 @@
 detectors:
   Attribute:
     exclude:
-    - ApplicationHandler#object
+      - ApplicationHandler#object
   DuplicateMethodCall:
     exclude:
-    - Generator#random_bet_params
+      - Generator#random_bet_params
   MissingSafeMethod:
     exclude:
-    - BetProfitColumnHandler
-    - Bet
+      - BetProfitColumnHandler
+      - Bet
   NilCheck:
     exclude:
-    - UsersController#authorize
-    - BetParamsTransformationHandler#transform_field_to_field_id
+      - UsersController#authorize
+      - BetParamsTransformationHandler#transform_field_to_field_id
   UtilityFunction:
     enabled: false
 
