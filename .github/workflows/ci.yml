@@ -62,8 +62,25 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Run dockerized Cypress
-        run: make cypress
-
+        run: |
+          make cypress
+#######################################
+  yamllint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Set up Python 3.x
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.x
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+      - name: Lint with yamllint
+        run: |
+          pip install yamllint
+          yamllint --strict .
+#######################################
   brakeman:
     runs-on: ubuntu-latest
     steps:
@@ -79,6 +96,20 @@ jobs:
         run: |
           gem install brakeman
           brakeman
+#######################################
+  fasterer:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-ruby@v1
+        with:
+          ruby-version: 2.6.x
+
+      - name: fasterer
+        working-directory: ./backend
+        run: |
+          gem install fasterer
+          fasterer
 #######################################
   reek:
     runs-on: ubuntu-latest

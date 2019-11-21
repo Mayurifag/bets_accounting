@@ -1,6 +1,10 @@
 ---
 extends: default
 
+rules:
+  truthy:
+    allowed-values: ['true', 'false', 'on']
+
 ignore: |
   backend/vendor
   frontend/node_modules

@@ -14,6 +14,9 @@ pre-commit:
       runner: >
         dip bundle exec rubocop --safe-auto-correct &&
         git add {staged_files}
+    yamllint:
+      glob: "*.{yaml,yml}"
+      runner: yamllint --strict .
 
 pre-push:
   parallel: true
