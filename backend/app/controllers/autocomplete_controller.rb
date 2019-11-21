@@ -1,5 +1,12 @@
 # frozen_string_literal: true
 
+# Autcomplete for participants, etc. when bet is creating for better UX.
+#
+# POST /autocomplete
+# {
+#   class_name: "Participant" # defined in ALLOWED_AUTOCOMPLETE_CLASSES of AutocompleteInteractor
+#   query: "huy" # the thing you want to autocomplete with requested class names
+# }
 class AutocompleteController < ApplicationController
   def search
     if service_result_object.success?

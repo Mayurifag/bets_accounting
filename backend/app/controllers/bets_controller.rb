@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# CRUD for bets list
 class BetsController < ApplicationController
   # TODO: move logics to form objects
   before_action :set_bet, only: %i[show update destroy]
@@ -64,8 +65,10 @@ class BetsController < ApplicationController
   end
 
   def transform_frontend_bet_params
-    return if params[:bet].blank?
+    bet_hash = params[:bet]
 
-    params[:bet] = BetParamsTransformationHandler.new(params[:bet]).call
+    return if bet_hash.blank?
+
+    params[:bet] = BetParamsTransformationHandler.new(bet_hash).call
   end
 end

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Base Query Object pattern class. May also return the objects with pagination.
 class BaseQuery
   include Pagy::Backend
 

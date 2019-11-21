@@ -1,5 +1,17 @@
 # frozen_string_literal: true
 
+# Bet class
+#
+# TODO: List:
+# - Optional choices (has to be one or two or three or more)
+#
+# Additional things:
+# has_many :participants, through: :participant_bets
+# has_many :participant_bets
+# accepts_nested_attributes_for :participants
+# belongs_to :user
+# TODO: enum on result_variants // bet_types??
+#
 class Bet < ApplicationRecord
   scope :newest_first, -> { order(created_at: :desc) }
 
@@ -20,15 +32,3 @@ class Bet < ApplicationRecord
     BetProfitColumnHandler.new(self).set_profit!
   end
 end
-
-# TODO: List:
-# - Optional choices (has to be one or two or three or more)
-
-# Additional things:
-# has_many :participants, through: :participant_bets
-# has_many :participant_bets
-# accepts_nested_attributes_for :participants
-# belongs_to :user
-# TODO: enum on result_variants // bet_types??
-
-# validates_presence_of :coefficient, :wager, :outcome

@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
+# TODO: Move this to form object
+#
+# Transforms the class names to its ids for database handling further.
+# Creates db entry if there is no such name or so
 class BetParamsTransformationHandler < ApplicationHandler
+  # TODO: find or create check with similarity percent
   FIELDS = [
     %i[choice1 find_or_create_by],
     %i[choice2 find_or_create_by],

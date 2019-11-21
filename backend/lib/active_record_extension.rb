@@ -2,6 +2,8 @@
 
 require "active_support/concern"
 
+# Actual module to extend the active record
+
 # https://stackoverflow.com/questions/2328984/rails-extending-activerecordbase
 module ActiveRecordExtension
   extend ActiveSupport::Concern

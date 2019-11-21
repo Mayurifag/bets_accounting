@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Result variant: win / loss / return. If nothing -- no result whatsoever.
 class ResultVariant < ApplicationRecord
   validates :name, presence: true
 

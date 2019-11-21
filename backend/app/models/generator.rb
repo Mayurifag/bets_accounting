@@ -1,23 +1,29 @@
 # frozen_string_literal: true
 
+# Custom class used in tests or for development purposes to simply generate many
+# bets with random valid params.
 class Generator
   class << self
-    def generate_bets(number = 1)
-      return generate_bet if this_is_not_a_positive_integer?(number)
+    def generate_bets(total = 1)
+      return generate_random_bet if this_is_not_a_positive_integer?(total)
 
       bets = []
-      number.times { bets << generate_bet(build: true) }
+      total.times { bets << build_random_bet }
       Bet.import! bets, batch_size: 1000
     end
 
-    def generate_bet(build: false)
+    private
+
+    def build_random_bet
       bet = Bet.new(random_bet_params)
       bet.assign_new_profit_value!
-
-      build.blank? ? bet.save : bet
+      bet
     end
 
-    private
+    def generate_random_bet
+      bet = build_random_bet
+      bet.save!
+    end
 
     def random_bet_params
       {choice1_id: Participant.memoized_sample_id,

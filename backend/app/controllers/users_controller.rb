@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# CRUD for users
 class UsersController < ApplicationController
   # Use KnockKnock to make sure the current_user is authenticated before completing request.
   before_action :authenticate_user, only: %i[index show update]

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# GET /bets/index. Results have to be paginated.
 class BetIndexQuery < BaseQuery
   def call
     set_klass

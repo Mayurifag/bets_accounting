@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+# TODO: move to calc object
+#
+# Calculates the new 'profit' value on each change of PROFIT_RELATED_COLUMNS
 class BetProfitColumnHandler < ApplicationHandler
   PROFIT_RELATED_COLUMNS = %w[wager coefficient result_variant_id].freeze
 

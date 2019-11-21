@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Serialized bet json with needed fields
 class BetBlueprint < Blueprinter::Base
   FIELDS_WITH_NAMES = %i[choice1 choice2 discipline result_variant event
                          bet_type bookmaker].freeze

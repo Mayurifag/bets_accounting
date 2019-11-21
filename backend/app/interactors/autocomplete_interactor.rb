@@ -1,11 +1,13 @@
 # frozen_string_literal: true
 
+# Service to check if params[:class_name] is able to autocomplete and return the
+# result object if so. Needs params with :class_name and :query keys and strings
+# for values.
 class AutocompleteInteractor < BaseInteractor
   def initialize(params)
     @params = params
   end
 
-  # TODO: Bet.reflect_on_all_associations
   ALLOWED_AUTOCOMPLETE_CLASSES = %w[Bookmaker Discipline Event Participant].freeze
   private_constant :ALLOWED_AUTOCOMPLETE_CLASSES
 

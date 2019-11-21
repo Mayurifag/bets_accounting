@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# User class. Will be extended with an admin functionality but on other class.
 class User < ApplicationRecord
   has_secure_password
 

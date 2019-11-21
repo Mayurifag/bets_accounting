@@ -127,10 +127,6 @@ GEM
     isolator (0.6.1)
       sniffer (~> 0.3.1)
     jaro_winkler (1.5.4)
-    jetrockets-standard (1.0.4)
-      rubocop-rails (~> 2.3.2)
-      rubocop-rspec (~> 1.35.0)
-      standard (~> 0.1.4)
     json (2.2.0)
     jwt (2.2.1)
     knock_knock (0.1.1.pre.preview1)
@@ -246,11 +242,8 @@ GEM
       unicode-display_width (>= 1.4.0, < 1.7)
     rubocop-performance (1.5.1)
       rubocop (>= 0.71.0)
-    rubocop-rails (2.3.2)
-      rack (>= 1.1)
-      rubocop (>= 0.72.0)
-    rubocop-rspec (1.35.0)
-      rubocop (>= 0.60.0)
+    rubocop-rspec (1.36.0)
+      rubocop (>= 0.68.1)
     ruby-prof (1.0.0)
     ruby-progressbar (1.10.1)
     shoulda-matchers (4.1.2)
@@ -322,7 +315,6 @@ DEPENDENCIES
   hirb
   hirb-unicode-steakknife
   isolator
-  jetrockets-standard
   knock_knock
   listen
   oj
@@ -337,11 +329,13 @@ DEPENDENCIES
   rack-cors
   rails
   rspec-rails
+  rubocop-rspec
   ruby-prof (>= 0.16.0)
   shoulda-matchers
   simplecov
   simplecov-console
   stackprof (>= 0.2.9)
+  standard
   strong_migrations
   test-prof
   zonebie

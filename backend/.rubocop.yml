@@ -1,10 +1,12 @@
+---
 # Insert new cops alphabetically
 
 require:
   - standard/cop/semantic_blocks
+  - rubocop-rspec
 
 inherit_gem:
-  jetrockets-standard: config/rails.yml
+  standard: config/base.yml
 
 AllCops:
   Exclude:
@@ -23,3 +25,8 @@ Style/PreferredHashMethods:
 Style/StringLiterals:
   Enabled: true
   EnforcedStyle: double_quotes
+
+Style/Documentation:
+  Enabled: true
+  Exclude:
+    - db/**/*

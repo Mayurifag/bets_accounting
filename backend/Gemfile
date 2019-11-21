@@ -44,9 +44,10 @@ group :development do
   gem "brakeman", require: false
   gem "bullet"
   gem "bundler-audit", require: false
-  gem "jetrockets-standard"
   gem "listen"
   gem "ordinare", require: false
+  gem "rubocop-rspec"
+  gem "standard"
   gem "strong_migrations"
 end
 

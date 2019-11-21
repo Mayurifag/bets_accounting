@@ -1,8 +1,11 @@
 # frozen_string_literal: true
 
+# Module to add autocomplete possibility for class based on 'name' column.
+# Returns the array of objects or empty one.
 module Searchable
   extend ActiveSupport::Concern
 
+  # Extend methods of class: Bookmaker.autocomplete_name('asdasd') or so
   module ClassMethods
     # The more the threshold, the less results and the stricter the searches
     THRESHOLD_SCORE = 0.3
