@@ -1,6 +1,5 @@
 ---
-
-version: '3.5'
+version: '2.4'
 
 services:
   db:
@@ -13,6 +12,9 @@ services:
       - db-data:/var/lib/postgresql/data
       - ./postgres_config.sql:/docker-entrypoint-initdb.d/postgres_config.sql
     restart: unless-stopped
+    healthcheck:
+      test: pg_isready -U postgres -h 127.0.0.1
+      interval: 1s
 
   backend:
     build:
@@ -33,7 +35,8 @@ services:
     ports:
       - "8888:8080"
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     stdin_open: true
     tty: true
     tmpfs:
@@ -52,13 +55,6 @@ services:
       - "3333:8080"
     tmpfs:
       - /tmp
-
-  waiter:
-    build:
-      context: waiter
-      dockerfile: Dockerfile
-    depends_on:
-      - db
 
 volumes:
   db-data:
