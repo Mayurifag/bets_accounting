@@ -12,7 +12,7 @@
     "prepare": "install-peers"
   },
   "dependencies": {
-    "axios": "^0.19.1",
+    "axios": "^0.21.1",
     "buefy": "^0.8.9",
     "core-js": "^3.6.2",
     "register-service-worker": "^1.6.2",
